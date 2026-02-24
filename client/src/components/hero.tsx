@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import TypewriterAnimation from "./typewriter-animation";
 // Import the hero images from public directory
-const heroImageOriginal = "/Hero%20image%2001.png";
-const heroImage01 = "/copy.png";
-const heroImage02 = "/homographs.png";
-const heroImage03 = "/pasteview.png";
-const heroImage04 = "/reverse-translations.png";
-const heroImage05 = "/reword-options.png";
-const heroImage06 = "/synonyms.png";
+const heroImageOriginal = "Hero%20image%2001.png";
+const heroImage01 = "copy.png";
+const heroImage02 = "homographs.png";
+const heroImage03 = "pasteview.png";
+const heroImage04 = "reverse-translations.png";
+const heroImage05 = "reword-options.png";
+const heroImage06 = "synonyms.png";
 
 export default function Hero() {
   const desktopScrollRef = useRef<HTMLDivElement>(null);

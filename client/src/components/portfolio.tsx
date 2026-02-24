@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 import type { Project } from "@shared/schema";
 
 // Import the Arcatext logo
-const arcatextLogo = "/Arcatext%20logo.png";
+const arcatextLogo = "Arcatext%20logo.png";
 
 export default function Portfolio() {
   const { data: projects = [], isLoading } = useQuery<Project[]>({
