@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLocation } from "wouter";
 
 // Import the Adalithic logo
-const adalithicLogo = "/Adalithic%20logo.png";
+const adalithicLogo = "Adalithic%20logo.png";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
