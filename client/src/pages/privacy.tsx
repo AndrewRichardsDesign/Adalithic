@@ -10,12 +10,24 @@ export default function Privacy() {
           <h1 className="text-4xl font-bold text-secondary mb-8">Privacy Policy</h1>
           <div className="prose prose-lg text-gray-700 space-y-6">
             <p className="text-lg leading-relaxed">
-              <strong>Last updated:</strong> July 2025
+              <strong>Last updated:</strong> June 2026
             </p>
-            
+
             <div className="bg-gray-50 p-6 rounded-lg mb-8">
               <h2 className="text-xl font-semibold text-secondary mb-3">About</h2>
-              <p className="text-gray-700 leading-relaxed">Arcatext is a custom keyboard app designed to enhance your typing experience with translation capabilities. This Privacy Policy explains how we handle your data when using our services. By using Arcatext, you consent to this Privacy Policy.</p>
+              <p className="text-gray-700 leading-relaxed">Arcatext is a custom keyboard and language application designed to help users write, translate, reword, and better understand messages across languages. This Privacy Policy explains what information Arcatext processes, how that information is used, when it is stored, when it may be shared, and what choices you have.</p>
+              <p className="text-gray-700 leading-relaxed mt-4">By using Arcatext, you agree to the practices described in this Privacy Policy.</p>
+            </div>
+
+            <div className="bg-primary/5 border border-primary/20 p-6 rounded-lg mb-8">
+              <h2 className="text-xl font-semibold text-secondary mb-3">NOTE: Regarding Data Privacy (in simple terms)</h2>
+              <ol className="list-decimal list-outside pl-5 space-y-2 text-gray-700 leading-relaxed">
+                <li>Arcatext does not sell your data to anyone.</li>
+                <li>We only track messages that are Reworded (you have to tap the Reword button, so if you type with the keyboard without tapping Reword, no messages are tracked or stored).</li>
+                <li>We use data to better understand your language proficiency, to deliver learning features. We're not personally interested in what you text, but only want to help accelerate your language learning!</li>
+                <li>We filter out certain Reworded text and do not store it (ie. passwords - see complete list below).</li>
+                <li>You can turn off or on Reword tracking at any time (in the main Arcatext app). We default to 'on' state, so we can deliver learning features.</li>
+              </ol>
             </div>
             
             <h2 className="text-2xl font-semibold text-secondary mt-8 mb-4">1. Information We Collect and Use</h2>
