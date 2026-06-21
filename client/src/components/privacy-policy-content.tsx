@@ -4,7 +4,7 @@ export function PrivacyPolicyContent() {
   return (
     <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
       <p className="font-medium text-secondary">Operated by Adalithic LLC</p>
-      <p>Last Updated: June 8, 2026</p>
+      <p>Last Updated: June 21, 2026</p>
       <p>
         Arcatext is a custom keyboard and language application designed to help users write,
         translate, reword, and better understand messages across languages. This Privacy Policy
@@ -349,6 +349,12 @@ export function PrivacyPolicyContent() {
         </li>
       </ul>
       <p>When in doubt, Arcatext errs on the side of not storing.</p>
+      <p>
+        <span className="font-medium">Server logs.</span> Our servers never log the content of
+        your messages. Logs record only operational metadata — an account identifier, request
+        status, timing, and an opaque request ID — used to keep the service reliable and to
+        diagnose problems.
+      </p>
       <p>
         <span className="font-medium">Your control.</span> You can turn off Reword storage
         entirely at any time in the Arcatext app.
