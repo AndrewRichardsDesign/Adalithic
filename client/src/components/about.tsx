@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PrivacyPolicyContent } from "@/components/privacy-policy-content";
+import { TermsOfUseContent } from "@/components/terms-of-use-content";
 
 export default function About() {
   return (
@@ -23,24 +24,44 @@ export default function About() {
                 communication effortless and engaging, empowering people to connect globally
                 while learning naturally.
               </p>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <button
-                    type="button"
-                    className="text-primary font-medium underline-offset-4 hover:underline focus:outline-none focus-visible:underline"
-                  >
-                    Privacy Policy
-                  </button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>Arcatext Privacy Policy</DialogTitle>
-                  </DialogHeader>
-                  <ScrollArea className="max-h-[70vh] pr-4">
-                    <PrivacyPolicyContent />
-                  </ScrollArea>
-                </DialogContent>
-              </Dialog>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button
+                      type="button"
+                      className="text-primary font-medium underline-offset-4 hover:underline focus:outline-none focus-visible:underline"
+                    >
+                      Privacy Policy
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>Arcatext Privacy Policy</DialogTitle>
+                    </DialogHeader>
+                    <ScrollArea className="max-h-[70vh] pr-4">
+                      <PrivacyPolicyContent />
+                    </ScrollArea>
+                  </DialogContent>
+                </Dialog>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button
+                      type="button"
+                      className="text-primary font-medium underline-offset-4 hover:underline focus:outline-none focus-visible:underline"
+                    >
+                      Terms of Use
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>Arcatext Terms of Use</DialogTitle>
+                    </DialogHeader>
+                    <ScrollArea className="max-h-[70vh] pr-4">
+                      <TermsOfUseContent />
+                    </ScrollArea>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
           </div>
           <div className="relative"></div>
