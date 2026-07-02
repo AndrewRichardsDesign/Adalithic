@@ -328,17 +328,146 @@ export function TermsOfUseContent() {
         will survive.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">16. Governing Law and Disputes</h3>
+      <h3 className="font-semibold text-secondary pt-2">16. Governing Law</h3>
       <p>
         These Terms are governed by the laws of the State of Delaware, without regard to its
         conflict-of-laws principles, except where applicable consumer protection law requires
         otherwise. Subject to any mandatory consumer protection rights available to you in your
-        place of residence, you agree that any dispute arising out of or relating to these Terms or
-        your use of Arcatext will be subject to the exclusive jurisdiction of the state and federal
-        courts located in Delaware.
+        place of residence, and except for disputes subject to arbitration under Section 17, you
+        agree that any dispute arising out of or relating to these Terms or your use of Arcatext
+        will be subject to the exclusive jurisdiction of the state and federal courts located in
+        Delaware. The Federal Arbitration Act governs the interpretation and enforcement of the
+        arbitration provisions in Section 17.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">17. Changes to These Terms</h3>
+      <h3 className="font-semibold text-secondary pt-2">
+        17. Dispute Resolution; Binding Arbitration and Class-Action Waiver
+      </h3>
+      <p className="font-medium">
+        PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS. IT REQUIRES THAT MOST
+        DISPUTES BETWEEN YOU AND ADALITHIC LLC BE RESOLVED THROUGH INDIVIDUAL, BINDING ARBITRATION
+        RATHER THAN IN COURT, AND IT WAIVES YOUR RIGHT TO A JURY TRIAL AND YOUR RIGHT TO PARTICIPATE
+        IN A CLASS, COLLECTIVE, OR REPRESENTATIVE ACTION. YOU MAY OPT OUT OF ARBITRATION WITHIN 30
+        DAYS AS DESCRIBED BELOW.
+      </p>
+      <p>
+        <span className="font-medium">A. Agreement to Arbitrate.</span> You and Adalithic LLC agree
+        that any dispute, claim, or controversy arising out of or relating to these Terms, the
+        Privacy Policy, Arcatext, or your use of Arcatext — whether based in contract, tort,
+        statute, fraud, misrepresentation, or any other legal theory, and whether arising before or
+        during the term of these Terms — will be resolved by binding, individual arbitration, except
+        as expressly provided in this Section 17. This agreement to arbitrate is intended to be
+        broadly interpreted, evidences a transaction involving interstate commerce, and is governed
+        by the Federal Arbitration Act (the "FAA").
+      </p>
+      <p>
+        <span className="font-medium">B. Informal Resolution First.</span> Before starting an
+        arbitration, you and Adalithic LLC agree to try to resolve the dispute informally for at
+        least 60 days. To begin, the party raising the dispute must send a written Notice of Dispute
+        to the other. Your Notice of Dispute must be sent to arcatextapp@gmail.com and must include
+        your name, the email address associated with your account, a description of the dispute, and
+        the specific relief you seek. If the dispute is not resolved within 60 days after a complete
+        Notice of Dispute is received, either party may begin an arbitration. This informal
+        resolution process is a condition precedent to starting an arbitration.
+      </p>
+      <p>
+        <span className="font-medium">C. Arbitration Procedure.</span> The arbitration will be
+        administered by the American Arbitration Association (the "AAA") under its Consumer
+        Arbitration Rules then in effect, as modified by these Terms. If the AAA is unavailable or
+        unwilling to administer the arbitration consistent with these Terms, you and Adalithic LLC
+        will select an alternative arbitration provider. The arbitration will be conducted by a
+        single neutral arbitrator. At your election, the arbitration may be conducted by telephone
+        or videoconference, based solely on written submissions, or in person in the county (or
+        equivalent) of your residence. The arbitrator's award is final and binding, and judgment on
+        the award may be entered in any court of competent jurisdiction.
+      </p>
+      <p>
+        <span className="font-medium">D. Arbitrator's Authority.</span> The arbitrator has exclusive
+        authority to resolve any dispute relating to the interpretation, applicability,
+        enforceability, or formation of this agreement to arbitrate, including any claim that all or
+        any part of it is void or voidable. However, a court of competent jurisdiction — and not an
+        arbitrator — has exclusive authority to resolve any dispute about the enforceability,
+        validity, or scope of the Class-Action Waiver in paragraph E. The arbitrator may award the
+        same damages and individual relief that a court could award under applicable law, but only
+        in favor of the individual party seeking relief and only to the extent necessary to provide
+        relief on that party's individual claim.
+      </p>
+      <p>
+        <span className="font-medium">E. Class-Action Waiver.</span>{" "}
+        <span className="font-medium">
+          YOU AND ADALITHIC LLC AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN AN
+          INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS,
+          COLLECTIVE, CONSOLIDATED, PRIVATE ATTORNEY GENERAL, OR OTHER REPRESENTATIVE PROCEEDING.
+        </span>{" "}
+        Unless both you and Adalithic LLC agree otherwise in writing, the arbitrator may not
+        consolidate or join more than one person's claims and may not otherwise preside over any
+        form of a class, collective, or representative proceeding, except as provided in the
+        Coordinated and Mass Arbitration paragraph below.
+      </p>
+      <p>
+        <span className="font-medium">F. Coordinated and Mass Arbitration.</span> If 25 or more
+        Notices of Dispute or demands for arbitration raising similar claims are asserted against
+        Adalithic LLC by or with the assistance of the same or coordinated counsel, or in a
+        coordinated manner, you and Adalithic LLC agree that the demands will be administered in
+        staged batches of up to 50 demands at a time (plus, as needed, a final batch of fewer than
+        50), in accordance with the AAA's mass-arbitration or supplementary procedures then in
+        effect. A single arbitrator will preside over each batch. After a reasonable number of
+        batches are resolved, the parties will engage in a single mediation and, informed by the
+        outcomes of the arbitrated batches, will attempt in good faith to resolve the remaining
+        demands. Filing and administrative fees for later batches will not become due until earlier
+        batches are resolved. This paragraph is intended to promote the efficient and fair
+        resolution of large numbers of similar demands and does not create a class or representative
+        proceeding.
+      </p>
+      <p>
+        <span className="font-medium">G. Fees and Costs.</span> Payment of filing, administrative,
+        and arbitrator fees will be governed by the applicable AAA rules, except that Adalithic LLC
+        will pay or reimburse those fees to the extent required by the AAA Consumer Arbitration
+        Rules or applicable law. Each party is otherwise responsible for its own attorneys' fees and
+        costs, unless the arbitrator determines that a claim was frivolous or brought for an
+        improper purpose, or unless applicable law provides otherwise.
+      </p>
+      <p>
+        <span className="font-medium">H. Jury-Trial Waiver.</span> To the extent any dispute is
+        permitted to proceed in court rather than arbitration, you and Adalithic LLC each knowingly
+        and voluntarily waive any right to a trial by jury.
+      </p>
+      <p>
+        <span className="font-medium">I. Small-Claims Exception.</span> Notwithstanding the
+        foregoing, either party may bring an individual claim in a small-claims court of competent
+        jurisdiction if the claim qualifies and remains an individual action in that court.
+      </p>
+      <p>
+        <span className="font-medium">J. 30-Day Right to Opt Out.</span> You may opt out of this
+        agreement to arbitrate (Section 17) within 30 days after you first accept these Terms. To
+        opt out, send written notice to arcatextapp@gmail.com with the subject line "Arbitration
+        Opt-Out," including your name, the email address associated with your account, and a clear
+        statement that you wish to opt out of arbitration. Opting out applies only to this Section
+        17 and does not affect any other part of these Terms; if you opt out, disputes will be
+        resolved in court as provided in the Governing Law section, and the Jury-Trial Waiver and
+        Class-Action Waiver will continue to apply to the extent permitted by applicable law.
+      </p>
+      <p>
+        <span className="font-medium">K. Severability.</span> If the Class-Action Waiver in
+        paragraph E is found to be unenforceable as to a particular claim or request for relief,
+        then that claim or request for relief (and only that claim or request) will be severed and
+        brought in a court of competent jurisdiction as provided in the Governing Law section, while
+        all remaining claims will continue to be resolved in arbitration. If the prohibition on
+        class or representative arbitration is found to be unenforceable, then the entire agreement
+        to arbitrate in this Section 17 will be null and void as to the affected claim, which will
+        instead proceed in court. Except as stated in this paragraph, if any other provision of this
+        Section 17 is found to be unenforceable, it will be severed and the remainder of this
+        Section 17 will remain in effect.
+      </p>
+      <p>
+        <span className="font-medium">L. Changes to This Section; Survival.</span> If Adalithic LLC
+        makes a material change to this Section 17 after you accept these Terms, you may reject the
+        change by sending written notice to arcatextapp@gmail.com within 30 days of the change, in
+        which case the most recent version of this Section 17 that you accepted before the change
+        will govern. This Section 17 survives termination of these Terms and your use of Arcatext.
+      </p>
+
+      <h3 className="font-semibold text-secondary pt-2">18. Changes to These Terms</h3>
       <p>
         We may update these Terms from time to time to reflect changes in our app, technology,
         service providers, legal obligations, or business practices. When we update the Terms, we
@@ -350,7 +479,7 @@ export function TermsOfUseContent() {
         the updated Terms. If you do not agree to the updated Terms, you must stop using Arcatext.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">18. Contact Us</h3>
+      <h3 className="font-semibold text-secondary pt-2">19. Contact Us</h3>
       <p>If you have questions about these Terms, contact:</p>
       <p>
         Adalithic LLC
