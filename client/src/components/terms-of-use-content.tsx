@@ -7,48 +7,55 @@ export function TermsOfUseContent() {
       <p>Last Updated: July 2, 2026</p>
       <p>
         These Terms of Use ("Terms") are a legal agreement between you and Adalithic LLC
-        ("Adalithic," "we," "us," or "our"), the operator of Arcatext. Arcatext is an AI-assisted
-        custom keyboard and language application that helps users write, translate, reword, reverse
-        translate, clarify meaning, find synonyms, improve grammar, and better understand messages
-        across languages. Arcatext may be provided through a mobile app, a custom keyboard
-        extension, a website, and related services.
+        ("Adalithic," "we," "us," or "our") and govern your access to and use of Arcatext, including
+        our mobile app, custom keyboard extension, website, and related language tools and services.
       </p>
       <p>
-        By downloading, accessing, or using Arcatext, you agree to be bound by these Terms and by
-        our Privacy Policy. If you do not agree to these Terms, do not use Arcatext.
+        By downloading, accessing, enabling, or using Arcatext, you agree to these Terms and to our
+        Privacy Policy. If you do not agree to these Terms, do not use Arcatext.
       </p>
 
       <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg">
         <h3 className="font-semibold text-secondary mb-2">Plain-English summary</h3>
         <p className="mb-2">
-          This summary is provided for your convenience only. It is not a complete statement of
-          these Terms, and if there is any conflict between this summary and the full Terms below,
-          the full Terms control.
+          This summary is provided for convenience only. If there is any conflict between this
+          summary and the full Terms below, the full Terms control.
         </p>
         <ul className="list-disc list-outside pl-5 space-y-2">
-          <li>Arcatext uses artificial intelligence to translate, reword, and analyze text.</li>
           <li>
-            AI can make mistakes. Translations and rewordings may be inaccurate, incomplete,
-            misleading, offensive, culturally wrong, or inappropriate for the context.
+            Arcatext uses AI to help translate, reword, correct, and explain text across languages.
           </li>
           <li>
-            You are responsible for reviewing any output before you use it, send it, or rely on it.
+            AI can make mistakes. Translations and other outputs may be inaccurate, incomplete,
+            misleading, confusing, culturally inappropriate, offensive, or different from what you
+            intended.
           </li>
           <li>
-            Arcatext is not a substitute for a professional translator, attorney, doctor, financial
-            advisor, immigration advisor, or other qualified professional.
+            You are responsible for reviewing any output before you rely on it, send it, share it,
+            or act on it — especially for business, legal, medical, financial, immigration, safety,
+            academic, official, or emergency-related communications.
           </li>
           <li>
-            For anything important or high-stakes, have the output reviewed by a qualified human
-            before you rely on it.
+            Arcatext is not a substitute for a professional human translator, interpreter, attorney,
+            physician, financial advisor, immigration advisor, or other qualified professional. For
+            anything important, have the output reviewed by a qualified human.
+          </li>
+          <li>
+            These Terms require most disputes to be resolved by individual arbitration and waive
+            class actions and jury trials. You may opt out of arbitration within 30 days (see the
+            Dispute Resolution section).
           </li>
         </ul>
       </div>
 
       <h3 className="font-semibold text-secondary pt-2">1. Who We Are</h3>
-      <p>Arcatext is operated by Adalithic LLC.</p>
-      <p>You can reach us at:</p>
+      <p>Arcatext is operated by Adalithic LLC, a Delaware limited liability company.</p>
+      <p>For questions about these Terms, contact us at:</p>
       <p>
+        Adalithic LLC
+        <br />
+        Arcatext Support
+        <br />
         Email: arcatextapp@gmail.com
         <br />
         Website: https://adalithic.com/
@@ -56,28 +63,33 @@ export function TermsOfUseContent() {
 
       <h3 className="font-semibold text-secondary pt-2">2. Description of the Service</h3>
       <p>
-        Arcatext is an AI-assisted custom keyboard and language application. Its features may
-        include translation, rewording, reverse translation, grammar assistance, synonym
-        suggestions, meaning clarification, and language-learning tools.
+        Arcatext is an AI-assisted custom keyboard and language application that helps users write,
+        translate, reword, reverse translate, clarify meaning, improve grammar, view synonym
+        suggestions, and better understand messages across languages.
       </p>
       <p>
-        Arcatext's output is generated by automated systems and third-party AI providers. It is not
-        produced or reviewed by a human translator or professional reviewer. We may add, remove,
-        change, limit, or modify features at any time, and we may update, suspend, or discontinue
-        parts of the service.
+        Arcatext's features rely on automated systems and third-party service providers, including
+        AI model providers. Arcatext output is generated by machine and is not reviewed by a human
+        translator, interpreter, attorney, physician, financial advisor, or other professional
+        before being shown to you.
+      </p>
+      <p>
+        We may add, remove, limit, suspend, or modify features from time to time. We may also change
+        the third-party providers, models, systems, or technical methods used to provide Arcatext.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">3. Eligibility and Minors</h3>
+      <h3 className="font-semibold text-secondary pt-2">3. Eligibility</h3>
+      <p>Arcatext is not intended for children under 13.</p>
       <p>
-        To use Arcatext, you must be able to form a binding contract with Adalithic LLC, or use
-        Arcatext with the permission and supervision of a parent or legal guardian who agrees to
-        these Terms on your behalf.
+        If you are under 13, you may not use Arcatext unless your parent, legal guardian, school, or
+        authorized educational institution has approved your use in a manner permitted by applicable
+        law. If you are under the age of majority where you live, you may use Arcatext only with
+        permission from a parent or legal guardian.
       </p>
       <p>
-        Arcatext is not intended for children under 13. If you are under 13, you may not use
-        Arcatext unless your parent, legal guardian, school, or authorized educational institution
-        has approved your use in a manner permitted by applicable law. You agree to comply with all
-        applicable laws when using Arcatext.
+        By using Arcatext, you represent that you are able to form a binding contract with Adalithic
+        or that you have the required permission to use Arcatext. If Arcatext is used by a school,
+        organization, or business, additional agreements or policies may apply.
       </p>
 
       <h3 className="font-semibold text-secondary pt-2">
@@ -85,263 +97,362 @@ export function TermsOfUseContent() {
       </h3>
       <p>
         Arcatext produces machine-generated language output. While we work to make Arcatext useful
-        and reliable, automated translation and language tools can and do make errors. Output may
-        be incorrect, inaccurate, incomplete, outdated, misleading, confusing, culturally
-        inappropriate, or offensive.
+        and reliable, automated translation and language tools can and do make errors.
       </p>
-      <p>Among other things, Arcatext's output may misstate or alter:</p>
-      <ul className="list-disc pl-6 space-y-1">
-        <li>Names</li>
-        <li>Dates</li>
-        <li>Numbers</li>
-        <li>Addresses</li>
-        <li>Prices</li>
-        <li>Measurements</li>
-        <li>Legal terms</li>
-        <li>Medical terms</li>
-        <li>Idioms and slang</li>
-        <li>Cultural context</li>
-        <li>Tone, formality, and intent</li>
-      </ul>
+      <p>
+        Arcatext output may be incorrect, inaccurate, incomplete, outdated, misleading, confusing,
+        contextually inappropriate, culturally inappropriate, offensive, or unsuitable for your
+        intended purpose. Output may misinterpret, alter, or omit meaning, tone, formality, idioms,
+        slang, names, dates, numbers, addresses, prices, measurements, medical terms, legal terms,
+        immigration terms, cultural references, or intent.
+      </p>
       <p className="font-medium">
         Adalithic LLC does not take responsibility for any incorrect, inaccurate, misleading, or
         confusing translations or other output produced by Arcatext, sent in any context for any
         purpose.
       </p>
       <p>
-        You are solely responsible for reviewing, verifying, and deciding whether to use or send
-        any translation or other output before you rely on it, send it to another person, share it
-        with a client or third party, or otherwise act on it. To the maximum extent permitted by
-        law, Adalithic LLC is not responsible for any decisions, actions, messages, losses,
-        misunderstandings, or other consequences resulting from your reliance on Arcatext's output.
+        You are solely responsible for reviewing, verifying, and deciding whether to use, rely on,
+        send, publish, or share any translation or other output generated by Arcatext. You are
+        responsible for checking the recipient, context, tone, meaning, and appropriateness of any
+        message before sending it. To the maximum extent permitted by law, Adalithic is not
+        responsible for decisions, actions, messages, misunderstandings, losses, damages, or
+        consequences that result from your use of, reliance on, or sharing of Arcatext output.
       </p>
       <p>
         Arcatext is not a substitute for a professional human translator, interpreter, attorney,
-        physician, financial advisor, immigration advisor, or other qualified professional. For
-        important or high-stakes communications — including business, legal, medical, financial,
-        safety, immigration, official, academic, and emergency matters — you should obtain
-        independent review from a qualified human professional before relying on Arcatext's output.
+        physician, financial advisor, immigration advisor, emergency service, or other qualified
+        professional. For communications where accuracy is important — including business, legal,
+        medical, financial, safety, immigration, academic, official, or emergency matters — you
+        should obtain independent review from a qualified human professional before relying on
+        Arcatext output.
       </p>
 
       <h3 className="font-semibold text-secondary pt-2">5. Your Responsibilities</h3>
       <p>When you use Arcatext, you agree that:</p>
       <ul className="list-disc pl-6 space-y-1">
         <li>
-          You are responsible for the text you submit and for any output you choose to use or send.
+          You are responsible for the text you submit and for any output you choose to use, send,
+          share, or rely on.
         </li>
         <li>
-          You are responsible for checking the recipient, context, tone, and meaning before sending
-          any message that Arcatext generates or modifies.
+          You will independently verify the accuracy, meaning, tone, and appropriateness of any
+          output before relying on it.
         </li>
         <li>
-          You will not use Arcatext to type or submit passwords, payment card numbers, security
-          codes, or other highly sensitive information.
+          You will not use Arcatext to type, submit, translate, or process passwords, payment card
+          numbers, security codes, private keys, government identification numbers, or other highly
+          sensitive information.
         </li>
-        <li>
-          You have the rights necessary to submit any text you provide, and your submissions do not
-          violate any law or third-party rights.
-        </li>
+        <li>You will comply with all applicable laws and regulations when using Arcatext.</li>
         <li>
           You are responsible for maintaining the confidentiality of any account credentials you
           use.
         </li>
+        <li>
+          You are responsible for ensuring that you have the rights and permissions necessary to
+          submit any text or content to Arcatext.
+        </li>
       </ul>
 
-      <h3 className="font-semibold text-secondary pt-2">6. User Content and License</h3>
+      <h3 className="font-semibold text-secondary pt-2">6. User Content and Output</h3>
       <p>
-        "User Content" means the text, messages, prompts, pasted content, translations,
-        corrections, preferences, feedback, and other content you submit to or generate through
-        Arcatext. You retain ownership of the text you submit.
+        "User Content" means the text, messages, prompts, pasted content, translations, corrections,
+        feedback, preferences, and other content that you submit to or generate through Arcatext.
       </p>
       <p>
-        You grant Adalithic LLC a limited, non-exclusive, worldwide, royalty-free license to host,
-        process, transmit, reproduce, modify, and display the text you submit solely as necessary
-        to provide, maintain, secure, troubleshoot, improve, and support Arcatext, including by
-        transmitting text to the third-party service providers described in our Privacy Policy. Any
-        use of your content to improve Arcatext's language features is governed by our Privacy
+        You retain ownership of the text and other content you submit to Arcatext. Adalithic does
+        not claim ownership of your User Content.
+      </p>
+      <p>
+        You grant Adalithic a limited, non-exclusive, worldwide, royalty-free license to host,
+        process, transmit, reproduce, modify, and display User Content solely as necessary to
+        provide, maintain, secure, troubleshoot, improve, and support Arcatext, including by
+        transmitting User Content to the third-party service providers described in our Privacy
         Policy.
       </p>
       <p>
         Subject to these Terms, you may use Arcatext output for your lawful personal or internal
-        business purposes. You are responsible for reviewing the output and ensuring your use does
-        not violate any law or third-party rights.
+        business purposes. You are responsible for reviewing the output and ensuring that your use
+        of the output does not violate any law, contract, privacy right, intellectual property
+        right, or other third-party right.
+      </p>
+      <p>
+        Our collection, use, storage, retention, deletion, and sharing of information is described
+        in our Privacy Policy.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">7. Privacy and AI Providers</h3>
+      <h3 className="font-semibold text-secondary pt-2">7. Privacy</h3>
       <p>
-        Your use of Arcatext is also governed by our Privacy Policy, available at
-        https://adalithic.com/privacy, which explains how we process information. If there is a
-        conflict between these Terms and the Privacy Policy regarding the collection, use, storage,
-        sharing, deletion, or retention of personal information, the Privacy Policy controls for
-        those privacy matters.
+        Your use of Arcatext is also governed by our Privacy Policy, which explains how we collect,
+        use, store, disclose, retain, and delete information. The Privacy Policy is available at
+        https://adalithic.com/privacy.
+      </p>
+      <p>
+        If there is a conflict between these Terms and the Privacy Policy regarding the collection,
+        use, storage, disclosure, retention, or deletion of personal information, the Privacy Policy
+        controls for those privacy matters.
       </p>
       <p>
         Arcatext uses third-party service providers to help provide the service, including AI model
         providers, cloud hosting providers, storage providers, analytics providers, authentication
         providers, customer support tools, and payment processors. These providers may process
-        information as described in our Privacy Policy, and their handling of data is also governed
-        by their own terms and policies.
+        information as described in our Privacy Policy.
       </p>
 
       <h3 className="font-semibold text-secondary pt-2">8. Acceptable Use</h3>
       <p>You agree not to use Arcatext to:</p>
       <ul className="list-disc pl-6 space-y-1">
         <li>Violate any applicable law or regulation</li>
-        <li>Infringe the intellectual property, privacy, or other rights of any person or entity</li>
-        <li>Harass, threaten, abuse, defame, or otherwise harm others</li>
-        <li>Impersonate another person or deceive recipients about your identity or intent</li>
-        <li>Send spam or mass unsolicited messages</li>
-        <li>Facilitate fraud, scams, phishing, or social engineering</li>
-        <li>Exploit, sexualize, or harm minors</li>
-        <li>Conduct illegal surveillance or unauthorized monitoring</li>
-        <li>Bypass usage limits or security features</li>
-        <li>Interfere with, overload, scrape, or disrupt the service or its systems</li>
         <li>
-          Reverse engineer, decompile, or attempt to extract source code, except where permitted by
-          law
+          Infringe, misappropriate, or violate the intellectual property, privacy, publicity, or
+          other rights of any person or entity
         </li>
         <li>
-          Attempt to extract prompts, model behavior, API keys, non-public system information, or
-          security information
+          Transmit unlawful, harassing, defamatory, abusive, threatening, harmful, hateful,
+          deceptive, or otherwise objectionable content
+        </li>
+        <li>Impersonate another person or misrepresent your identity, affiliation, intent, or authority</li>
+        <li>
+          Deceive recipients or facilitate fraud, scams, phishing, social engineering, or other
+          harmful conduct
+        </li>
+        <li>Send spam, mass unsolicited messages, or abusive multilingual campaigns</li>
+        <li>Exploit, sexualize, endanger, or harm minors</li>
+        <li>
+          Engage in illegal surveillance, unauthorized monitoring, or unauthorized collection of
+          information
         </li>
         <li>
-          Develop a competing product or build datasets in violation of these Terms or applicable
-          law
+          Attempt to gain unauthorized access to Arcatext, its systems, its providers, or other
+          users' accounts
+        </li>
+        <li>Interfere with, disrupt, overload, scrape, crawl, or abuse Arcatext or its underlying systems</li>
+        <li>
+          Bypass or attempt to bypass usage limits, payment requirements, security features, or
+          access controls
+        </li>
+        <li>
+          Reverse engineer, decompile, disassemble, or attempt to extract the source code of
+          Arcatext, except to the extent permitted by law
+        </li>
+        <li>
+          Attempt to extract prompts, model behavior, API keys, security information, non-public
+          system information, or confidential information
+        </li>
+        <li>
+          Develop a competing product, train a competing system, or build datasets in violation of
+          these Terms or applicable law
         </li>
       </ul>
-
-      <h3 className="font-semibold text-secondary pt-2">
-        9. Subscriptions, Billing, Cancellation, and Refunds
-      </h3>
       <p>
-        Arcatext may offer paid subscriptions or in-app purchases. If you purchase a subscription
-        through Apple's App Store, Google Play, or another platform, your purchase, renewal,
-        cancellation, and refund rights are handled by that platform and may be subject to that
-        platform's terms.
+        We may suspend, limit, or terminate access to Arcatext if we believe you have violated these
+        Terms, created risk for Adalithic, harmed another person, abused the service, or used
+        Arcatext in a way that could create legal, security, operational, or reputational risk.
+      </p>
+
+      <h3 className="font-semibold text-secondary pt-2">9. Subscriptions, Billing, and Payments</h3>
+      <p>Arcatext may offer paid subscriptions, in-app purchases, or other paid features.</p>
+      <p>
+        If you purchase a subscription or paid feature through Apple's App Store, Google Play, or
+        another third-party platform, your purchase, billing, renewal, cancellation, and refund
+        rights are handled by that platform and may also be subject to that platform's terms and
+        policies.
       </p>
       <p>
         Subscriptions automatically renew unless canceled before the end of the current billing
-        period. Deleting the app does not cancel your subscription. You must cancel through the
-        platform account settings where you purchased the subscription. If you cancel, you may
-        continue to access paid features until the end of the current billing period, unless the
-        platform provides otherwise. Where supported, you may restore prior purchases through the
-        platform where you bought them.
+        period. Deleting Arcatext, disabling the keyboard, or uninstalling the app does not cancel
+        your subscription. You must cancel through the platform account settings where you purchased
+        the subscription. If you cancel, you may continue to access paid features until the end of
+        the current billing period, unless the platform provides otherwise.
+      </p>
+      <p>
+        If Arcatext offers a free trial or promotional period, the subscription may automatically
+        convert to a paid subscription at the end of the trial unless you cancel before the trial
+        ends, as described at the time of purchase.
       </p>
       <p>
         Fees are non-refundable except as required by law or as provided by the platform through
-        which you purchased. Arcatext may change pricing or available plans from time to time,
-        subject to applicable law and platform rules.
+        which you purchased. Arcatext may change pricing, plans, usage limits, or paid features from
+        time to time, subject to applicable law and platform rules. Where required, we or the
+        applicable platform will provide notice of price changes. Where supported by the platform,
+        Arcatext may provide a way to restore prior purchases.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">10. App Store and Platform Terms</h3>
+      <h3 className="font-semibold text-secondary pt-2">
+        10. App Store, Google Play, and Platform Terms
+      </h3>
       <p>
-        If you download Arcatext through Apple's App Store, your use is also subject to Apple's
-        Licensed Application End User License Agreement (the standard Apple EULA), unless Adalithic
-        LLC provides a custom end user license agreement through App Store Connect. To the extent of
-        any conflict between these Terms and the applicable Apple terms with respect to your use on
-        Apple-branded devices, the applicable Apple terms will govern that conflict.
+        If you download Arcatext through Apple's App Store, Google Play, or another app marketplace,
+        your use of Arcatext may also be subject to that platform's terms, policies, and license
+        agreements.
       </p>
       <p>
-        Apple is not responsible for Arcatext or its content and, except as required by applicable
-        law, has no obligation to provide maintenance or support for Arcatext. Apple and its
-        subsidiaries are third-party beneficiaries of these Terms as they relate to your use of
-        Arcatext on Apple-branded devices, and Apple may enforce these Terms against you as a
-        third-party beneficiary.
+        If you download Arcatext through Apple's App Store, Apple's Licensed Application End User
+        License Agreement (the standard Apple EULA) may apply unless Adalithic provides a custom
+        license agreement through App Store Connect. Apple is not responsible for Arcatext or its
+        content and, except as required by applicable law, has no obligation to provide maintenance
+        or support for Arcatext. Apple and its subsidiaries are third-party beneficiaries of these
+        Terms as they relate to your use of Arcatext on Apple-branded devices, and Apple may enforce
+        these Terms against you as a third-party beneficiary.
       </p>
       <p>
-        If you download Arcatext through Google Play or another platform, your use may also be
-        subject to that platform's terms and policies.
+        If you download Arcatext through Google Play, your purchase and use may also be subject to
+        Google Play's applicable terms and policies. To the extent there is a conflict between these
+        Terms and the applicable platform terms, the platform terms may control for issues related
+        to billing, refunds, platform account management, and app marketplace requirements.
       </p>
 
       <h3 className="font-semibold text-secondary pt-2">11. Intellectual Property</h3>
       <p>
-        Arcatext — including its software, design, branding, user interface, features,
-        documentation, and, where applicable, its prompts and configurations, together with content
-        provided by Adalithic LLC — is owned by Adalithic LLC or its licensors and is protected by
-        intellectual property laws.
+        Arcatext — including its software, design, user interface, features, branding, logos,
+        documentation, configurations, prompts, systems, and content provided by Adalithic — is
+        owned by Adalithic or its licensors and is protected by intellectual property and other
+        laws.
       </p>
       <p>
         Subject to these Terms, we grant you a limited, personal, non-exclusive, non-transferable,
-        revocable license to use Arcatext. You may not copy, modify, distribute, sell, lease,
-        sublicense, or otherwise exploit Arcatext except as permitted by these Terms or applicable
-        law. You retain ownership of the text you submit, as described in the User Content section
-        above.
+        non-sublicensable, revocable license to use Arcatext for your own personal or internal
+        business purposes. You may not copy, modify, distribute, sell, lease, sublicense, publicly
+        display, publicly perform, create derivative works from, or otherwise exploit Arcatext
+        except as expressly permitted by these Terms or applicable law. You retain ownership of the
+        text you submit, as described in the User Content section above.
+      </p>
+      <p>All rights not expressly granted to you are reserved by Adalithic and its licensors.</p>
+
+      <h3 className="font-semibold text-secondary pt-2">12. Third-Party Services</h3>
+      <p>
+        Arcatext relies on third-party service providers to provide, secure, analyze, improve, and
+        support the service. These providers may include AI model providers, cloud hosting
+        providers, storage providers, analytics providers, authentication providers, customer
+        support tools, payment processors, and app marketplace platforms.
+      </p>
+      <p>
+        Adalithic is not responsible for the acts, omissions, systems, outages, policies, or
+        independent conduct of third-party providers. However, our use of third-party providers to
+        process information is described in our Privacy Policy. Third-party services may change from
+        time to time, and Arcatext may be unavailable or limited if a third-party provider is
+        unavailable, restricted, discontinued, or changed.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">12. Disclaimer of Warranties</h3>
+      <h3 className="font-semibold text-secondary pt-2">13. Service Availability and Changes</h3>
       <p>
-        Arcatext is provided on an "as is" and "as available" basis, without warranties of any
-        kind, whether express, implied, or statutory. To the fullest extent permitted by law,
-        Adalithic LLC disclaims all warranties, including any implied warranties of merchantability,
-        fitness for a particular purpose, accuracy, and non-infringement, and any warranties arising
-        out of course of dealing or usage of trade.
+        Arcatext is provided as an evolving service. We may modify, suspend, limit, replace, or
+        discontinue any part of Arcatext at any time.
       </p>
       <p>
-        We do not warrant that Arcatext will preserve the meaning, tone, cultural context,
-        formality, or intent of any text, or that the service will be uninterrupted, secure, or
-        error-free, or that any output will be accurate, reliable, or suitable for your intended
-        purpose.
+        We do not guarantee that Arcatext will always be available, uninterrupted, secure,
+        error-free, or compatible with every device, operating system, app, keyboard environment,
+        language, or third-party service. We may impose usage limits, rate limits, feature limits,
+        or technical restrictions to protect Arcatext, manage costs, prevent abuse, comply with law,
+        or maintain service quality.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">13. Limitation of Liability</h3>
+      <h3 className="font-semibold text-secondary pt-2">14. Disclaimer of Warranties</h3>
       <p>
-        To the fullest extent permitted by applicable law, in no event will Adalithic LLC, its
-        members, officers, employees, contractors, or service providers be liable for any indirect,
-        incidental, special, consequential, exemplary, or punitive damages, or for any loss of
-        profits, revenue, data, goodwill, business, reputation, or opportunities, or for any
-        misunderstandings caused by translation or other output errors, arising out of or related to
-        your use of, or inability to use, Arcatext — whether based on warranty, contract, tort
-        (including negligence), statute, or any other legal theory, and whether or not Adalithic LLC
-        has been advised of the possibility of such damages.
+        Arcatext is provided on an "as is" and "as available" basis, without warranties of any kind,
+        whether express, implied, statutory, or otherwise.
+      </p>
+      <p>
+        To the fullest extent permitted by law, Adalithic disclaims all warranties, including
+        implied warranties of merchantability, fitness for a particular purpose, accuracy,
+        non-infringement, quiet enjoyment, and any warranties arising out of course of dealing or
+        usage of trade.
+      </p>
+      <p>
+        We do not warrant that Arcatext will be uninterrupted, secure, error-free, accurate,
+        reliable, available, or suitable for your intended purpose, or that Arcatext will preserve
+        the meaning, tone, formality, cultural context, or intent of any text. You understand and
+        agree that you use Arcatext and any output at your own risk.
+      </p>
+
+      <h3 className="font-semibold text-secondary pt-2">15. Limitation of Liability</h3>
+      <p>
+        To the fullest extent permitted by applicable law, Adalithic LLC, its members, officers,
+        employees, contractors, service providers, licensors, and affiliates will not be liable for
+        any indirect, incidental, special, consequential, exemplary, punitive, or enhanced damages,
+        or for any loss of profits, revenue, data, goodwill, business, reputation, opportunities, or
+        other intangible losses, arising out of or related to your use of, or inability to use,
+        Arcatext. This limitation applies to damages arising from Arcatext output, including
+        translations or other output that are incorrect, inaccurate, incomplete, misleading,
+        confusing, offensive, culturally inappropriate, or unsuitable for your intended purpose.
       </p>
       <p>
         To the fullest extent permitted by applicable law, the total aggregate liability of
-        Adalithic LLC arising out of or relating to these Terms or your use of Arcatext will not
-        exceed the greater of (a) the total amount you paid to Adalithic LLC or through the
-        applicable platform for Arcatext in the twelve (12) months preceding the event giving rise
-        to the claim, or (b) one hundred U.S. dollars (US$100).
+        Adalithic arising out of or relating to these Terms or your use of Arcatext will not exceed
+        the greater of (a) the total amount you paid to Adalithic for Arcatext in the twelve (12)
+        months preceding the event giving rise to the claim, or (b) one hundred U.S. dollars
+        (US$100).
       </p>
-      <p>Nothing in these Terms limits liability that cannot be limited under applicable law.</p>
+      <p>
+        The limitations in this section apply whether a claim is based on warranty, contract, tort,
+        negligence, statute, strict liability, or any other legal theory, and whether or not
+        Adalithic has been advised of the possibility of such damages. Some jurisdictions do not
+        allow the exclusion or limitation of certain warranties or liabilities; in those
+        jurisdictions, the exclusions and limitations above apply only to the maximum extent
+        permitted by law. Nothing in these Terms limits liability that cannot be limited under
+        applicable law.
+      </p>
 
-      <h3 className="font-semibold text-secondary pt-2">14. Indemnification</h3>
+      <h3 className="font-semibold text-secondary pt-2">16. Indemnification</h3>
       <p>
         To the extent permitted by applicable law, you agree to indemnify, defend, and hold harmless
-        Adalithic LLC and its members, officers, employees, contractors, and service providers from
-        and against any claims, liabilities, damages, losses, and expenses, including reasonable
-        attorneys' fees, arising out of or related to your use of Arcatext, your reliance on or
-        distribution of any output, your User Content, your violation of these Terms, or your
-        violation of any law or the rights of any third party.
+        Adalithic LLC, its members, officers, employees, contractors, service providers, licensors,
+        and affiliates from and against any claims, liabilities, damages, losses, and expenses,
+        including reasonable attorneys' fees, arising out of or related to:
+      </p>
+      <ul className="list-disc pl-6 space-y-1">
+        <li>your use of Arcatext;</li>
+        <li>your User Content;</li>
+        <li>
+          your reliance on, use of, sending of, publication of, or distribution of Arcatext output;
+        </li>
+        <li>your violation of these Terms;</li>
+        <li>your violation of applicable law; or</li>
+        <li>your violation of any rights of another person or entity.</li>
+      </ul>
+      <p>
+        We reserve the right to control the defense of any matter subject to indemnification, and
+        you agree to cooperate with our defense of those claims.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">15. Termination</h3>
+      <h3 className="font-semibold text-secondary pt-2">17. Termination</h3>
       <p>
-        You may stop using Arcatext at any time by removing it from your keyboard list or
-        uninstalling the app. We may suspend, limit, or terminate your access to Arcatext to protect
-        the service, comply with law, prevent abuse, address security issues, enforce usage limits,
-        or respond to violations of these Terms.
+        You may stop using Arcatext at any time by removing it from your keyboard list, disabling
+        it, or uninstalling the app.
       </p>
       <p>
-        Termination does not automatically entitle you to a refund unless required by law or
-        platform policy. Provisions that by their nature should survive termination — including the
-        disclaimers, limitations of liability, indemnification, intellectual property, User Content
-        and license, governing law and dispute provisions, and any outstanding payment obligations —
-        will survive.
+        We may suspend, limit, or terminate your access to Arcatext at any time, with or without
+        notice, if we believe that you have violated these Terms, created risk for Adalithic or
+        others, misused the service, failed to pay applicable fees, violated applicable law, or used
+        Arcatext in a way that may create legal, security, operational, or reputational risk. We may
+        also suspend, limit, or terminate Arcatext or any feature if we discontinue the service,
+        modify our business, experience technical issues, lose access to third-party providers, or
+        need to comply with law.
+      </p>
+      <p>
+        Termination of access does not automatically entitle you to a refund unless required by law
+        or by the platform through which you purchased. Sections that by their nature should survive
+        termination will survive, including sections related to User Content, intellectual property,
+        privacy, disclaimers, limitations of liability, indemnification, governing law, dispute
+        resolution and arbitration, and payment obligations.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">16. Governing Law</h3>
+      <h3 className="font-semibold text-secondary pt-2">18. Governing Law</h3>
       <p>
         These Terms are governed by the laws of the State of Delaware, without regard to its
         conflict-of-laws principles, except where applicable consumer protection law requires
-        otherwise. Subject to any mandatory consumer protection rights available to you in your
-        place of residence, and except for disputes subject to arbitration under Section 17, you
-        agree that any dispute arising out of or relating to these Terms or your use of Arcatext
-        will be subject to the exclusive jurisdiction of the state and federal courts located in
-        Delaware. The Federal Arbitration Act governs the interpretation and enforcement of the
-        arbitration provisions in Section 17.
+        otherwise. Subject to any rights you may have under applicable consumer protection laws, and
+        except for disputes subject to arbitration under Section 19, any dispute arising out of or
+        relating to these Terms or your use of Arcatext will be brought in the state or federal
+        courts located in Delaware, and you consent to the personal jurisdiction of those courts.
+        The Federal Arbitration Act governs the interpretation and enforcement of the arbitration
+        provisions in Section 19. Nothing in this section limits rights that you may have under
+        applicable law that cannot be waived by contract.
       </p>
 
       <h3 className="font-semibold text-secondary pt-2">
-        17. Dispute Resolution; Binding Arbitration and Class-Action Waiver
+        19. Dispute Resolution; Binding Arbitration and Class-Action Waiver
       </h3>
       <p className="font-medium">
         PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS. IT REQUIRES THAT MOST
@@ -356,7 +467,7 @@ export function TermsOfUseContent() {
         Privacy Policy, Arcatext, or your use of Arcatext — whether based in contract, tort,
         statute, fraud, misrepresentation, or any other legal theory, and whether arising before or
         during the term of these Terms — will be resolved by binding, individual arbitration, except
-        as expressly provided in this Section 17. This agreement to arbitrate is intended to be
+        as expressly provided in this Section 19. This agreement to arbitrate is intended to be
         broadly interpreted, evidences a transaction involving interstate commerce, and is governed
         by the Federal Arbitration Act (the "FAA").
       </p>
@@ -439,11 +550,11 @@ export function TermsOfUseContent() {
       </p>
       <p>
         <span className="font-medium">J. 30-Day Right to Opt Out.</span> You may opt out of this
-        agreement to arbitrate (Section 17) within 30 days after you first accept these Terms. To
+        agreement to arbitrate (Section 19) within 30 days after you first accept these Terms. To
         opt out, send written notice to arcatextapp@gmail.com with the subject line "Arbitration
         Opt-Out," including your name, the email address associated with your account, and a clear
         statement that you wish to opt out of arbitration. Opting out applies only to this Section
-        17 and does not affect any other part of these Terms; if you opt out, disputes will be
+        19 and does not affect any other part of these Terms; if you opt out, disputes will be
         resolved in court as provided in the Governing Law section, and the Jury-Trial Waiver and
         Class-Action Waiver will continue to apply to the extent permitted by applicable law.
       </p>
@@ -454,33 +565,34 @@ export function TermsOfUseContent() {
         brought in a court of competent jurisdiction as provided in the Governing Law section, while
         all remaining claims will continue to be resolved in arbitration. If the prohibition on
         class or representative arbitration is found to be unenforceable, then the entire agreement
-        to arbitrate in this Section 17 will be null and void as to the affected claim, which will
+        to arbitrate in this Section 19 will be null and void as to the affected claim, which will
         instead proceed in court. Except as stated in this paragraph, if any other provision of this
-        Section 17 is found to be unenforceable, it will be severed and the remainder of this
-        Section 17 will remain in effect.
+        Section 19 is found to be unenforceable, it will be severed and the remainder of this
+        Section 19 will remain in effect.
       </p>
       <p>
         <span className="font-medium">L. Changes to This Section; Survival.</span> If Adalithic LLC
-        makes a material change to this Section 17 after you accept these Terms, you may reject the
+        makes a material change to this Section 19 after you accept these Terms, you may reject the
         change by sending written notice to arcatextapp@gmail.com within 30 days of the change, in
-        which case the most recent version of this Section 17 that you accepted before the change
-        will govern. This Section 17 survives termination of these Terms and your use of Arcatext.
+        which case the most recent version of this Section 19 that you accepted before the change
+        will govern. This Section 19 survives termination of these Terms and your use of Arcatext.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">18. Changes to These Terms</h3>
+      <h3 className="font-semibold text-secondary pt-2">20. Changes to These Terms</h3>
       <p>
-        We may update these Terms from time to time to reflect changes in our app, technology,
-        service providers, legal obligations, or business practices. When we update the Terms, we
-        will revise the "Last Updated" date above. If changes are significant, we may provide
-        additional notice through the app, website, or other appropriate methods.
+        We may update these Terms from time to time to reflect changes in Arcatext, technology,
+        service providers, legal obligations, business practices, or user needs. When we update
+        these Terms, we will revise the "Last Updated" date at the top. If changes are significant,
+        we may provide additional notice through the app, website, email, or other appropriate
+        methods.
       </p>
       <p>
-        Your continued use of Arcatext after the updated Terms take effect constitutes acceptance of
-        the updated Terms. If you do not agree to the updated Terms, you must stop using Arcatext.
+        Your continued use of Arcatext after the updated Terms become effective means you accept the
+        updated Terms. If you do not agree to the updated Terms, you must stop using Arcatext.
       </p>
 
-      <h3 className="font-semibold text-secondary pt-2">19. Contact Us</h3>
-      <p>If you have questions about these Terms, contact:</p>
+      <h3 className="font-semibold text-secondary pt-2">21. Contact Us</h3>
+      <p>If you have questions about these Terms, contact us at:</p>
       <p>
         Adalithic LLC
         <br />
