@@ -303,11 +303,12 @@ export function TermsOfUseContent() {
         Arcatext may provide a way to restore prior purchases.
       </p>
       <p>
-        The specific price, billing period, renewal period, trial terms, features included, and
-        cancellation instructions for a subscription will be disclosed at the point of purchase or
-        through the applicable platform. You should review those terms carefully before purchasing.
-        If any purchase screen, platform disclosure, or legally required disclosure provides
-        additional rights or terms that apply to your purchase, those terms apply to that purchase.
+        Subscription price, billing period, renewal terms, trial terms, features included, and
+        cancellation instructions are disclosed by the applicable app marketplace and/or at the
+        point of purchase before you subscribe. You should review those terms carefully before
+        purchasing. If any purchase screen, platform disclosure, or legally required disclosure
+        provides additional rights or terms that apply to your purchase, those terms apply to that
+        purchase.
       </p>
       <p>
         If Adalithic offers subscriptions directly outside an app marketplace, we will provide the
