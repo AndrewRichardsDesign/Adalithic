@@ -4,7 +4,7 @@ export function PrivacyPolicyContent() {
   return (
     <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
       <p className="font-medium text-secondary">Operated by Adalithic LLC</p>
-      <p>Last Updated: June 21, 2026</p>
+      <p>Last Updated: July 2, 2026</p>
       <p>
         Arcatext is a custom keyboard and language application designed to help users write,
         translate, reword, and better understand messages across languages. This Privacy Policy
@@ -466,13 +466,11 @@ export function PrivacyPolicyContent() {
       </p>
 
       <h3 className="font-semibold text-secondary pt-2">11. Children's Privacy</h3>
+      <p>Arcatext is not intended for children under the age of 13.</p>
       <p>
-        Arcatext is a general audience application and is not specifically directed toward
-        children under the age of 13.
-      </p>
-      <p>
-        Users under 13 should use Arcatext only with permission and supervision from a parent or
-        legal guardian.
+        If you are under 13, you may not use Arcatext unless your parent, legal guardian, school, or
+        authorized educational institution has approved your use in a manner permitted by applicable
+        law.
       </p>
       <p>
         If Adalithic LLC becomes aware that personal information from a child under 13 has been
