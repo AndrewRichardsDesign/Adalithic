@@ -4,7 +4,7 @@ export function PrivacyPolicyContent() {
   return (
     <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
       <p className="font-medium text-secondary">Operated by Adalithic LLC</p>
-      <p>Last Updated: July 2, 2026</p>
+      <p>Last Updated: July 3, 2026</p>
       <p>
         Arcatext is a custom keyboard and language application designed to help users write,
         translate, reword, and better understand messages across languages. This Privacy Policy
@@ -692,7 +692,17 @@ export function PrivacyPolicyContent() {
       <p className="font-medium">Representative</p>
       <p>
         Adalithic LLC has appointed a representative in the European Union under Article 27 of the
-        GDPR. The representative's name and contact details will be published here.
+        GDPR. Our representative is Prighter Group. You can contact our representative, or exercise
+        your data-subject rights through them, using the following secure portal:{" "}
+        <a
+          href="https://app.prighter.com/portal/17012077629"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline"
+        >
+          https://app.prighter.com/portal/17012077629
+        </a>
+        .
       </p>
       <p className="font-medium">International data transfers</p>
       <p>
@@ -718,7 +728,17 @@ export function PrivacyPolicyContent() {
         <li>The supervisory authority is the Information Commissioner's Office (ICO).</li>
         <li>
           Adalithic LLC has appointed a representative in the United Kingdom under Article 27 of the
-          UK GDPR; the representative's name and contact details will be published here.
+          UK GDPR. Our UK representative is Prighter Group, contactable through the same secure
+          portal:{" "}
+          <a
+            href="https://app.prighter.com/portal/17012077629"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline"
+          >
+            https://app.prighter.com/portal/17012077629
+          </a>
+          .
         </li>
       </ul>
 
@@ -728,7 +748,17 @@ export function PrivacyPolicyContent() {
         Federal Act on Data Protection (nFADP), including rights of access, rectification, and
         erasure. You may exercise these rights by contacting us at arcatextapp@gmail.com. Adalithic
         LLC has appointed a representative in Switzerland under the revised Federal Act on Data
-        Protection; the representative's contact details will be published here.
+        Protection. Our Swiss representative is Prighter Group, contactable through the same secure
+        portal:{" "}
+        <a
+          href="https://app.prighter.com/portal/17012077629"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline"
+        >
+          https://app.prighter.com/portal/17012077629
+        </a>
+        .
       </p>
 
       <p className="font-medium">Rider D — Canada, including Québec</p>
