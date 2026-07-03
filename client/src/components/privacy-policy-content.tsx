@@ -691,8 +691,8 @@ export function PrivacyPolicyContent() {
       </p>
       <p className="font-medium">Representative</p>
       <p>
-        Adalithic LLC has appointed [Representative to be appointed] as its representative in the
-        EU/UK for GDPR and UK GDPR purposes.
+        Adalithic LLC has appointed a representative in the European Union under Article 27 of the
+        GDPR. The representative's name and contact details will be published here.
       </p>
       <p className="font-medium">International data transfers</p>
       <p>
@@ -716,15 +716,19 @@ export function PrivacyPolicyContent() {
       <ul className="list-disc pl-6 space-y-1">
         <li>References to the GDPR are replaced with the UK GDPR.</li>
         <li>The supervisory authority is the Information Commissioner's Office (ICO).</li>
-        <li>Adalithic LLC has appointed [Representative to be appointed] as its UK representative.</li>
+        <li>
+          Adalithic LLC has appointed a representative in the United Kingdom under Article 27 of the
+          UK GDPR; the representative's name and contact details will be published here.
+        </li>
       </ul>
 
       <p className="font-medium">Rider C — Switzerland</p>
       <p>
         This Rider applies to consumers resident in Switzerland. You have rights under the revised
         Federal Act on Data Protection (nFADP), including rights of access, rectification, and
-        erasure. You may exercise these rights by contacting us at arcatextapp@gmail.com. Where
-        required, Adalithic LLC will appoint a representative in Switzerland or the EU.
+        erasure. You may exercise these rights by contacting us at arcatextapp@gmail.com. Adalithic
+        LLC has appointed a representative in Switzerland under the revised Federal Act on Data
+        Protection; the representative's contact details will be published here.
       </p>
 
       <p className="font-medium">Rider D — Canada, including Québec</p>
