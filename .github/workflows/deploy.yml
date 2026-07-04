@@ -14,10 +14,15 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment; cancel in-progress runs for newer pushes.
+# Allow only one concurrent deployment, and let an in-progress deployment
+# finish rather than cancelling it. Cancelling a Pages deploy mid-flight (the
+# deploy-pages step creates a real deployment on GitHub's backend) can leave the
+# github-pages environment with a stuck deployment, after which subsequent runs
+# fail with "Deployment failed, try again later". This matches GitHub's official
+# Pages workflow, which sets cancel-in-progress: false for exactly this reason.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
