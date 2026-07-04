@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 interface TypewriterAnimationProps {
   messages?: string[];
@@ -6,13 +7,19 @@ interface TypewriterAnimationProps {
 }
 
 export default function TypewriterAnimation({
-  messages = [
-    "Learn a language",
-    "Communicate for business",
-    "Chat with international friends"
-  ],
+  messages: messagesProp,
   className = ""
 }: TypewriterAnimationProps) {
+  const { t, i18n } = useTranslation();
+  // Resolve the rotating phrases from the active locale. Memoized on the
+  // language so the array reference is stable across renders (t(returnObjects)
+  // returns a fresh array each call, which would otherwise reset the animation
+  // every render via the effect's dependency below).
+  const messages = useMemo(
+    () => messagesProp ?? (t("hero.typewriter", { returnObjects: true }) as string[]),
+    [messagesProp, i18n.language, t]
+  );
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState(messages[0]);
   const [isDeleting, setIsDeleting] = useState(false);

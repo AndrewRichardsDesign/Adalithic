@@ -20,11 +20,44 @@
     "tagline": "User-driven Language Learning",
     "description": "Turning real conversations, stories, and everyday writing into a user-driven language learning journey that evolves with you—combining context-accurate translation and measurable progress so you can communicate across languages with confidence.",
     "learnMore": "Learn more",
-    "getInTouch": "Get in touch"
+    "getInTouch": "Get in touch",
+    "typewriter": [
+      "Learn a language",
+      "Communicate for business",
+      "Chat with international friends"
+    ]
   },
   "legalPages": {
     "privacyTitle": "Privacy Policy",
     "termsTitle": "Terms of Use",
     "convenienceNotice": "This translation is provided for your convenience. The English version of this document is the legally binding version; in case of any discrepancy, the English version prevails."
+  },
+  "about": {
+    "title": "About Adalithic",
+    "p1": "Adalithic is a tech startup focused on giving people new tools and techniques for learning languages and facilitating cross-language communication.",
+    "p2": "We believe that language barriers should never limit human connection and collaboration. Our mission is to create tools that make cross-cultural communication effortless and engaging, empowering people to connect globally while learning naturally.",
+    "privacyDialogTitle": "Arcatext Privacy Policy",
+    "termsDialogTitle": "Arcatext Terms of Use"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have questions about Arcatext or interested in partnerships? We'd love to hear from you.",
+    "formTitle": "Send us a message",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "company": "Company (Optional)",
+    "message": "Message",
+    "phCompany": "Your Company",
+    "phMessage": "Tell us about your interest in Arcatext...",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "supportEmail": "Support Email",
+    "toastSuccessTitle": "Message sent successfully!",
+    "toastSuccessDesc": "We'll get back to you within 24 hours.",
+    "toastErrorTitle": "Error sending message"
+  },
+  "portfolio": {
+    "privacyLink": "Privacy policy"
   }
 }

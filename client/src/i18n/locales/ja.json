@@ -20,11 +20,44 @@
     "tagline": "ユーザー主導の言語学習",
     "description": "実際の会話、物語、日常の文章を、あなたと共に進化するユーザー主導の言語学習の旅へと変えます。文脈に忠実な翻訳と測定可能な進捗を組み合わせ、言語の壁を越えて自信を持ってコミュニケーションできるようにします。",
     "learnMore": "詳しく見る",
-    "getInTouch": "お問い合わせ"
+    "getInTouch": "お問い合わせ",
+    "typewriter": [
+      "言語を学ぶ",
+      "ビジネスでコミュニケーション",
+      "海外の友達とチャット"
+    ]
   },
   "legalPages": {
     "privacyTitle": "プライバシーポリシー",
     "termsTitle": "利用規約",
     "convenienceNotice": "この翻訳は参考のために提供されるものです。本書類の法的拘束力を持つ正式版は英語版であり、相違がある場合は英語版が優先されます。"
+  },
+  "about": {
+    "title": "Adalithicについて",
+    "p1": "Adalithicは、言語学習と言語間コミュニケーションを促進する新しいツールと手法を人々に提供することに注力するテクノロジースタートアップです。",
+    "p2": "言語の壁が人と人とのつながりや協働を妨げるべきではないと、私たちは考えています。私たちの使命は、異文化間のコミュニケーションを手軽で魅力的なものにするツールを生み出し、人々が自然に学びながら世界中でつながれるようにすることです。",
+    "privacyDialogTitle": "Arcatext プライバシーポリシー",
+    "termsDialogTitle": "Arcatext 利用規約"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "Arcatextについてのご質問や提携にご興味がありますか？ぜひご連絡ください。",
+    "formTitle": "メッセージを送る",
+    "firstName": "名",
+    "lastName": "姓",
+    "email": "メールアドレス",
+    "company": "会社名（任意）",
+    "message": "メッセージ",
+    "phCompany": "会社名",
+    "phMessage": "Arcatextへのご関心についてお聞かせください…",
+    "send": "メッセージを送信",
+    "sending": "送信中...",
+    "supportEmail": "サポートメール",
+    "toastSuccessTitle": "メッセージが正常に送信されました！",
+    "toastSuccessDesc": "24時間以内にご返信いたします。",
+    "toastErrorTitle": "メッセージの送信エラー"
+  },
+  "portfolio": {
+    "privacyLink": "プライバシーポリシー"
   }
 }

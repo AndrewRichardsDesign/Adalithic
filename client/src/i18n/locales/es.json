@@ -20,11 +20,44 @@
     "tagline": "Aprendizaje de idiomas impulsado por el usuario",
     "description": "Convertimos conversaciones reales, historias y la escritura cotidiana en un recorrido de aprendizaje de idiomas impulsado por ti que evoluciona contigo, combinando traducción precisa según el contexto y un progreso medible para que puedas comunicarte entre idiomas con confianza.",
     "learnMore": "Más información",
-    "getInTouch": "Contáctanos"
+    "getInTouch": "Contáctanos",
+    "typewriter": [
+      "Aprende un idioma",
+      "Comunícate para los negocios",
+      "Chatea con amigos internacionales"
+    ]
   },
   "legalPages": {
     "privacyTitle": "Política de Privacidad",
     "termsTitle": "Términos de Uso",
     "convenienceNotice": "Esta traducción se ofrece para su comodidad. La versión en inglés de este documento es la versión legalmente vinculante; en caso de discrepancia, prevalecerá la versión en inglés."
+  },
+  "about": {
+    "title": "Acerca de Adalithic",
+    "p1": "Adalithic es una startup tecnológica centrada en ofrecer a las personas nuevas herramientas y técnicas para aprender idiomas y facilitar la comunicación entre lenguas.",
+    "p2": "Creemos que las barreras lingüísticas nunca deberían limitar la conexión y la colaboración humanas. Nuestra misión es crear herramientas que hagan que la comunicación intercultural sea sencilla y atractiva, ayudando a las personas a conectarse globalmente mientras aprenden de forma natural.",
+    "privacyDialogTitle": "Política de Privacidad de Arcatext",
+    "termsDialogTitle": "Términos de Uso de Arcatext"
+  },
+  "contact": {
+    "title": "Ponte en contacto",
+    "subtitle": "¿Tienes preguntas sobre Arcatext o te interesan las colaboraciones? Nos encantaría saber de ti.",
+    "formTitle": "Envíanos un mensaje",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo electrónico",
+    "company": "Empresa (opcional)",
+    "message": "Mensaje",
+    "phCompany": "Tu empresa",
+    "phMessage": "Cuéntanos tu interés en Arcatext...",
+    "send": "Enviar mensaje",
+    "sending": "Enviando...",
+    "supportEmail": "Correo de soporte",
+    "toastSuccessTitle": "¡Mensaje enviado correctamente!",
+    "toastSuccessDesc": "Te responderemos en un plazo de 24 horas.",
+    "toastErrorTitle": "Error al enviar el mensaje"
+  },
+  "portfolio": {
+    "privacyLink": "Política de privacidad"
   }
 }
