@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "about": "關於我們",
+    "contact": "聯絡我們",
+    "language": "語言"
+  },
+  "footer": {
+    "tagline": "我們透過人工智慧驅動的技術，為語言學習與溝通帶來革新。",
+    "quickLinks": "快速連結",
+    "home": "Arcatext",
+    "about": "關於我們",
+    "contact": "聯絡我們",
+    "legal": "法律資訊",
+    "privacy": "隱私權政策",
+    "terms": "使用條款",
+    "rights": "© 2025 Adalithic. 保留一切權利。"
+  },
+  "hero": {
+    "title": "認識 <brand>Arcatext</brand>。",
+    "tagline": "以使用者為主導的語言學習",
+    "description": "我們將真實的對話、故事與日常書寫，轉化為由你主導並與你一同成長的語言學習旅程，結合貼合語境的翻譯與可衡量的進步，讓你自信地跨語言溝通。",
+    "learnMore": "了解更多",
+    "getInTouch": "聯絡我們",
+    "typewriter": [
+      "學習一門語言",
+      "用於商務溝通",
+      "與國際朋友聊天"
+    ]
+  },
+  "legalPages": {
+    "privacyTitle": "隱私權政策",
+    "termsTitle": "使用條款",
+    "convenienceNotice": "本翻譯僅為方便您閱讀而提供。本文件以英文版本為具法律約束力的版本；如有任何差異，概以英文版本為準。"
+  },
+  "about": {
+    "title": "關於 Adalithic",
+    "p1": "Adalithic 是一家科技新創公司，致力於為人們提供學習語言及促進跨語言溝通的全新工具與技巧。",
+    "p2": "我們相信，語言隔閡絕不應限制人與人之間的連結與協作。我們的使命是打造讓跨文化溝通輕鬆且引人入勝的工具，讓人們在自然學習的同時與全球建立連結。",
+    "privacyDialogTitle": "Arcatext 隱私權政策",
+    "termsDialogTitle": "Arcatext 使用條款"
+  },
+  "contact": {
+    "title": "聯絡我們",
+    "subtitle": "對 Arcatext 有任何疑問，或有意合作嗎？我們很樂意聽取您的意見。",
+    "formTitle": "傳送訊息給我們",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "email": "電子郵件地址",
+    "company": "公司（選填）",
+    "message": "訊息",
+    "phCompany": "您的公司",
+    "phMessage": "告訴我們您對 Arcatext 的興趣……",
+    "send": "傳送訊息",
+    "sending": "傳送中……",
+    "supportEmail": "支援電子郵件",
+    "toastSuccessTitle": "訊息傳送成功！",
+    "toastSuccessDesc": "我們將在 24 小時內回覆您。",
+    "toastErrorTitle": "傳送訊息時發生錯誤"
+  },
+  "portfolio": {
+    "privacyLink": "隱私權政策"
+  }
+}
