@@ -13,6 +13,10 @@ import { TermsIt } from "@/components/legal/terms/it";
 import { TermsPl } from "@/components/legal/terms/pl";
 import { TermsNl } from "@/components/legal/terms/nl";
 import { TermsPt } from "@/components/legal/terms/pt";
+import { TermsZh } from "@/components/legal/terms/zh";
+import { TermsKo } from "@/components/legal/terms/ko";
+import { TermsTr } from "@/components/legal/terms/tr";
+import { TermsEl } from "@/components/legal/terms/el";
 
 export function TermsOfUseContent() {
   const { locale } = useLocale();
@@ -71,6 +75,34 @@ export function TermsOfUseContent() {
         <>
           <ConvenienceBanner />
           <TermsPt />
+        </>
+      );
+    case "zh":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsZh />
+        </>
+      );
+    case "ko":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsKo />
+        </>
+      );
+    case "tr":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsTr />
+        </>
+      );
+    case "el":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsEl />
         </>
       );
     default:

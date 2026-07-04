@@ -10,6 +10,10 @@ import it from "./locales/it.json";
 import pl from "./locales/pl.json";
 import nl from "./locales/nl.json";
 import pt from "./locales/pt.json";
+import zh from "./locales/zh.json";
+import ko from "./locales/ko.json";
+import tr from "./locales/tr.json";
+import el from "./locales/el.json";
 import { DEFAULT_LOCALE, getLocaleFromPath } from "@/lib/locale";
 
 // The active language is driven by the URL path (path-based locales), so we seed
@@ -32,6 +36,10 @@ i18n.use(initReactI18next).init({
     pl: { translation: pl },
     nl: { translation: nl },
     pt: { translation: pt },
+    zh: { translation: zh },
+    ko: { translation: ko },
+    tr: { translation: tr },
+    el: { translation: el },
   },
   lng: initialLng,
   fallbackLng: DEFAULT_LOCALE,

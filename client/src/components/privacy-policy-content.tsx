@@ -13,6 +13,10 @@ import { PrivacyIt } from "@/components/legal/privacy/it";
 import { PrivacyPl } from "@/components/legal/privacy/pl";
 import { PrivacyNl } from "@/components/legal/privacy/nl";
 import { PrivacyPt } from "@/components/legal/privacy/pt";
+import { PrivacyZh } from "@/components/legal/privacy/zh";
+import { PrivacyKo } from "@/components/legal/privacy/ko";
+import { PrivacyTr } from "@/components/legal/privacy/tr";
+import { PrivacyEl } from "@/components/legal/privacy/el";
 
 export function PrivacyPolicyContent() {
   const { locale } = useLocale();
@@ -71,6 +75,34 @@ export function PrivacyPolicyContent() {
         <>
           <ConvenienceBanner />
           <PrivacyPt />
+        </>
+      );
+    case "zh":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyZh />
+        </>
+      );
+    case "ko":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyKo />
+        </>
+      );
+    case "tr":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyTr />
+        </>
+      );
+    case "el":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyEl />
         </>
       );
     default:

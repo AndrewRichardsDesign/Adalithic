@@ -6,7 +6,9 @@ import { useLocation } from "wouter";
 // the Arcatext app ships in; it/pl/nl/pt are added for markets whose law
 // requires consumer/legal docs in the local language (Italy, Poland, the
 // Netherlands/Belgium, Brazil/Portugal).
-export const LOCALES = ["en", "es", "fr", "de", "ja", "it", "pl", "nl", "pt"] as const;
+export const LOCALES = [
+  "en", "es", "fr", "de", "ja", "it", "pl", "nl", "pt", "zh", "ko", "tr", "el",
+] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
@@ -24,6 +26,10 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   pl: "Polski",
   nl: "Nederlands",
   pt: "Português",
+  zh: "中文",
+  ko: "한국어",
+  tr: "Türkçe",
+  el: "Ελληνικά",
 };
 
 export function isPrefixLocale(value: string | undefined): value is Locale {

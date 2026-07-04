@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "about": "关于我们",
+    "contact": "联系我们",
+    "language": "语言"
+  },
+  "footer": {
+    "tagline": "我们通过 AI 驱动的技术，革新语言学习与沟通方式。",
+    "quickLinks": "快速链接",
+    "home": "Arcatext",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "legal": "法律信息",
+    "privacy": "隐私政策",
+    "terms": "使用条款",
+    "rights": "© 2025 Adalithic. 保留所有权利。"
+  },
+  "hero": {
+    "title": "认识 <brand>Arcatext</brand>。",
+    "tagline": "以用户为主导的语言学习",
+    "description": "我们将真实的对话、故事和日常写作转化为由你主导、并与你共同成长的语言学习之旅，结合贴合语境的翻译和可衡量的进步，让你自信地跨语言沟通。",
+    "learnMore": "了解更多",
+    "getInTouch": "联系我们",
+    "typewriter": [
+      "学习一门语言",
+      "用于商务沟通",
+      "与国际朋友聊天"
+    ]
+  },
+  "legalPages": {
+    "privacyTitle": "隐私政策",
+    "termsTitle": "使用条款",
+    "convenienceNotice": "本翻译仅为方便您理解而提供。本文件以英文版本为具有法律约束力的版本；如有任何差异，以英文版本为准。"
+  },
+  "about": {
+    "title": "关于 Adalithic",
+    "p1": "Adalithic 是一家科技初创公司，致力于为人们提供学习语言和促进跨语言沟通的新工具和新方法。",
+    "p2": "我们相信，语言障碍绝不应限制人与人之间的联系与协作。我们的使命是打造让跨文化沟通轻松而有趣的工具，让人们在自然学习的同时与全球建立联系。",
+    "privacyDialogTitle": "Arcatext 隐私政策",
+    "termsDialogTitle": "Arcatext 使用条款"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "对 Arcatext 有疑问，或有意开展合作？我们很乐意听取您的意见。",
+    "formTitle": "给我们发送消息",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "email": "电子邮箱地址",
+    "company": "公司（选填）",
+    "message": "留言",
+    "phCompany": "您的公司",
+    "phMessage": "告诉我们您对 Arcatext 的兴趣……",
+    "send": "发送消息",
+    "sending": "发送中……",
+    "supportEmail": "支持邮箱",
+    "toastSuccessTitle": "消息发送成功！",
+    "toastSuccessDesc": "我们将在 24 小时内回复您。",
+    "toastErrorTitle": "消息发送出错"
+  },
+  "portfolio": {
+    "privacyLink": "隐私政策"
+  }
+}
