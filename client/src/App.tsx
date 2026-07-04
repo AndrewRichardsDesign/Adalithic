@@ -10,6 +10,7 @@ import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
 import { getLocaleFromPath, isPrefixLocale } from "@/lib/locale";
+import { useSeo } from "@/lib/seo";
 
 // Keeps i18next and the <html lang> attribute in sync with the locale encoded in
 // the URL path. Path is the single source of truth for the active language.
@@ -21,6 +22,7 @@ function LocaleSync() {
     if (i18n.language !== locale) i18n.changeLanguage(locale);
     if (typeof document !== "undefined") document.documentElement.lang = locale;
   }, [location, i18n]);
+  useSeo();
   return null;
 }
 

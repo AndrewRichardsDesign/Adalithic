@@ -6,24 +6,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTranslation } from "react-i18next";
 import { PrivacyPolicyContent } from "@/components/privacy-policy-content";
 import { TermsOfUseContent } from "@/components/terms-of-use-content";
 
 export default function About() {
+  const { t } = useTranslation();
   return (
     <section id="about" className="py-20 bg-neutral">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl font-bold text-secondary mb-6">About Adalithic</h2>
+            <h2 className="text-4xl font-bold text-secondary mb-6">{t("about.title")}</h2>
             <div className="space-y-6 text-gray-600">
-              <p className="text-lg leading-relaxed">Adalithic is a tech startup focused on giving people new tools and techniques for learning languages and facilitating cross-language communication.</p>
-              <p className="text-lg leading-relaxed">
-                We believe that language barriers should never limit human connection and
-                collaboration. Our mission is to create tools that make cross-cultural
-                communication effortless and engaging, empowering people to connect globally
-                while learning naturally.
-              </p>
+              <p className="text-lg leading-relaxed">{t("about.p1")}</p>
+              <p className="text-lg leading-relaxed">{t("about.p2")}</p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
                 <Dialog>
                   <DialogTrigger asChild>
@@ -31,12 +28,12 @@ export default function About() {
                       type="button"
                       className="text-primary font-medium underline-offset-4 hover:underline focus:outline-none focus-visible:underline"
                     >
-                      Privacy Policy
+                      {t("legalPages.privacyTitle")}
                     </button>
                   </DialogTrigger>
                   <DialogContent className="max-w-2xl">
                     <DialogHeader>
-                      <DialogTitle>Arcatext Privacy Policy</DialogTitle>
+                      <DialogTitle>{t("about.privacyDialogTitle")}</DialogTitle>
                     </DialogHeader>
                     <ScrollArea className="max-h-[70vh] pr-4">
                       <PrivacyPolicyContent />
@@ -49,12 +46,12 @@ export default function About() {
                       type="button"
                       className="text-primary font-medium underline-offset-4 hover:underline focus:outline-none focus-visible:underline"
                     >
-                      Terms of Use
+                      {t("legalPages.termsTitle")}
                     </button>
                   </DialogTrigger>
                   <DialogContent className="max-w-2xl">
                     <DialogHeader>
-                      <DialogTitle>Arcatext Terms of Use</DialogTitle>
+                      <DialogTitle>{t("about.termsDialogTitle")}</DialogTitle>
                     </DialogHeader>
                     <ScrollArea className="max-h-[70vh] pr-4">
                       <TermsOfUseContent />

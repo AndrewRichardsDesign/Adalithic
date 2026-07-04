@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail } from "lucide-react";
 import type { Project } from "@shared/schema";
+import { useLocale } from "@/lib/locale";
 
 // Import the Arcatext logo (absolute path so it resolves from any URL depth)
 const arcatextLogo = "/Arcatext%20logo.png";
 
 export default function Portfolio() {
+  const { t } = useTranslation();
+  const { withLocale } = useLocale();
   const { data: projects = [], isLoading } = useQuery<Project[]>({
     queryKey: ["/api/projects"],
   });
@@ -34,11 +38,11 @@ export default function Portfolio() {
       if (line.includes('Privacy policy')) {
         return (
           <span key={index} className="block">
-            <a 
-              href="/privacy" 
+            <a
+              href={withLocale("/privacy")}
               className="text-primary hover:underline"
             >
-              Privacy policy
+              {t("portfolio.privacyLink")}
             </a>
           </span>
         );
