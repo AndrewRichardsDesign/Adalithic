@@ -31,6 +31,15 @@ import { PrivacyVi } from "@/components/legal/privacy/vi";
 import { PrivacyTh } from "@/components/legal/privacy/th";
 import { PrivacyId } from "@/components/legal/privacy/id";
 import { PrivacyHi } from "@/components/legal/privacy/hi";
+import { PrivacyRu } from "@/components/legal/privacy/ru";
+import { PrivacyUk } from "@/components/legal/privacy/uk";
+import { PrivacyZhHant } from "@/components/legal/privacy/zh-Hant";
+import { PrivacyBn } from "@/components/legal/privacy/bn";
+import { PrivacyTa } from "@/components/legal/privacy/ta";
+import { PrivacyTe } from "@/components/legal/privacy/te";
+import { PrivacyMr } from "@/components/legal/privacy/mr";
+import { PrivacyUr } from "@/components/legal/privacy/ur";
+import { PrivacyFa } from "@/components/legal/privacy/fa";
 
 export function PrivacyPolicyContent() {
   const { locale } = useLocale();
@@ -215,6 +224,69 @@ export function PrivacyPolicyContent() {
         <>
           <ConvenienceBanner />
           <PrivacyHi />
+        </>
+      );
+    case "ru":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyRu />
+        </>
+      );
+    case "uk":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyUk />
+        </>
+      );
+    case "zh-Hant":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyZhHant />
+        </>
+      );
+    case "bn":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyBn />
+        </>
+      );
+    case "ta":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyTa />
+        </>
+      );
+    case "te":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyTe />
+        </>
+      );
+    case "mr":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyMr />
+        </>
+      );
+    case "ur":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyUr />
+        </>
+      );
+    case "fa":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyFa />
         </>
       );
     default:

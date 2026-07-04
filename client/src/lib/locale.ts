@@ -10,6 +10,7 @@ export const LOCALES = [
   "en", "es", "fr", "de", "ja", "it", "pl", "nl", "pt", "zh", "ko", "tr", "el",
   "ar", "he", "sv", "cs", "ro", "hu", "da", "fi", "no", "bg",
   "vi", "th", "id", "hi",
+  "ru", "uk", "zh-Hant", "bn", "ta", "te", "mr", "ur", "fa",
 ] as const;
 export type Locale = (typeof LOCALES)[number];
 
@@ -20,7 +21,7 @@ export const PREFIX_LOCALES = LOCALES.filter((l) => l !== DEFAULT_LOCALE);
 
 // Right-to-left locales. Drives the <html dir> attribute (see LocaleSync) and
 // the [dir="rtl"] CSS overrides in index.css.
-export const RTL_LOCALES: readonly Locale[] = ["ar", "he"];
+export const RTL_LOCALES: readonly Locale[] = ["ar", "he", "ur", "fa"];
 export function isRtl(locale: Locale): boolean {
   return RTL_LOCALES.includes(locale);
 }
@@ -53,6 +54,15 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   th: "ไทย",
   id: "Bahasa Indonesia",
   hi: "हिन्दी",
+  ru: "Русский",
+  uk: "Українська",
+  "zh-Hant": "繁體中文",
+  bn: "বাংলা",
+  ta: "தமிழ்",
+  te: "తెలుగు",
+  mr: "मराठी",
+  ur: "اردو",
+  fa: "فارسی",
 };
 
 export function isPrefixLocale(value: string | undefined): value is Locale {

@@ -31,6 +31,15 @@ import { TermsVi } from "@/components/legal/terms/vi";
 import { TermsTh } from "@/components/legal/terms/th";
 import { TermsId } from "@/components/legal/terms/id";
 import { TermsHi } from "@/components/legal/terms/hi";
+import { TermsRu } from "@/components/legal/terms/ru";
+import { TermsUk } from "@/components/legal/terms/uk";
+import { TermsZhHant } from "@/components/legal/terms/zh-Hant";
+import { TermsBn } from "@/components/legal/terms/bn";
+import { TermsTa } from "@/components/legal/terms/ta";
+import { TermsTe } from "@/components/legal/terms/te";
+import { TermsMr } from "@/components/legal/terms/mr";
+import { TermsUr } from "@/components/legal/terms/ur";
+import { TermsFa } from "@/components/legal/terms/fa";
 
 export function TermsOfUseContent() {
   const { locale } = useLocale();
@@ -215,6 +224,69 @@ export function TermsOfUseContent() {
         <>
           <ConvenienceBanner />
           <TermsHi />
+        </>
+      );
+    case "ru":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsRu />
+        </>
+      );
+    case "uk":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsUk />
+        </>
+      );
+    case "zh-Hant":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsZhHant />
+        </>
+      );
+    case "bn":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsBn />
+        </>
+      );
+    case "ta":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsTa />
+        </>
+      );
+    case "te":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsTe />
+        </>
+      );
+    case "mr":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsMr />
+        </>
+      );
+    case "ur":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsUr />
+        </>
+      );
+    case "fa":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsFa />
         </>
       );
     default:
