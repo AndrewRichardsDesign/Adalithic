@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "about": "Om oss",
+    "contact": "Kontakt",
+    "language": "Språk"
+  },
+  "footer": {
+    "tagline": "Vi revolutionerar språkinlärning och kommunikation med AI-driven teknik.",
+    "quickLinks": "Snabblänkar",
+    "home": "Arcatext",
+    "about": "Om oss",
+    "contact": "Kontakt",
+    "legal": "Juridik",
+    "privacy": "Integritetspolicy",
+    "terms": "Användarvillkor",
+    "rights": "© 2025 Adalithic. Med ensamrätt."
+  },
+  "hero": {
+    "title": "Möt <brand>Arcatext</brand>.",
+    "tagline": "Användarstyrd språkinlärning",
+    "description": "Vi förvandlar verkliga samtal, berättelser och vardagligt skrivande till en användarstyrd språkinlärningsresa som utvecklas med dig – genom att kombinera kontextnära översättning och mätbara framsteg så att du kan kommunicera mellan språk med självförtroende.",
+    "learnMore": "Läs mer",
+    "getInTouch": "Kontakta oss",
+    "typewriter": [
+      "Lär dig ett språk",
+      "Kommunicera i affärer",
+      "Chatta med vänner världen över"
+    ]
+  },
+  "legalPages": {
+    "privacyTitle": "Integritetspolicy",
+    "termsTitle": "Användarvillkor",
+    "convenienceNotice": "Denna översättning tillhandahålls för din bekvämlighet. Den engelska versionen av detta dokument är den juridiskt bindande versionen; vid eventuella avvikelser gäller den engelska versionen."
+  },
+  "about": {
+    "title": "Om Adalithic",
+    "p1": "Adalithic är ett teknikstartup som fokuserar på att ge människor nya verktyg och metoder för att lära sig språk och underlätta kommunikation mellan språk.",
+    "p2": "Vi tror att språkbarriärer aldrig ska begränsa mänsklig kontakt och samarbete. Vårt uppdrag är att skapa verktyg som gör tvärkulturell kommunikation enkel och engagerande, så att människor kan knyta kontakter globalt samtidigt som de lär sig på ett naturligt sätt.",
+    "privacyDialogTitle": "Arcatext integritetspolicy",
+    "termsDialogTitle": "Arcatext användarvillkor"
+  },
+  "contact": {
+    "title": "Kontakta oss",
+    "subtitle": "Har du frågor om Arcatext eller är du intresserad av samarbeten? Vi vill gärna höra från dig.",
+    "formTitle": "Skicka ett meddelande till oss",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "email": "E-postadress",
+    "company": "Företag (valfritt)",
+    "message": "Meddelande",
+    "phCompany": "Ditt företag",
+    "phMessage": "Berätta om ditt intresse för Arcatext...",
+    "send": "Skicka meddelande",
+    "sending": "Skickar...",
+    "supportEmail": "Support-e-post",
+    "toastSuccessTitle": "Meddelandet har skickats!",
+    "toastSuccessDesc": "Vi återkommer inom 24 timmar.",
+    "toastErrorTitle": "Fel vid sändning av meddelandet"
+  },
+  "portfolio": {
+    "privacyLink": "Integritetspolicy"
+  }
+}

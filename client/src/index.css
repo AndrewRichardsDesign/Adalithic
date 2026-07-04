@@ -150,3 +150,22 @@ html {
 .bg-gradient-accent {
   background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(25, 88%, 45%) 100%);
 }
+
+/* ---------------------------------------------------------------------------
+   RTL support (Arabic, Hebrew). LocaleSync sets <html dir="rtl"> for RTL
+   locales; the browser's bidi algorithm handles text alignment and keeps
+   Latin brand names / URLs / numbers left-to-right within the flow. These
+   overrides flip the handful of *physical* Tailwind utilities used in the
+   rendered content (padding/margins/absolute offsets) to their logical side.
+   --------------------------------------------------------------------------- */
+[dir="rtl"] .pl-6 { padding-left: 0; padding-right: 1.5rem; }
+[dir="rtl"] .pl-5 { padding-left: 0; padding-right: 1.25rem; }
+[dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+[dir="rtl"] .ml-10 { margin-left: 0; margin-right: 2.5rem; }
+[dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+[dir="rtl"] .text-left { text-align: right; }
+/* Hero carousel arrows: swap the absolute left/right offsets. */
+[dir="rtl"] .left-4 { left: auto; right: 1rem; }
+[dir="rtl"] .right-4 { right: auto; left: 1rem; }
+[dir="rtl"] .left-2 { left: auto; right: 0.5rem; }
+[dir="rtl"] .right-2 { right: auto; left: 0.5rem; }

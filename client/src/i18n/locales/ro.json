@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "about": "Despre noi",
+    "contact": "Contact",
+    "language": "Limbă"
+  },
+  "footer": {
+    "tagline": "Revoluționăm învățarea limbilor și comunicarea prin tehnologie bazată pe inteligență artificială.",
+    "quickLinks": "Linkuri rapide",
+    "home": "Arcatext",
+    "about": "Despre noi",
+    "contact": "Contact",
+    "legal": "Informații legale",
+    "privacy": "Politica de confidențialitate",
+    "terms": "Termeni de utilizare",
+    "rights": "© 2025 Adalithic. Toate drepturile rezervate."
+  },
+  "hero": {
+    "title": "Faceți cunoștință cu <brand>Arcatext</brand>.",
+    "tagline": "Învățarea limbilor ghidată de utilizator",
+    "description": "Transformăm conversațiile reale, poveștile și scrisul de zi cu zi într-o călătorie de învățare a limbilor pe care o ghidați dumneavoastră și care evoluează odată cu voi, combinând traducerea fidelă contextului cu progrese măsurabile, ca să comunicați între limbi cu încredere.",
+    "learnMore": "Aflați mai multe",
+    "getInTouch": "Contactați-ne",
+    "typewriter": [
+      "Învățați o limbă",
+      "Comunicați în afaceri",
+      "Discutați cu prieteni din întreaga lume"
+    ]
+  },
+  "legalPages": {
+    "privacyTitle": "Politica de confidențialitate",
+    "termsTitle": "Termeni de utilizare",
+    "convenienceNotice": "Această traducere este furnizată pentru comoditatea dumneavoastră. Versiunea în limba engleză a acestui document este versiunea obligatorie din punct de vedere juridic; în caz de neconcordanță, prevalează versiunea în limba engleză."
+  },
+  "about": {
+    "title": "Despre Adalithic",
+    "p1": "Adalithic este un startup tehnologic axat pe a oferi oamenilor noi instrumente și tehnici pentru învățarea limbilor și facilitarea comunicării între limbi.",
+    "p2": "Credem că barierele lingvistice nu ar trebui să limiteze niciodată conexiunea umană și colaborarea. Misiunea noastră este să creăm instrumente care fac comunicarea interculturală simplă și captivantă, permițând oamenilor să se conecteze la nivel global în timp ce învață în mod natural.",
+    "privacyDialogTitle": "Politica de confidențialitate Arcatext",
+    "termsDialogTitle": "Termeni de utilizare Arcatext"
+  },
+  "contact": {
+    "title": "Contactați-ne",
+    "subtitle": "Aveți întrebări despre Arcatext sau sunteți interesat de parteneriate? Ne-ar plăcea să auzim de la dumneavoastră.",
+    "formTitle": "Trimiteți-ne un mesaj",
+    "firstName": "Prenume",
+    "lastName": "Nume",
+    "email": "Adresă de e-mail",
+    "company": "Companie (opțional)",
+    "message": "Mesaj",
+    "phCompany": "Compania dumneavoastră",
+    "phMessage": "Spuneți-ne despre interesul dumneavoastră pentru Arcatext...",
+    "send": "Trimiteți mesajul",
+    "sending": "Se trimite...",
+    "supportEmail": "E-mail de asistență",
+    "toastSuccessTitle": "Mesajul a fost trimis cu succes!",
+    "toastSuccessDesc": "Vă vom răspunde în termen de 24 de ore.",
+    "toastErrorTitle": "Eroare la trimiterea mesajului"
+  },
+  "portfolio": {
+    "privacyLink": "Politica de confidențialitate"
+  }
+}

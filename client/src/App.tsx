@@ -9,7 +9,7 @@ import Home from "@/pages/home";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
-import { getLocaleFromPath, isPrefixLocale } from "@/lib/locale";
+import { getLocaleFromPath, isPrefixLocale, isRtl } from "@/lib/locale";
 import { useSeo } from "@/lib/seo";
 
 // Keeps i18next and the <html lang> attribute in sync with the locale encoded in
@@ -20,7 +20,10 @@ function LocaleSync() {
   useEffect(() => {
     const locale = getLocaleFromPath(location);
     if (i18n.language !== locale) i18n.changeLanguage(locale);
-    if (typeof document !== "undefined") document.documentElement.lang = locale;
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = locale;
+      document.documentElement.dir = isRtl(locale) ? "rtl" : "ltr";
+    }
   }, [location, i18n]);
   useSeo();
   return null;

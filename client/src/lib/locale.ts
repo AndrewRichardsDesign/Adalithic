@@ -6,13 +6,23 @@ import { useLocation } from "wouter";
 // the Arcatext app ships in; it/pl/nl/pt are added for markets whose law
 // requires consumer/legal docs in the local language (Italy, Poland, the
 // Netherlands/Belgium, Brazil/Portugal).
-export const LOCALES = ["en", "es", "fr", "de", "ja", "it", "pl", "nl", "pt"] as const;
+export const LOCALES = [
+  "en", "es", "fr", "de", "ja", "it", "pl", "nl", "pt", "zh", "ko", "tr", "el",
+  "ar", "he", "sv", "cs", "ro", "hu",
+] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
 
 // Non-default locales carry a URL prefix. English never does.
 export const PREFIX_LOCALES = LOCALES.filter((l) => l !== DEFAULT_LOCALE);
+
+// Right-to-left locales. Drives the <html dir> attribute (see LocaleSync) and
+// the [dir="rtl"] CSS overrides in index.css.
+export const RTL_LOCALES: readonly Locale[] = ["ar", "he"];
+export function isRtl(locale: Locale): boolean {
+  return RTL_LOCALES.includes(locale);
+}
 
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: "English",
@@ -24,6 +34,16 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   pl: "Polski",
   nl: "Nederlands",
   pt: "Português",
+  zh: "中文",
+  ko: "한국어",
+  tr: "Türkçe",
+  el: "Ελληνικά",
+  ar: "العربية",
+  he: "עברית",
+  sv: "Svenska",
+  cs: "Čeština",
+  ro: "Română",
+  hu: "Magyar",
 };
 
 export function isPrefixLocale(value: string | undefined): value is Locale {

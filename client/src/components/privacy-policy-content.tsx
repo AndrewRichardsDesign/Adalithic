@@ -13,6 +13,16 @@ import { PrivacyIt } from "@/components/legal/privacy/it";
 import { PrivacyPl } from "@/components/legal/privacy/pl";
 import { PrivacyNl } from "@/components/legal/privacy/nl";
 import { PrivacyPt } from "@/components/legal/privacy/pt";
+import { PrivacyZh } from "@/components/legal/privacy/zh";
+import { PrivacyKo } from "@/components/legal/privacy/ko";
+import { PrivacyTr } from "@/components/legal/privacy/tr";
+import { PrivacyEl } from "@/components/legal/privacy/el";
+import { PrivacyAr } from "@/components/legal/privacy/ar";
+import { PrivacyHe } from "@/components/legal/privacy/he";
+import { PrivacySv } from "@/components/legal/privacy/sv";
+import { PrivacyCs } from "@/components/legal/privacy/cs";
+import { PrivacyRo } from "@/components/legal/privacy/ro";
+import { PrivacyHu } from "@/components/legal/privacy/hu";
 
 export function PrivacyPolicyContent() {
   const { locale } = useLocale();
@@ -71,6 +81,76 @@ export function PrivacyPolicyContent() {
         <>
           <ConvenienceBanner />
           <PrivacyPt />
+        </>
+      );
+    case "zh":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyZh />
+        </>
+      );
+    case "ko":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyKo />
+        </>
+      );
+    case "tr":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyTr />
+        </>
+      );
+    case "el":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyEl />
+        </>
+      );
+    case "ar":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyAr />
+        </>
+      );
+    case "he":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyHe />
+        </>
+      );
+    case "sv":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacySv />
+        </>
+      );
+    case "cs":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyCs />
+        </>
+      );
+    case "ro":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyRo />
+        </>
+      );
+    case "hu":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyHu />
         </>
       );
     default:

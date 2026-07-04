@@ -13,6 +13,16 @@ import { TermsIt } from "@/components/legal/terms/it";
 import { TermsPl } from "@/components/legal/terms/pl";
 import { TermsNl } from "@/components/legal/terms/nl";
 import { TermsPt } from "@/components/legal/terms/pt";
+import { TermsZh } from "@/components/legal/terms/zh";
+import { TermsKo } from "@/components/legal/terms/ko";
+import { TermsTr } from "@/components/legal/terms/tr";
+import { TermsEl } from "@/components/legal/terms/el";
+import { TermsAr } from "@/components/legal/terms/ar";
+import { TermsHe } from "@/components/legal/terms/he";
+import { TermsSv } from "@/components/legal/terms/sv";
+import { TermsCs } from "@/components/legal/terms/cs";
+import { TermsRo } from "@/components/legal/terms/ro";
+import { TermsHu } from "@/components/legal/terms/hu";
 
 export function TermsOfUseContent() {
   const { locale } = useLocale();
@@ -71,6 +81,76 @@ export function TermsOfUseContent() {
         <>
           <ConvenienceBanner />
           <TermsPt />
+        </>
+      );
+    case "zh":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsZh />
+        </>
+      );
+    case "ko":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsKo />
+        </>
+      );
+    case "tr":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsTr />
+        </>
+      );
+    case "el":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsEl />
+        </>
+      );
+    case "ar":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsAr />
+        </>
+      );
+    case "he":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsHe />
+        </>
+      );
+    case "sv":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsSv />
+        </>
+      );
+    case "cs":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsCs />
+        </>
+      );
+    case "ro":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsRo />
+        </>
+      );
+    case "hu":
+      return (
+        <>
+          <ConvenienceBanner />
+          <TermsHu />
         </>
       );
     default:

@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "about": "O nás",
+    "contact": "Kontakt",
+    "language": "Jazyk"
+  },
+  "footer": {
+    "tagline": "Přinášíme revoluci do výuky jazyků a komunikace pomocí technologií využívajících umělou inteligenci.",
+    "quickLinks": "Rychlé odkazy",
+    "home": "Arcatext",
+    "about": "O nás",
+    "contact": "Kontakt",
+    "legal": "Právní informace",
+    "privacy": "Zásady ochrany osobních údajů",
+    "terms": "Podmínky použití",
+    "rights": "© 2025 Adalithic. Všechna práva vyhrazena."
+  },
+  "hero": {
+    "title": "Seznamte se s <brand>Arcatext</brand>.",
+    "tagline": "Výuka jazyků řízená uživatelem",
+    "description": "Proměňujeme skutečné konverzace, příběhy a každodenní psaní v cestu za učením jazyků, kterou řídíte vy a která se vyvíjí spolu s vámi – kombinujeme překlad věrný kontextu a měřitelný pokrok, abyste mohli sebevědomě komunikovat napříč jazyky.",
+    "learnMore": "Zjistit více",
+    "getInTouch": "Kontaktujte nás",
+    "typewriter": [
+      "Naučte se jazyk",
+      "Komunikujte v byznysu",
+      "Chatujte s přáteli z celého světa"
+    ]
+  },
+  "legalPages": {
+    "privacyTitle": "Zásady ochrany osobních údajů",
+    "termsTitle": "Podmínky použití",
+    "convenienceNotice": "Tento překlad je poskytován pouze pro vaše pohodlí. Právně závaznou verzí tohoto dokumentu je anglická verze; v případě jakéhokoli rozporu má přednost anglická verze."
+  },
+  "about": {
+    "title": "O společnosti Adalithic",
+    "p1": "Adalithic je technologický startup zaměřený na to, aby lidem poskytoval nové nástroje a techniky pro učení jazyků a usnadňoval komunikaci mezi jazyky.",
+    "p2": "Věříme, že jazykové bariéry by nikdy neměly omezovat mezilidské spojení a spolupráci. Naším posláním je vytvářet nástroje, které činí mezikulturní komunikaci snadnou a poutavou, a umožňují lidem propojovat se celosvětově a zároveň se přirozeně učit.",
+    "privacyDialogTitle": "Zásady ochrany osobních údajů Arcatext",
+    "termsDialogTitle": "Podmínky použití Arcatext"
+  },
+  "contact": {
+    "title": "Kontaktujte nás",
+    "subtitle": "Máte otázky ohledně Arcatext nebo máte zájem o spolupráci? Rádi se od vás dozvíme více.",
+    "formTitle": "Napište nám zprávu",
+    "firstName": "Jméno",
+    "lastName": "Příjmení",
+    "email": "E-mailová adresa",
+    "company": "Společnost (nepovinné)",
+    "message": "Zpráva",
+    "phCompany": "Vaše společnost",
+    "phMessage": "Napište nám o svém zájmu o Arcatext...",
+    "send": "Odeslat zprávu",
+    "sending": "Odesílání...",
+    "supportEmail": "E-mail podpory",
+    "toastSuccessTitle": "Zpráva byla úspěšně odeslána!",
+    "toastSuccessDesc": "Ozveme se vám do 24 hodin.",
+    "toastErrorTitle": "Chyba při odesílání zprávy"
+  },
+  "portfolio": {
+    "privacyLink": "Zásady ochrany osobních údajů"
+  }
+}
