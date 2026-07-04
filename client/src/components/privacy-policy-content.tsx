@@ -19,6 +19,10 @@ import { PrivacyTr } from "@/components/legal/privacy/tr";
 import { PrivacyEl } from "@/components/legal/privacy/el";
 import { PrivacyAr } from "@/components/legal/privacy/ar";
 import { PrivacyHe } from "@/components/legal/privacy/he";
+import { PrivacySv } from "@/components/legal/privacy/sv";
+import { PrivacyCs } from "@/components/legal/privacy/cs";
+import { PrivacyRo } from "@/components/legal/privacy/ro";
+import { PrivacyHu } from "@/components/legal/privacy/hu";
 
 export function PrivacyPolicyContent() {
   const { locale } = useLocale();
@@ -119,6 +123,34 @@ export function PrivacyPolicyContent() {
         <>
           <ConvenienceBanner />
           <PrivacyHe />
+        </>
+      );
+    case "sv":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacySv />
+        </>
+      );
+    case "cs":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyCs />
+        </>
+      );
+    case "ro":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyRo />
+        </>
+      );
+    case "hu":
+      return (
+        <>
+          <ConvenienceBanner />
+          <PrivacyHu />
         </>
       );
     default:

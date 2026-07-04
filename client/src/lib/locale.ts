@@ -8,7 +8,7 @@ import { useLocation } from "wouter";
 // Netherlands/Belgium, Brazil/Portugal).
 export const LOCALES = [
   "en", "es", "fr", "de", "ja", "it", "pl", "nl", "pt", "zh", "ko", "tr", "el",
-  "ar", "he",
+  "ar", "he", "sv", "cs", "ro", "hu",
 ] as const;
 export type Locale = (typeof LOCALES)[number];
 
@@ -40,6 +40,10 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   el: "Ελληνικά",
   ar: "العربية",
   he: "עברית",
+  sv: "Svenska",
+  cs: "Čeština",
+  ro: "Română",
+  hu: "Magyar",
 };
 
 export function isPrefixLocale(value: string | undefined): value is Locale {

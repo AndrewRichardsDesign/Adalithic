@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "about": "Rólunk",
+    "contact": "Kapcsolat",
+    "language": "Nyelv"
+  },
+  "footer": {
+    "tagline": "Mesterséges intelligenciára épülő technológiával forradalmasítjuk a nyelvtanulást és a kommunikációt.",
+    "quickLinks": "Gyors hivatkozások",
+    "home": "Arcatext",
+    "about": "Rólunk",
+    "contact": "Kapcsolat",
+    "legal": "Jogi tudnivalók",
+    "privacy": "Adatvédelmi irányelvek",
+    "terms": "Felhasználási feltételek",
+    "rights": "© 2025 Adalithic. Minden jog fenntartva."
+  },
+  "hero": {
+    "title": "Ismerd meg az <brand>Arcatext</brand>et.",
+    "tagline": "Felhasználó által vezérelt nyelvtanulás",
+    "description": "A valódi beszélgetéseket, történeteket és a mindennapi írást olyan, általad vezérelt nyelvtanulási úttá alakítjuk, amely veled együtt fejlődik – a kontextushű fordítást és a mérhető fejlődést ötvözve, hogy magabiztosan kommunikálhass a nyelvek között.",
+    "learnMore": "Tudj meg többet",
+    "getInTouch": "Lépj kapcsolatba velünk",
+    "typewriter": [
+      "Tanulj meg egy nyelvet",
+      "Kommunikálj üzleti ügyekben",
+      "Csevegj a világ minden tájáról származó barátokkal"
+    ]
+  },
+  "legalPages": {
+    "privacyTitle": "Adatvédelmi irányelvek",
+    "termsTitle": "Felhasználási feltételek",
+    "convenienceNotice": "Ezt a fordítást az Ön kényelme érdekében biztosítjuk. A dokumentum jogilag kötelező érvényű változata az angol nyelvű változat; bármilyen eltérés esetén az angol nyelvű változat az irányadó."
+  },
+  "about": {
+    "title": "Az Adalithicről",
+    "p1": "Az Adalithic egy technológiai startup, amely arra összpontosít, hogy új eszközöket és technikákat adjon az embereknek a nyelvtanuláshoz és a nyelvek közötti kommunikáció megkönnyítéséhez.",
+    "p2": "Hisszük, hogy a nyelvi akadályok soha nem korlátozhatják az emberi kapcsolatokat és az együttműködést. Küldetésünk olyan eszközök megalkotása, amelyek a kultúrák közötti kommunikációt könnyeddé és vonzóvá teszik, lehetővé téve az emberek számára, hogy globálisan kapcsolódjanak, miközben természetes módon tanulnak.",
+    "privacyDialogTitle": "Arcatext adatvédelmi irányelvek",
+    "termsDialogTitle": "Arcatext felhasználási feltételek"
+  },
+  "contact": {
+    "title": "Lépj kapcsolatba velünk",
+    "subtitle": "Kérdésed van az Arcatextről, vagy érdekelnek az együttműködések? Örömmel hallunk felőled.",
+    "formTitle": "Küldj nekünk üzenetet",
+    "firstName": "Keresztnév",
+    "lastName": "Vezetéknév",
+    "email": "E-mail-cím",
+    "company": "Cég (nem kötelező)",
+    "message": "Üzenet",
+    "phCompany": "A céged",
+    "phMessage": "Mesélj nekünk az Arcatext iránti érdeklődésedről...",
+    "send": "Üzenet küldése",
+    "sending": "Küldés...",
+    "supportEmail": "Támogatási e-mail",
+    "toastSuccessTitle": "Az üzenet sikeresen elküldve!",
+    "toastSuccessDesc": "24 órán belül válaszolunk.",
+    "toastErrorTitle": "Hiba történt az üzenet küldésekor"
+  },
+  "portfolio": {
+    "privacyLink": "Adatvédelmi irányelvek"
+  }
+}
