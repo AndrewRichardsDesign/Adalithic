@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { LOCALES, LOCALE_LABELS, localePath, useLocale } from "@/lib/locale";
+import { LOCALES, LOCALE_LABELS, localePath, rememberLocale, useLocale } from "@/lib/locale";
 
 // Language picker: switches locale while staying on the current page by
 // rewriting the path prefix (e.g. /es/privacy -> /fr/privacy).
@@ -37,6 +37,7 @@ export default function LanguageSwitcher() {
           <DropdownMenuItem
             key={l}
             onClick={() => {
+              rememberLocale(l); // explicit choice — auto-detect won't override it
               navigate(localePath(basePath, l));
               window.scrollTo({ top: 0 });
             }}
