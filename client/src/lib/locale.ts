@@ -98,6 +98,61 @@ export function localePath(basePath: string, locale: Locale): string {
   return `/${locale}${clean}`;
 }
 
+// Remembered language preference (set when the user picks a language, and on
+// first-visit auto-detection). Used to avoid re-detecting and to honor an
+// explicit choice — including an explicit choice of English.
+export const LOCALE_STORAGE_KEY = "arcatext-locale";
+
+export function rememberLocale(locale: Locale): void {
+  try {
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+  } catch {
+    /* storage unavailable (private mode, etc.) — non-fatal */
+  }
+}
+
+export function readStoredLocale(): Locale | null {
+  try {
+    const v = window.localStorage.getItem(LOCALE_STORAGE_KEY);
+    return v && (LOCALES as readonly string[]).includes(v) ? (v as Locale) : null;
+  } catch {
+    return null;
+  }
+}
+
+// Map a single BCP-47 browser language tag (e.g. "pt-BR", "zh-TW") to one of our
+// supported locales, or null if unsupported.
+export function matchBrowserTag(tag: string): Locale | null {
+  const t = tag.toLowerCase();
+  const base = t.split("-")[0];
+  // Script/region special cases first.
+  if (t === "zh-tw" || t === "zh-hk" || t === "zh-mo" || t.startsWith("zh-hant")) return "zh-Hant";
+  if (base === "zh") return "zh"; // zh, zh-CN, zh-SG, zh-Hans
+  if (base === "nb" || base === "nn" || base === "no") return "no";
+  if (base === "tl" || base === "fil") return "fil";
+  // Exact tag match, then base-subtag match (pt-BR -> pt, es-419 -> es, fr-CA -> fr).
+  const exact = LOCALES.find((l) => l.toLowerCase() === t);
+  if (exact) return exact;
+  const baseMatch = LOCALES.find((l) => l.toLowerCase() === base);
+  return baseMatch ?? null;
+}
+
+// Best supported locale from the browser's ordered language preferences.
+export function preferredBrowserLocale(): Locale | null {
+  if (typeof navigator === "undefined") return null;
+  const tags =
+    navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : navigator.language
+      ? [navigator.language]
+      : [];
+  for (const tag of tags) {
+    const m = matchBrowserTag(tag);
+    if (m) return m;
+  }
+  return null;
+}
+
 // Hook: current locale plus the canonical (locale-stripped) base path, and a
 // helper to build links that stay within the active locale.
 export function useLocale() {
