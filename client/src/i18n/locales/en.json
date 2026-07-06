@@ -2,12 +2,15 @@
   "nav": {
     "about": "About",
     "contact": "Contact",
+    "features": "Features",
+    "cta": "Get in touch",
     "language": "Language"
   },
   "footer": {
     "tagline": "Revolutionizing language learning and communication through AI-powered technology.",
     "quickLinks": "Quick Links",
     "home": "Arcatext",
+    "features": "Features",
     "about": "About",
     "contact": "Contact",
     "legal": "Legal",
@@ -16,10 +19,12 @@
     "rights": "© 2025 Adalithic. All rights reserved."
   },
   "hero": {
+    "eyebrow": "The AI keyboard for real conversations",
     "title": "Meet <brand>Arcatext</brand>.",
     "tagline": "User-driven Language Learning",
     "description": "Turning real conversations, stories, and everyday writing into a user-driven language learning journey that evolves with you—combining context-accurate translation and measurable progress so you can communicate across languages with confidence.",
-    "learnMore": "Learn more",
+    "imageAlt": "The Arcatext keyboard translating and correcting a message in a chat app.",
+    "learnMore": "See how it works",
     "getInTouch": "Get in touch",
     "typewriter": [
       "Learn a language",
@@ -27,22 +32,105 @@
       "Chat with international friends"
     ]
   },
+  "features": {
+    "eyebrow": "One app, every part of the conversation",
+    "title": "Everything you need to talk across languages",
+    "subtitle": "Arcatext is an AI keyboard that lives inside the apps you already use. Each feature is built around a single moment in a real conversation—so you can focus on what you want to say, not how to say it.",
+    "items": {
+      "receive": {
+        "eyebrow": "Understand replies",
+        "title": "Understand every reply, without leaving the keyboard",
+        "description": "Paste a message you received and Arcatext translates it inline—with a full word-by-word breakdown and a literal version—so you catch the nuance, not just the gist.",
+        "bullets": [
+          "Translate incoming messages right where you type",
+          "See a word-by-word breakdown",
+          "Compare the literal and natural meaning side by side"
+        ],
+        "alt": "Arcatext translating a received message with breakdown and literal options."
+      },
+      "homographs": {
+        "eyebrow": "Say what you mean",
+        "title": "Say exactly what you mean",
+        "description": "When a word has more than one meaning, Arcatext spots it and lets you pick the right sense—so \"trunk\" becomes the elephant's, not the car's.",
+        "bullets": [
+          "Automatic homograph detection",
+          "Choose the meaning you intended",
+          "Avoid awkward mistranslations before you send"
+        ],
+        "alt": "Arcatext identifying a homograph and offering the intended meaning."
+      },
+      "reverse": {
+        "eyebrow": "Check yourself",
+        "title": "Double-check the translation in your own language",
+        "description": "See your message translated back into your native language before you hit send, so you always know exactly what the other person will read.",
+        "bullets": [
+          "Instant reverse translation",
+          "Confirm your intent before sending",
+          "Learn naturally as you go"
+        ],
+        "alt": "Arcatext validating a translation by showing it back in the user's native language."
+      },
+      "recipient": {
+        "eyebrow": "Context aware",
+        "title": "Translations that fit who you're talking to",
+        "description": "Tell Arcatext who you're texting and it adapts formality, gender, and even the writing system—Kanji, Hiragana, or romanized—to match the moment.",
+        "bullets": [
+          "Gender- and group-aware phrasing",
+          "Pick the alphabet or script you want",
+          "Contextually accurate every single time"
+        ],
+        "alt": "Arcatext reword options for recipient gender, group chat, and Japanese alphabet."
+      },
+      "synonyms": {
+        "eyebrow": "Grow your vocabulary",
+        "title": "Grow your vocabulary as you chat",
+        "description": "Every translation comes with synonym options, so you're exposed to new ways of saying the same thing and pick up the language naturally—one message at a time.",
+        "bullets": [
+          "Multiple ways to phrase every message",
+          "Discover richer, more natural vocabulary",
+          "Real progress from real conversations"
+        ],
+        "alt": "Arcatext offering synonym options for a translated message."
+      },
+      "copy": {
+        "eyebrow": "Stay in sync",
+        "title": "Keep the whole thread in context",
+        "description": "Automatically add a copy of your message in your own language, so both sides can always follow the conversation—no lost context, no confusion.",
+        "bullets": [
+          "Auto-send a native-language copy",
+          "Never lose track of the thread",
+          "Effortless bilingual conversations"
+        ],
+        "alt": "Arcatext sending a copy of the message in the user's native language."
+      }
+    }
+  },
   "legalPages": {
     "privacyTitle": "Privacy Policy",
     "termsTitle": "Terms of Use",
     "convenienceNotice": "This translation is provided for your convenience. The English version of this document is the legally binding version; in case of any discrepancy, the English version prevails."
   },
   "about": {
-    "title": "About Adalithic",
+    "eyebrow": "About Adalithic",
+    "title": "Breaking down language barriers",
     "p1": "Adalithic is a tech startup focused on giving people new tools and techniques for learning languages and facilitating cross-language communication.",
     "p2": "We believe that language barriers should never limit human connection and collaboration. Our mission is to create tools that make cross-cultural communication effortless and engaging, empowering people to connect globally while learning naturally.",
+    "v1Title": "Communicate globally",
+    "v1Desc": "Talk with anyone, anywhere, in the apps you already use—without switching tools or breaking your flow.",
+    "v2Title": "Learn as you go",
+    "v2Desc": "Every message is a chance to pick up new vocabulary and phrasing, turning everyday chats into real progress.",
+    "v3Title": "Built for real connection",
+    "v3Desc": "We design for genuine human conversation, so nuance and meaning are never lost in translation.",
     "privacyDialogTitle": "Arcatext Privacy Policy",
     "termsDialogTitle": "Arcatext Terms of Use"
   },
   "contact": {
+    "eyebrow": "Get in touch",
     "title": "Get in Touch",
     "subtitle": "Have questions about Arcatext or interested in partnerships? We'd love to hear from you.",
     "formTitle": "Send us a message",
+    "infoTitle": "Let's talk",
+    "infoDesc": "Whether you're a curious user, a potential partner, or the press, our team reads every message and usually replies within a day.",
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email Address",
