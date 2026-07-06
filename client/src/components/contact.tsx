@@ -64,18 +64,21 @@ export default function Contact() {
   
 
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-secondary mb-4">{t("contact.title")}</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <span className="text-sm font-semibold uppercase tracking-wider text-brand">
+            {t("contact.eyebrow")}
+          </span>
+          <h2 className="mt-3 text-3xl md:text-5xl font-bold text-secondary">{t("contact.title")}</h2>
+          <p className="mt-5 text-lg text-gray-600 max-w-2xl mx-auto">
             {t("contact.subtitle")}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Contact Form */}
-          <Card className="bg-neutral rounded-2xl">
+          <Card className="bg-cream-soft rounded-3xl border-0 shadow-sm ring-1 ring-black/5">
             <CardContent className="p-8">
               <h3 className="text-2xl font-semibold text-secondary mb-6">{t("contact.formTitle")}</h3>
               <Form {...form}>
@@ -172,7 +175,7 @@ export default function Contact() {
                   <Button
                     type="submit"
                     disabled={submitMutation.isPending}
-                    className="w-full bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors duration-200"
+                    className="w-full bg-brand text-white px-8 py-3 rounded-full font-semibold hover:bg-[#0036BB] transition-colors duration-200"
                   >
                     {submitMutation.isPending ? t("contact.sending") : t("contact.send")}
                   </Button>
@@ -182,26 +185,24 @@ export default function Contact() {
           </Card>
 
           {/* Contact Info */}
-          <div className="space-y-8">
-            <div>
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                      <info.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-secondary">{info.label}</p>
-                      <a href={info.href} className="text-gray-600 hover:text-primary">{info.value}</a>
-                    </div>
+          <div className="rounded-3xl bg-gradient-to-br from-brand to-[#0036BB] p-8 text-white shadow-lg shadow-blue-900/15">
+            <h3 className="text-2xl font-semibold">{t("contact.infoTitle")}</h3>
+            <p className="mt-3 text-blue-100 leading-relaxed">{t("contact.infoDesc")}</p>
+            <div className="mt-8 space-y-6">
+              {contactInfo.map((info, index) => (
+                <div key={index} className="flex items-center space-x-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15">
+                    <info.icon className="h-6 w-6 text-white" />
                   </div>
-                ))}
-              </div>
+                  <div>
+                    <p className="text-sm font-medium text-blue-100">{info.label}</p>
+                    <a href={info.href} className="text-lg font-medium text-white hover:underline">
+                      {info.value}
+                    </a>
+                  </div>
+                </div>
+              ))}
             </div>
-
-            
-
-            
           </div>
         </div>
       </div>

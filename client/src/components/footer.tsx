@@ -15,6 +15,7 @@ export default function Footer() {
 
   const quickLinks = [
     { id: "home", label: t("footer.home") },
+    { id: "features", label: t("footer.features") },
     { id: "about", label: t("footer.about") },
     { id: "contact", label: t("footer.contact") },
   ];

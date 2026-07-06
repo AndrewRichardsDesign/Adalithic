@@ -31,7 +31,7 @@ export default function Navigation() {
       setIsScrolled(window.scrollY > 50);
       
       // Detect which section is in view
-      const sections = ["home", "about", "contact"];
+      const sections = ["home", "features", "about", "contact"];
       const scrollPosition = window.scrollY + 200; // Offset for better UX
       
       let detected = "home";
@@ -150,6 +150,7 @@ export default function Navigation() {
 
   const navItems = [
     { id: "home", label: "Arcatext" },
+    { id: "features", label: t("nav.features") },
     { id: "about", label: t("nav.about") },
     { id: "contact", label: t("nav.contact") },
   ];
@@ -201,9 +202,16 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* Desktop language switcher */}
-          <div className="hidden md:block">
+          {/* Desktop language switcher + CTA */}
+          <div className="hidden md:flex items-center gap-3">
             <LanguageSwitcher />
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="rounded-full bg-brand px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[#0036BB]"
+              data-testid="nav-cta-contact"
+            >
+              {t("nav.cta")}
+            </button>
           </div>
 
           {/* Mobile Navigation */}
@@ -225,6 +233,12 @@ export default function Navigation() {
                       {item.label}
                     </button>
                   ))}
+                  <button
+                    onClick={() => scrollToSection("contact")}
+                    className="mt-2 rounded-full bg-brand px-5 py-3 text-center text-base font-semibold text-white transition-colors duration-200 hover:bg-[#0036BB]"
+                  >
+                    {t("nav.cta")}
+                  </button>
                   <div className="pt-2">
                     <LanguageSwitcher />
                   </div>

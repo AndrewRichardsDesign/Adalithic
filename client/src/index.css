@@ -24,6 +24,13 @@
   --ring: hsl(207, 90%, 54%);
   --radius: 0.5rem;
   --neutral: hsl(206, 20%, 98%);
+  /* Brand blue used throughout the Arcatext product screenshots (#0040DD) and
+     the warm cream those screenshots sit on (#FBF3DE). Defining them here lets
+     the marketing sections blend seamlessly with the in-app imagery. */
+  --brand: hsl(223, 100%, 43%);
+  --brand-hover: hsl(223, 100%, 36%);
+  --cream: hsl(43, 78%, 93%);
+  --cream-soft: hsl(43, 60%, 97%);
 }
 
 .dark {
@@ -140,7 +147,23 @@ html {
 
 /* Custom gradient backgrounds */
 .bg-gradient-hero {
-  background: linear-gradient(135deg, var(--neutral) 0%, hsl(0, 0%, 100%) 50%, hsl(214, 100%, 97%) 100%);
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-soft) 45%, hsl(0, 0%, 100%) 100%);
+}
+
+/* Soft float used on the hero + feature screenshots so the panels feel alive. */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float {
+    animation: none;
+  }
 }
 
 .bg-gradient-primary {

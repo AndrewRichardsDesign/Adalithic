@@ -1,6 +1,6 @@
 import Navigation from "@/components/navigation";
 import Hero from "@/components/hero";
-import Portfolio from "@/components/portfolio";
+import Features from "@/components/features";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <Hero />
-      <Portfolio />
+      <Features />
       <About />
       <Contact />
       <Footer />
