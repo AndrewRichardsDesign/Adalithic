@@ -8,7 +8,7 @@ import LanguageSwitcher from "@/components/language-switcher";
 import { useLocale } from "@/lib/locale";
 
 // Import the Adalithic logo (absolute path so it resolves from any URL depth)
-const adalithicLogo = "/Adalithic%20logo.png";
+const adalithicLogo = "/Logo%20Final.svg";
 
 export default function Navigation() {
   const { t } = useTranslation();
