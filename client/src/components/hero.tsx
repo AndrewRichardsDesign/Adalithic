@@ -44,9 +44,6 @@ export default function Hero() {
             </h1>
 
             <p className="text-xl md:text-2xl font-bold text-secondary">{t("hero.tagline")}</p>
-            <p className="mx-auto max-w-2xl text-lg text-gray-600 leading-relaxed">
-              {t("hero.description")}
-            </p>
 
             <div className="flex justify-center pt-1">
               <TypewriterAnimation />
