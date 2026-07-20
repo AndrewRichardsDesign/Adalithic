@@ -169,7 +169,7 @@ export default function Navigation() {
               <img 
                 src={adalithicLogo} 
                 alt="Adalithic Logo" 
-                className="h-6 w-auto object-contain"
+                className="h-9 w-auto object-contain"
               />
               <h1 className="text-xl font-bold text-secondary">Adalithic</h1>
             </button>
