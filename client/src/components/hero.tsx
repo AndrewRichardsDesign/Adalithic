@@ -36,10 +36,6 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="space-y-7"
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-cream bg-white/70 px-4 py-1.5 text-sm font-semibold text-brand shadow-sm backdrop-blur">
-              {t("hero.eyebrow")}
-            </span>
-
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-secondary leading-[1.05]">
               <Trans
                 i18nKey="hero.title"
