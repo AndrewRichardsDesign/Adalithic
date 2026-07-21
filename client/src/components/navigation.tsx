@@ -164,7 +164,7 @@ export default function Navigation() {
           <div className="flex-shrink-0">
             <button 
               onClick={scrollToTop}
-              className="flex items-center gap-1 hover:opacity-80 transition-opacity duration-200"
+              className="flex items-center gap-6 hover:opacity-80 transition-opacity duration-200"
             >
               <img 
                 src={adalithicLogo} 
