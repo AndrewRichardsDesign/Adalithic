@@ -119,9 +119,9 @@ export default function ArcatextIntro({
       const startPoint = () => {
         const tr = textRectOf(title);
         return {
-          x: tr.left + titleLh * 0.15,
+          x: tr.left - 16, // 16px left of the "M"
           y: tr.top + tr.height / 2,
-          right: tr.right - titleLh * 0.15,
+          right: tr.right + 16, // 16px right of the "." — where the curve begins
         };
       };
 
@@ -179,11 +179,15 @@ export default function ArcatextIntro({
         curveLen += Math.hypot(pt.x - prev.x, pt.y - prev.y);
         prev = pt;
       }
-      const f1 = Math.abs(scanLen) / (Math.abs(scanLen) + curveLen || 1);
-      const easeInOutCubic = (x: number) =>
-        x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      // Give the curve extra time relative to its length so the icon visibly
+      // slows as it rounds the sharp bend, then settles into the field —
+      // without ever coming to a stop.
+      const CURVE_SLOWDOWN = 2.4;
+      const denom = Math.abs(scanLen) + curveLen * CURVE_SLOWDOWN;
+      const f1 = denom ? Math.abs(scanLen) / denom : 1;
+      const easeInOutSine = (x: number) => -(Math.cos(Math.PI * x) - 1) / 2;
       const smoothstep = (x: number) => x * x * (3 - 2 * x);
-      const DURATION = 2050;
+      const DURATION = 2600;
 
       iconEl.style.transition = "none";
       await new Promise<void>((resolve) => {
@@ -195,13 +199,16 @@ export default function ArcatextIntro({
           }
           if (startTs < 0) startTs = ts;
           const t = Math.min(1, (ts - startTs) / DURATION);
-          const p = easeInOutCubic(t);
+          const p = easeInOutSine(t);
           let x: number;
           let y: number;
           let size: number;
           if (p <= f1) {
             const u = f1 === 0 ? 1 : p / f1;
-            x = p0.x + (p1.x - p0.x) * u;
+            // Ease the scan out as it nears the end so it decelerates smoothly
+            // into the bend rather than braking hard at the corner.
+            const ue = 1 - Math.pow(1 - u, 1.6);
+            x = p0.x + (p1.x - p0.x) * ue;
             y = p0.y;
             size = bigSize;
           } else {
