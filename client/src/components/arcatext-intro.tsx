@@ -104,12 +104,32 @@ export default function ArcatextIntro({
 
       const titleLh = lineHeightOf(title);
       const titleSize = titleLh / GLYPH_RATIO;
-      let tr = title.getBoundingClientRect();
 
-      // 1) Appear at the left edge of the headline, faded out.
+      // Measure the actual rendered text ("Meet Arcatext.") rather than the
+      // full-width centered <h1> box, so the scan starts on the "M" and ends
+      // on the period.
+      const textRectOf = (el: HTMLElement): DOMRect => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const r = range.getBoundingClientRect();
+        range.detach();
+        return r;
+      };
+
+      const startPoint = () => {
+        const tr = textRectOf(title);
+        return {
+          x: tr.left + titleLh * 0.15,
+          y: tr.top + tr.height / 2,
+          right: tr.right - titleLh * 0.15,
+        };
+      };
+
+      // 1) Appear at the beginning of the headline, faded out.
+      const s0 = startPoint();
       apply({
-        left: tr.left + titleLh * 0.4,
-        top: tr.top + tr.height / 2,
+        left: s0.x,
+        top: s0.y,
         size: titleSize,
         opacity: 0,
         brightness: 1,
@@ -122,27 +142,87 @@ export default function ArcatextIntro({
       // 2) Fade in.
       iconEl.style.transition = "opacity 0.25s ease";
       iconEl.style.opacity = "1";
-      await wait(230);
+      await wait(240);
       if (cancelled) return;
 
-      // 3) Scan across the headline to its right edge.
-      tr = title.getBoundingClientRect();
-      iconEl.style.transition = "left 1s ease-in-out, top 1s ease-in-out";
-      iconEl.style.left = `${tr.right - titleLh * 0.4}px`;
-      iconEl.style.top = `${tr.top + tr.height / 2}px`;
-      await wait(1050);
-      if (cancelled) return;
-
-      // 4) Glide down to the typewriter field, shrinking to its line-height.
+      // 3) One continuous move: scan across "Meet Arcatext" to its end, then —
+      //    without stopping — sweep along a curve down into the typewriter
+      //    field, shrinking as it goes.
+      const s = startPoint();
       const fr = field.getBoundingClientRect();
-      const fieldSize = lineHeightOf(field) / GLYPH_RATIO;
-      iconEl.style.transition =
-        "left 0.9s ease-in-out, top 0.9s ease-in-out, height 0.9s ease-in-out, width 0.9s ease-in-out";
-      iconEl.style.left = `${fr.left + fr.width / 2}px`;
-      iconEl.style.top = `${fr.top + fr.height / 2}px`;
-      iconEl.style.height = `${fieldSize}px`;
-      iconEl.style.width = `${fieldSize}px`;
-      await wait(920);
+      const bigSize = titleSize;
+      const smallSize = lineHeightOf(field) / GLYPH_RATIO;
+      const p0 = { x: s.x, y: s.y };
+      const p1 = { x: s.right, y: s.y }; // end of the headline text
+      const p2 = { x: fr.left + fr.width / 2, y: fr.top + fr.height / 2 }; // field centre
+
+      // Cubic Bézier for the curved tail. c1 keeps the tangent horizontal at
+      // the headline's end (so the scan flows into the curve with no corner);
+      // c2 pulls it down toward the field.
+      const scanLen = p1.x - p0.x;
+      const c1 = { x: p1.x + Math.min(scanLen * 0.18, 90), y: p1.y };
+      const c2 = { x: p2.x, y: p1.y + (p2.y - p1.y) * 0.55 };
+      const bez = (v: number) => {
+        const m = 1 - v;
+        return {
+          x: m * m * m * p1.x + 3 * m * m * v * c1.x + 3 * m * v * v * c2.x + v * v * v * p2.x,
+          y: m * m * m * p1.y + 3 * m * m * v * c1.y + 3 * m * v * v * c2.y + v * v * v * p2.y,
+        };
+      };
+
+      // Split overall progress between the straight scan and the curve by their
+      // arc lengths, so the pace stays even across the join.
+      let curveLen = 0;
+      let prev = p1;
+      for (let k = 1; k <= 24; k++) {
+        const pt = bez(k / 24);
+        curveLen += Math.hypot(pt.x - prev.x, pt.y - prev.y);
+        prev = pt;
+      }
+      const f1 = Math.abs(scanLen) / (Math.abs(scanLen) + curveLen || 1);
+      const easeInOutCubic = (x: number) =>
+        x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      const smoothstep = (x: number) => x * x * (3 - 2 * x);
+      const DURATION = 2050;
+
+      iconEl.style.transition = "none";
+      await new Promise<void>((resolve) => {
+        let startTs = -1;
+        const step = (ts: number) => {
+          if (cancelled) {
+            resolve();
+            return;
+          }
+          if (startTs < 0) startTs = ts;
+          const t = Math.min(1, (ts - startTs) / DURATION);
+          const p = easeInOutCubic(t);
+          let x: number;
+          let y: number;
+          let size: number;
+          if (p <= f1) {
+            const u = f1 === 0 ? 1 : p / f1;
+            x = p0.x + (p1.x - p0.x) * u;
+            y = p0.y;
+            size = bigSize;
+          } else {
+            const v = (p - f1) / (1 - f1);
+            const pt = bez(v);
+            x = pt.x;
+            y = pt.y;
+            size = bigSize + (smallSize - bigSize) * smoothstep(v);
+          }
+          iconEl.style.left = `${x}px`;
+          iconEl.style.top = `${y}px`;
+          iconEl.style.height = `${size}px`;
+          iconEl.style.width = `${size}px`;
+          if (t >= 1) {
+            resolve();
+            return;
+          }
+          requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
       if (cancelled) return;
 
       // 5) Landed — trigger the field highlight.
