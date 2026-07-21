@@ -4,11 +4,14 @@ import { useTranslation } from "react-i18next";
 interface TypewriterAnimationProps {
   messages?: string[];
   className?: string;
+  /** When false, the animation is held (nothing shown) until it flips true. */
+  active?: boolean;
 }
 
 export default function TypewriterAnimation({
   messages: messagesProp,
-  className = ""
+  className = "",
+  active = true
 }: TypewriterAnimationProps) {
   const { t, i18n } = useTranslation();
   // Resolve the rotating phrases from the active locale. Memoized on the
@@ -21,13 +24,17 @@ export default function TypewriterAnimation({
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [displayText, setDisplayText] = useState(messages[0]);
+  // Start empty so the very first phrase types in from nothing.
+  const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    // Held until the intro releases control.
+    if (!active) return;
+
     const currentMessage = messages[currentIndex];
-    
+
     const handleTypewriter = () => {
       if (isPaused) {
         // Pause for 1 second at full message
@@ -65,13 +72,13 @@ export default function TypewriterAnimation({
     const timer = setTimeout(handleTypewriter, speed);
 
     return () => clearTimeout(timer);
-  }, [currentIndex, displayText, isDeleting, isPaused, messages]);
+  }, [currentIndex, displayText, isDeleting, isPaused, messages, active]);
 
   return (
     <div className={`${className}`}>
       <span className="text-lg md:text-xl text-gray-600">
         {displayText}
-        <span className="animate-pulse text-[#0040DD]">|</span>
+        {active && <span className="animate-pulse text-[#0040DD]">|</span>}
       </span>
     </div>
   );

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLocation } from "wouter";
 import LanguageSwitcher from "@/components/language-switcher";
+import NavBrandLogo from "@/components/nav-brand-logo";
 import { useLocale } from "@/lib/locale";
 
 // Import the Adalithic logo (absolute path so it resolves from any URL depth)
@@ -186,7 +187,14 @@ export default function Navigation() {
                   className="text-gray-700 hover:bg-gray-100 transition-colors duration-200 font-medium px-3 py-2 rounded-md"
                   data-testid={`nav-link-${item.id}`}
                 >
-                  {item.label}
+                  {item.id === "home" ? (
+                    <span className="inline-flex items-center gap-2">
+                      <NavBrandLogo size={20} />
+                      {item.label}
+                    </span>
+                  ) : (
+                    item.label
+                  )}
                 </button>
               ))}
               {/* Animated underline */}

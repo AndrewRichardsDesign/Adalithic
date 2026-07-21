@@ -1,8 +1,11 @@
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import TypewriterAnimation from "./typewriter-animation";
+import ArcatextIntro from "./arcatext-intro";
+import { introBus } from "@/lib/intro-bus";
 
 // The flagship product screenshot (absolute path so it resolves from any URL
 // depth, e.g. /es/... locale routes). The remaining screenshots are each given
@@ -11,6 +14,39 @@ const heroImage = "/Hero%20image%2001.png";
 
 export default function Hero() {
   const { t } = useTranslation();
+
+  // --- Page-load intro animation orchestration ---
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const fieldRef = useRef<HTMLDivElement>(null);
+  const [typingActive, setTypingActive] = useState(false);
+  const [fieldHighlight, setFieldHighlight] = useState(false);
+  const introTimers = useRef<number[]>([]);
+
+  // Announce to the nav that an intro will play (so its logo waits to build),
+  // and reset on unmount.
+  useLayoutEffect(() => {
+    introBus.set("armed");
+    return () => {
+      introBus.set("idle");
+      introTimers.current.forEach((id) => clearTimeout(id));
+    };
+  }, []);
+
+  // The icon has landed in the typewriter field — light it up like a focused
+  // text input.
+  const handleLand = useCallback(() => setFieldHighlight(true), []);
+
+  // The icon "clicked" and released — begin typing, fade the highlight back
+  // out, and (1s later) have the nav build its logo.
+  const handleRelease = useCallback(() => {
+    setTypingActive(true);
+    introTimers.current.push(
+      window.setTimeout(() => setFieldHighlight(false), 700)
+    );
+    introTimers.current.push(
+      window.setTimeout(() => introBus.set("building"), 1000)
+    );
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -21,6 +57,15 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative overflow-hidden bg-gradient-hero pt-28 pb-20 md:pt-32">
+      {/* Page-load flourish: the app icon scans the headline, shrinks into the
+          typewriter field, "clicks" it, then hands off to the typing. */}
+      <ArcatextIntro
+        titleRef={titleRef}
+        fieldRef={fieldRef}
+        onLand={handleLand}
+        onRelease={handleRelease}
+      />
+
       {/* Soft brand glow behind the hero content. */}
       <div
         aria-hidden
@@ -36,7 +81,10 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="space-y-7"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-secondary leading-[1.05]">
+            <h1
+              ref={titleRef}
+              className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-secondary leading-[1.05]"
+            >
               <Trans
                 i18nKey="hero.title"
                 components={{ brand: <span className="text-brand" /> }}
@@ -46,7 +94,14 @@ export default function Hero() {
             <p className="text-xl md:text-2xl font-bold text-secondary">{t("hero.tagline")}</p>
 
             <div className="flex justify-center pt-1">
-              <TypewriterAnimation />
+              <div
+                ref={fieldRef}
+                className={`inline-flex items-center justify-center min-h-[2.5rem] min-w-[14rem] rounded-lg px-4 transition-colors duration-500 ${
+                  fieldHighlight ? "bg-gray-200/80" : "bg-transparent"
+                }`}
+              >
+                <TypewriterAnimation active={typingActive} />
+              </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
