@@ -57,7 +57,7 @@ type Bubble = {
   text: string;
   shown: number; // characters revealed (received types out; sent shows all)
   age: number; // number of messages that have arrived after this one
-  entered: boolean; // false for one frame so a sent bubble can slide up in
+  floating: boolean; // received bubbles hold still until they finish typing
 };
 
 // Surface geometry (design pixels). No device frame — just the floating
@@ -65,16 +65,16 @@ type Bubble = {
 const DESIGN_W = 402;
 const SURFACE_H = 560;
 
-// Bubble motion. Each new message ages the older ones by one step; a bubble is
-// fully faded (and removed) once 3 messages exist after it (age 3).
-const RISE = 53; // upward travel per age step — ~41px bubble + 12px gap
+// Bubble motion. Each bubble drifts continuously up and away (a little to the
+// right) and fades over its lifetime, staying visible until the 4th message
+// after it arrives — at which point it is removed (age > 3).
 const SIDE_PAD = 12; // sent/received sit 12px in from the edge
-const BASE_BOTTOM = 4; // newest bubble sits just above the input bar
-const ENTER_OFFSET = 30; // a just-sent bubble slides up this far into place
-const TRANSITION_MS = 780; // one staged float step / the slide-in
-// Per-bubble horizontal drift (px per age step), cycled by id so each bubble
-// takes a similar-but-different path. Sent drift right, received drift left.
-const DRIFTX = [15, 24, 10, 20, 28, 13];
+const BASE_BOTTOM = 4; // a new bubble starts just above the input bar
+// Per-bubble travel vectors (design px), cycled by id so each bubble takes a
+// similar-but-different path up and to the right. Tuned in the keyframes'
+// duration to reach the top / full fade right around the 4th later message.
+const UPS = [190, 208, 196, 214, 184, 202];
+const RIGHTS = [52, 70, 46, 62, 76, 56];
 
 const TYPE_MS = 1000; // total typing duration (both input and received bubbles)
 const perChar = (len: number) => Math.max(18, Math.round(TYPE_MS / Math.max(1, len)));
@@ -150,7 +150,6 @@ export default function HeroKeyboardAnimation() {
   const [pressed, setPressed] = useState<"reword" | "send" | null>(null);
 
   const bubbleId = useRef(1);
-  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   // Responsive scale so the floating keyboard fits the hero at every
   // breakpoint, clamped so it never overflows the viewport width.
@@ -181,43 +180,51 @@ export default function HeroKeyboardAnimation() {
         text: s.kind === "sent" ? s.reworded : s.text,
         shown: (s.kind === "sent" ? s.reworded : s.text).length,
         age: 0,
-        entered: true,
+        floating: false,
       }));
       setBubbles(last);
       return;
     }
 
-    // Age every existing bubble by one and drop the ones that have fully faded
-    // (an age-3 bubble is at opacity 0; it lingers one extra step then leaves).
+    // Age every existing bubble by one and drop the ones past their lifetime.
+    // A bubble stays visible until the 4th message after it arrives (age 4),
+    // so we keep ages 0–3 and remove on the step that would make it 4.
     const ageAll = (prev: Bubble[]) =>
       prev.map((b) => ({ ...b, age: b.age + 1 })).filter((b) => b.age <= 3);
 
-    // A sent bubble drops in below its resting spot, then slides up into place.
+    // A sent bubble appears and immediately starts drifting up and away.
     const spawnSent = (msg: string) => {
       const id = bubbleId.current++;
       setBubbles((prev) => [
         ...ageAll(prev),
-        { id, side: "sent", text: msg, shown: msg.length, age: 0, entered: false },
+        { id, side: "sent", text: msg, shown: msg.length, age: 0, floating: true },
       ]);
-      const t = setTimeout(
-        () => setBubbles((prev) => prev.map((b) => (b.id === id ? { ...b, entered: true } : b))),
-        50,
-      );
-      timers.current.push(t);
     };
 
-    // A received bubble appears in place and types itself out.
+    // A received bubble appears in place and types itself out; it only starts
+    // drifting once typing finishes (startRecvFloat).
     const spawnRecv = () => {
       const id = bubbleId.current++;
-      setBubbles((prev) => [...ageAll(prev), { id, side: "recv", text: "", shown: 0, age: 0, entered: true }]);
+      setBubbles((prev) => [...ageAll(prev), { id, side: "recv", text: "", shown: 0, age: 0, floating: false }]);
       return id;
     };
     const setRecvText = (full: string, n: number) =>
       setBubbles((prev) => {
         const a = prev.slice();
         for (let i = a.length - 1; i >= 0; i--) {
-          if (a[i].side === "recv" && a[i].age === 0) {
+          if (a[i].side === "recv" && !a[i].floating) {
             a[i] = { ...a[i], text: full, shown: n };
+            break;
+          }
+        }
+        return a;
+      });
+    const startRecvFloat = () =>
+      setBubbles((prev) => {
+        const a = prev.slice();
+        for (let i = a.length - 1; i >= 0; i--) {
+          if (a[i].side === "recv" && !a[i].floating) {
+            a[i] = { ...a[i], floating: true };
             break;
           }
         }
@@ -260,14 +267,14 @@ export default function HeroKeyboardAnimation() {
         }, 1000);
       } else {
         // received: appears 1s after the send (the previous beat's 1000ms),
-        // then types itself out over ~1s, then joins the float.
+        // then types itself out over ~1s, then starts drifting like a sent one.
         const full = step.text;
         const per = perChar(full.length);
         b(() => spawnRecv(), per);
         for (let i = 1; i <= full.length; i++) {
           b(() => setRecvText(full, i), per);
         }
-        b(() => {}, 320); // brief settle before the next message
+        b(() => startRecvFloat(), 320); // begin the float, then settle
       }
     });
 
@@ -282,11 +289,7 @@ export default function HeroKeyboardAnimation() {
       timer = setTimeout(run, beat.ms);
     };
     run();
-    return () => {
-      clearTimeout(timer);
-      timers.current.forEach(clearTimeout);
-      timers.current = [];
-    };
+    return () => clearTimeout(timer);
   }, [reduceMotion]);
 
   // ── derived ──
@@ -318,43 +321,61 @@ export default function HeroKeyboardAnimation() {
         {/* Transparent stage — no card. Floating bubbles, the input bar and the
             keyboard, over the hero background. */}
         <div className="relative flex h-full w-full flex-col">
-          {/* Bubble stage: each message drifts up/out and fades as newer ones
-              arrive. Overflow visible so bubbles can float clear as they fade. */}
+          {/* Bubble stage: each message drifts continuously up and away, fading
+              out, until the 4th later message arrives. Overflow visible so they
+              float clear of the keyboard. */}
           <div className="relative flex-1" style={{ overflow: "visible" }}>
-            {bubbles.map((bub) => {
-              const isSent = bub.side === "sent";
-              const driftX = DRIFTX[bub.id % DRIFTX.length] * bub.age * (isSent ? 1 : -1);
-              const enterY = bub.entered ? 0 : ENTER_OFFSET;
-              const ty = -(bub.age * RISE) + enterY;
-              const op = bub.entered ? Math.max(0, 1 - bub.age / 3) : 0;
-              const style: React.CSSProperties = {
-                bottom: BASE_BOTTOM,
-                maxWidth: DESIGN_W * 0.74,
-                transform: `translate(${driftX}px, ${ty}px)`,
-                opacity: op,
-                transition: `transform ${TRANSITION_MS}ms cubic-bezier(0.22,0.61,0.36,1), opacity ${TRANSITION_MS}ms ease-out`,
-                willChange: "transform, opacity",
-              };
-              if (isSent) style.right = SIDE_PAD;
-              else style.left = SIDE_PAD;
-              const showCaret = !isSent && bub.shown < bub.text.length;
-              return (
-                <div key={bub.id} className="absolute" style={style}>
-                  <div
-                    className="rounded-[20px] px-3.5 py-2 text-[17px]"
-                    style={isSent ? { background: C.sentBubble, color: "#fff" } : { background: C.recvGray, color: "#000" }}
-                  >
-                    {isSent ? bub.text : bub.text.slice(0, bub.shown)}
-                    {showCaret && (
-                      <span
-                        className="ml-[1px] inline-block h-[18px] w-[2px] animate-pulse align-middle"
-                        style={{ background: "rgba(0,0,0,0.55)" }}
-                      />
-                    )}
+            {reduceMotion
+              ? // Static, bottom-aligned stack for reduced motion.
+                bubbles.length > 0 && (
+                  <div className="absolute inset-x-3 bottom-1 flex flex-col gap-3">
+                    {bubbles.map((bub) => (
+                      <div key={bub.id} className={`flex ${bub.side === "sent" ? "justify-end" : "justify-start"}`}>
+                        <div
+                          className="max-w-[74%] rounded-[20px] px-3.5 py-2 text-[17px]"
+                          style={
+                            bub.side === "sent"
+                              ? { background: C.sentBubble, color: "#fff" }
+                              : { background: C.recvGray, color: "#000" }
+                          }
+                        >
+                          {bub.text}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              );
-            })}
+                )
+              : bubbles.map((bub) => {
+                  const isSent = bub.side === "sent";
+                  const style: React.CSSProperties & Record<string, string | number> = {
+                    bottom: BASE_BOTTOM,
+                    maxWidth: DESIGN_W * 0.74,
+                    "--rx": `${RIGHTS[bub.id % RIGHTS.length]}px`,
+                    "--ry": `-${UPS[bub.id % UPS.length]}px`,
+                  };
+                  if (isSent) style.right = SIDE_PAD;
+                  else style.left = SIDE_PAD;
+                  // Sent bubbles float from the start; received hold still until
+                  // they've finished typing themselves out.
+                  const floatClass = isSent ? "hero-float-sent" : bub.floating ? "hero-float-recv" : "";
+                  const showCaret = !isSent && bub.shown < bub.text.length;
+                  return (
+                    <div key={bub.id} className={`absolute ${floatClass}`} style={style}>
+                      <div
+                        className="rounded-[20px] px-3.5 py-2 text-[17px]"
+                        style={isSent ? { background: C.sentBubble, color: "#fff" } : { background: C.recvGray, color: "#000" }}
+                      >
+                        {isSent ? bub.text : bub.text.slice(0, bub.shown)}
+                        {showCaret && (
+                          <span
+                            className="ml-[1px] inline-block h-[18px] w-[2px] animate-pulse align-middle"
+                            style={{ background: "rgba(0,0,0,0.55)" }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
           </div>
 
           {/* Input bar */}
