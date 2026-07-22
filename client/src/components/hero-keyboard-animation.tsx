@@ -43,15 +43,24 @@ const C = {
   recvGray: "#E9E9EB",
 };
 
-// A short demo conversation: native message → reworded translation. Strings are
-// reused from the vetted keyboard prototype so the translations are correct.
-const EN1 = "Hello, how are you my friend? Meet me at the bank.";
-const JA1 = "こんにちは、元気ですか、友よ？銀行で会いましょう。";
-const RECV = "わかった、すぐにそこで会おう。";
-const EN2 = "See you soon!";
-const JA2 = "またすぐにね！";
+// A demo back-and-forth conversation. Each sent message is typed in the user's
+// native language, then Reworded (translated) in place before being sent; the
+// received messages arrive as replies. Kept short and natural so the whole
+// exchange plays out on a loop inside the hero.
+type Step =
+  | { kind: "sent"; native: string; reworded: string; typeMs?: number }
+  | { kind: "recv"; text: string };
 
-type Bubble = { id: number; text: string };
+const SCRIPT: Step[] = [
+  { kind: "sent", native: "Hi! Are you free this weekend?", reworded: "やあ！今週末は空いてる？" },
+  { kind: "recv", text: "うん、空いてるよ！何かする？" },
+  { kind: "sent", native: "Let's get dinner.", reworded: "夕食を食べに行こう。" },
+  { kind: "recv", text: "いいね！何時がいい？" },
+  { kind: "sent", native: "How about 7pm?", reworded: "7時はどう？" },
+  { kind: "recv", text: "完璧！じゃあ後でね。" },
+];
+
+type Msg = { id: number; side: "sent" | "recv"; text: string };
 
 // Phone geometry (design pixels), matching the prototype.
 const DESIGN_W = 402;
@@ -126,8 +135,7 @@ export default function HeroKeyboardAnimation() {
 
   // ── visual state driven by the timeline ──
   const [text, setText] = useState("");
-  const [sent, setSent] = useState<Bubble[]>([]);
-  const [received, setReceived] = useState<Bubble | null>(null);
+  const [messages, setMessages] = useState<Msg[]>([]);
   const [rewordLoading, setRewordLoading] = useState(false);
   const [pressed, setPressed] = useState<"reword" | "send" | null>(null);
 
@@ -147,79 +155,69 @@ export default function HeroKeyboardAnimation() {
 
   // Build the looping timeline. Rebuilt only when reduced-motion changes.
   useEffect(() => {
-    // Reduced motion: skip the animation and show a completed exchange.
+    // Reduced motion: skip the animation and show the completed conversation.
     if (reduceMotion) {
       setText("");
-      setReceived({ id: 1, text: RECV });
-      setSent([
-        { id: 2, text: JA1 },
-        { id: 3, text: JA2 },
-      ]);
+      let id = 1;
+      setMessages(
+        SCRIPT.map((s) => ({
+          id: id++,
+          side: s.kind === "sent" ? "sent" : "recv",
+          text: s.kind === "sent" ? s.reworded : s.text,
+        })),
+      );
       return;
     }
 
     const beats: { fn: () => void; ms: number }[] = [];
     const b = (fn: () => void, ms: number) => beats.push({ fn, ms });
+    const append = (side: "sent" | "recv", text: string) =>
+      setMessages((prev) => [...prev, { id: bubbleId.current++, side, text }]);
 
-    const reset = () => {
+    // Start each loop from an empty thread.
+    b(() => {
       setRewordLoading(false);
       setPressed(null);
       setText("");
-      setSent([]);
-      setReceived(null);
-    };
+      setMessages([]);
+    }, 900);
 
-    // ── Message 1: type → reword → send ──
-    b(reset, 900);
-    for (let i = 1; i <= EN1.length; i++) {
-      const s = EN1.slice(0, i);
-      b(() => setText(s), 40);
-    }
-    b(() => {}, 650);
-    // tap Reword
-    b(() => {
-      setPressed("reword");
-      setRewordLoading(true);
-    }, 340);
-    b(() => setPressed(null), 1250);
-    b(() => {
-      setRewordLoading(false);
-      setText(JA1);
-    }, 950);
-    // tap send → bubble drops in
-    b(() => setPressed("send"), 360);
-    b(() => {
-      setPressed(null);
-      setSent((prev) => [...prev, { id: bubbleId.current++, text: JA1 }]);
-      setText("");
-    }, 700);
-    // reply arrives
-    b(() => setReceived({ id: bubbleId.current++, text: RECV }), 1500);
+    SCRIPT.forEach((step, idx) => {
+      if (step.kind === "recv") {
+        // A reply arrives after a natural beat.
+        b(() => append("recv", step.text), idx === 0 ? 900 : 1400);
+        return;
+      }
 
-    // ── Message 2: type → reword → send ──
-    b(() => setText(""), 700);
-    for (let i = 1; i <= EN2.length; i++) {
-      const s = EN2.slice(0, i);
-      b(() => setText(s), 58);
-    }
-    b(() => {}, 550);
-    b(() => {
-      setPressed("reword");
-      setRewordLoading(true);
-    }, 340);
-    b(() => setPressed(null), 1050);
-    b(() => {
-      setRewordLoading(false);
-      setText(JA2);
-    }, 850);
-    b(() => setPressed("send"), 360);
-    b(() => {
-      setPressed(null);
-      setSent((prev) => [...prev, { id: bubbleId.current++, text: JA2 }]);
-      setText("");
-    }, 700);
-    // hold on the finished exchange, then loop
-    b(() => {}, 2600);
+      // Sent message: type in the native language …
+      b(() => setText(""), 500);
+      const typeMs = step.typeMs ?? 46;
+      for (let i = 1; i <= step.native.length; i++) {
+        const s = step.native.slice(0, i);
+        b(() => setText(s), typeMs);
+      }
+      b(() => {}, 600);
+      // … tap Reword to translate it in place …
+      b(() => {
+        setPressed("reword");
+        setRewordLoading(true);
+      }, 340);
+      b(() => setPressed(null), 1150);
+      b(() => {
+        setRewordLoading(false);
+        setText(step.reworded);
+      }, 900);
+      // … then tap send and drop it into the conversation.
+      b(() => setPressed("send"), 340);
+      b(() => {
+        setPressed(null);
+        append("sent", step.reworded);
+        setText("");
+      }, 700);
+    });
+
+    // Hold on the finished conversation, then loop.
+    b(() => {}, 2800);
 
     let i = 0;
     let timer: ReturnType<typeof setTimeout>;
@@ -235,7 +233,7 @@ export default function HeroKeyboardAnimation() {
 
   // ── derived ──
   const hasText = text.length > 0;
-  const showChat = sent.length > 0 || received !== null;
+  const showChat = messages.length > 0;
 
   // ── keyboard rows ──
   const lower = text === "";
@@ -326,45 +324,32 @@ export default function HeroKeyboardAnimation() {
                 </div>
               </>
             )}
-            {/* First sent bubble */}
-            {sent[0] && (
-              <div className="flex flex-col items-end">
-                <div
-                  className="hero-kb-bubble max-w-[78%] rounded-[20px] px-3.5 py-2 text-[17px] text-white"
-                  style={{ background: C.smsGreen }}
-                >
-                  {sent[0].text}
+            {/* Conversation — sent (green, right) and received (gray, left)
+                bubbles in chronological order. */}
+            {messages.map((m, i) =>
+              m.side === "sent" ? (
+                <div key={m.id} className="flex flex-col items-end">
+                  <div
+                    className="hero-kb-bubble max-w-[78%] rounded-[20px] px-3.5 py-2 text-[17px] text-white"
+                    style={{ background: C.smsGreen }}
+                  >
+                    {m.text}
+                  </div>
+                  {i === messages.length - 1 && (
+                    <span className="mr-1 mt-0.5 text-[11px] text-black/45">Delivered</span>
+                  )}
                 </div>
-                {sent.length === 1 && !received && (
-                  <span className="mr-1 mt-0.5 text-[11px] text-black/45">Delivered</span>
-                )}
-              </div>
+              ) : (
+                <div key={m.id} className="flex justify-start">
+                  <div
+                    className="hero-kb-bubble max-w-[78%] rounded-[20px] px-3.5 py-2 text-[17px] text-black"
+                    style={{ background: C.recvGray }}
+                  >
+                    {m.text}
+                  </div>
+                </div>
+              ),
             )}
-            {/* Received reply */}
-            {received && (
-              <div className="flex justify-start">
-                <div
-                  className="hero-kb-bubble max-w-[78%] rounded-[20px] px-3.5 py-2 text-[17px] text-black"
-                  style={{ background: C.recvGray }}
-                >
-                  {received.text}
-                </div>
-              </div>
-            )}
-            {/* Later sent bubbles */}
-            {sent.slice(1).map((m, i) => (
-              <div key={m.id} className="flex flex-col items-end">
-                <div
-                  className="hero-kb-bubble max-w-[78%] rounded-[20px] px-3.5 py-2 text-[17px] text-white"
-                  style={{ background: C.smsGreen }}
-                >
-                  {m.text}
-                </div>
-                {i === sent.slice(1).length - 1 && (
-                  <span className="mr-1 mt-0.5 text-[11px] text-black/45">Delivered</span>
-                )}
-              </div>
-            ))}
           </div>
 
           {/* Input bar */}
