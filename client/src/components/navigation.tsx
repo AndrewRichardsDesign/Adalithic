@@ -197,10 +197,10 @@ export default function Navigation() {
                   data-testid={`nav-link-${item.id}`}
                 >
                   {item.id === "home" ? (
-                    <span className="inline-flex items-center">
+                    <>
                       <NavBrandLogo size={20} />
                       {item.label}
-                    </span>
+                    </>
                   ) : (
                     item.label
                   )}

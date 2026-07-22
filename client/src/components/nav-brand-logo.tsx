@@ -21,6 +21,10 @@ const DESIGN = {
 // Gap between the icon and the label once the slot has opened.
 const GAP = 8;
 
+// The glyph is centred this far above the text baseline so it lines up with
+// the visual middle of the label (roughly the text's x-height centre).
+const VERTICAL_OFFSET = "0.34em";
+
 interface NavBrandLogoProps {
   /** Final total height of the I-beam in px. */
   size?: number;
@@ -30,11 +34,12 @@ interface NavBrandLogoProps {
  * The Arcatext I-beam rendered as five rectangles (one column + four corner
  * beams) — the same construction as the app's splash screen.
  *
- * It occupies **no width** until it is cued to build (so the nav item starts
- * just wide enough for its label). On cue, an outer "slot" opens from width 0
- * to the logo's width — widening the nav item to make room — and then the
- * I-beam constructs itself into that space: the column grows from the centre,
- * the beams grow outward, then slide into their final serif positions.
+ * The reserving element is a **zero-height** inline spacer whose width grows
+ * from 0 → the logo's width when cued. Because it has no height it never
+ * affects the line box, so the "Arcatext" label keeps the exact same baseline
+ * (and y-position) as the other nav labels. The glyph itself is positioned
+ * **absolutely** (out of flow) inside that spacer, so its 20px height also
+ * can't nudge the text.
  *
  * It waits for the homepage intro (via `introBus`); on any page without an
  * intro (or under reduced-motion) it renders fully-formed with no animation.
@@ -108,7 +113,7 @@ export default function NavBrandLogo({ size = 20 }: NavBrandLogoProps) {
   const beamX = columnW / 2 + beamW / 2;
   const beamY = columnH / 2 - beamH / 2;
 
-  const tSlot = instant ? "none" : "width 0.4s ease, margin-right 0.4s ease";
+  const tSlot = instant ? "none" : "width 0.4s ease";
   const tColumn = instant ? "none" : "height 0.4s ease-in-out";
   const tBeam = instant ? "none" : "width 0.2s ease-in-out, transform 0.2s ease-in-out";
 
@@ -121,23 +126,31 @@ export default function NavBrandLogo({ size = 20 }: NavBrandLogoProps) {
   });
 
   return (
-    // Outer slot: starts at width 0 (no reserved space), grows to the logo's
-    // width when cued, and clips the construction while it opens.
+    // Zero-height inline spacer: reserves the horizontal width (animated) but
+    // contributes nothing vertically, so the label's baseline is untouched.
     <span
       aria-hidden
       style={{
         display: "inline-block",
-        verticalAlign: "middle",
-        overflow: "hidden",
-        height: size,
-        width: slotOpen ? totalW : 0,
-        marginRight: slotOpen ? GAP : 0,
+        position: "relative",
+        verticalAlign: "baseline",
+        height: 0,
+        width: slotOpen ? totalW + GAP : 0,
         transition: tSlot,
-        flexShrink: 0,
       }}
     >
-      {/* Fixed-size stage so the glyph stays centred as the slot reveals it. */}
-      <span style={{ position: "relative", display: "block", width: totalW, height: size }}>
+      {/* Glyph stage: absolutely positioned (out of flow) and vertically
+          centred on the label, so its height never nudges the text. */}
+      <span
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: totalW,
+          height: size,
+          transform: `translateY(calc(-50% - ${VERTICAL_OFFSET}))`,
+        }}
+      >
         {/* Vertical column */}
         <span
           style={rect({
