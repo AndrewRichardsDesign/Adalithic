@@ -63,24 +63,29 @@ const SCRIPT: Step[] = [
 ];
 
 type Msg = { id: number; side: "sent" | "recv"; text: string };
-type Floater = Msg & { dir: { dx: number; dy: number; rot: number } };
+type Floater = Msg & { dir: { dx: number; dy: number } };
 
 // How many messages stay in the thread before the oldest lifts off the top.
 const MAX_VISIBLE = 6;
 // Uniform lift-off duration — every bubble fades at the same rate.
 const FLOAT_MS = 4500;
 
-// Per-message drift vectors (design px; dy is upward). Cycled by message id so
-// each bubble that leaves the screen floats a different way, yet they all fade
-// on the same clock.
+// Per-message drift vectors, expressed as the intended on-screen displacement
+// in CSS px (dy is upward). Cycled by message id so each bubble that leaves the
+// screen floats a different way, yet they all fade on the same clock. Magnitudes
+// are ~200px so, on desktop, bubbles drift roughly 200px off the device. There
+// is no rotation — bubbles keep their orientation as they float.
 const DIRS = [
-  { dx: -96, dy: -214, rot: -14 },
-  { dx: 108, dy: -236, rot: 13 },
-  { dx: -26, dy: -262, rot: -6 },
-  { dx: 72, dy: -202, rot: 11 },
-  { dx: -130, dy: -226, rot: -18 },
-  { dx: 40, dy: -248, rot: 7 },
+  { dx: -96, dy: -176 },
+  { dx: 110, dy: -167 },
+  { dx: -20, dy: -199 },
+  { dx: 68, dy: -188 },
+  { dx: -132, dy: -150 },
+  { dx: 40, dy: -196 },
 ];
+// Below the desktop breakpoint the same drift would fling bubbles off a much
+// smaller phone, so the displacement is scaled down there.
+const MOBILE_DRIFT = 0.6;
 
 // Phone geometry (design pixels), matching the prototype.
 const DESIGN_W = 402;
@@ -549,12 +554,18 @@ export default function HeroKeyboardAnimation() {
           aria-hidden
         >
           {floaters.map((f) => {
+            // DIRS are the intended on-screen displacement; the floater lives in
+            // the phone's scaled space, so divide by `scale` to hit that target
+            // once the frame's transform re-applies it. Full drift on desktop,
+            // reduced below the desktop breakpoint.
+            const drift = scale >= 0.62 ? 1 : MOBILE_DRIFT;
+            const fx = (f.dir.dx * drift) / scale;
+            const fy = (f.dir.dy * drift) / scale;
             const style: React.CSSProperties & Record<string, string | number> = {
               top: 184,
               maxWidth: DESIGN_W * 0.78,
-              "--fx": `${f.dir.dx}px`,
-              "--fy": `${f.dir.dy}px`,
-              "--fr": `${f.dir.rot}deg`,
+              "--fx": `${fx}px`,
+              "--fy": `${fy}px`,
               "--float-ms": `${FLOAT_MS}ms`,
             };
             if (f.side === "sent") style.right = 12;

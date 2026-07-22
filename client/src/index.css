@@ -195,7 +195,7 @@ html {
     opacity: 0.5;
   }
   100% {
-    transform: translate(var(--fx, 0), var(--fy, -240px)) rotate(var(--fr, 0deg)) scale(0.9);
+    transform: translate(var(--fx, 0), var(--fy, -240px));
     opacity: 0;
   }
 }
