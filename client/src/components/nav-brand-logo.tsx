@@ -18,6 +18,9 @@ const DESIGN = {
   totalW: 93,
 };
 
+// Gap between the icon and the label once the slot has opened.
+const GAP = 8;
+
 interface NavBrandLogoProps {
   /** Final total height of the I-beam in px. */
   size?: number;
@@ -25,12 +28,16 @@ interface NavBrandLogoProps {
 
 /**
  * The Arcatext I-beam rendered as five rectangles (one column + four corner
- * beams) — the same construction as the app's splash screen. It builds itself
- * on cue: the vertical column grows from the centre, the four beams grow
- * outward from the column, then slide into their final serif positions.
+ * beams) — the same construction as the app's splash screen.
+ *
+ * It occupies **no width** until it is cued to build (so the nav item starts
+ * just wide enough for its label). On cue, an outer "slot" opens from width 0
+ * to the logo's width — widening the nav item to make room — and then the
+ * I-beam constructs itself into that space: the column grows from the centre,
+ * the beams grow outward, then slide into their final serif positions.
  *
  * It waits for the homepage intro (via `introBus`); on any page without an
- * intro (or under reduced-motion) it simply renders fully-formed.
+ * intro (or under reduced-motion) it renders fully-formed with no animation.
  */
 export default function NavBrandLogo({ size = 20 }: NavBrandLogoProps) {
   const reduceMotion = useReducedMotion();
@@ -42,10 +49,11 @@ export default function NavBrandLogo({ size = 20 }: NavBrandLogoProps) {
   const beamH = DESIGN.beamH * k;
   const totalW = DESIGN.totalW * k;
 
-  // Animated values (start collapsed).
+  const [slotOpen, setSlotOpen] = useState(false);
   const [columnHeight, setColumnHeight] = useState(0);
   const [beamW, setBeamW] = useState(0);
   const [beamShift, setBeamShift] = useState(0);
+  const [instant, setInstant] = useState(false);
   const timers = useRef<number[]>([]);
 
   useEffect(() => {
@@ -54,27 +62,28 @@ export default function NavBrandLogo({ size = 20 }: NavBrandLogoProps) {
       timers.current = [];
     };
 
-    const build = (instant: boolean) => {
+    const build = (now: boolean) => {
       clearTimers();
-      if (instant || reduceMotion) {
+      if (now || reduceMotion) {
+        setInstant(true);
+        setSlotOpen(true);
         setColumnHeight(columnH);
         setBeamW(beamWFull);
         setBeamShift(beamH);
         return;
       }
-      // Step 1: grow the column from the centre (0.4s, via CSS transition).
-      setColumnHeight(columnH);
-      // Step 2: grow the beams outward from the column (0.2s @ 0.4s).
-      timers.current.push(window.setTimeout(() => setBeamW(beamWFull), 400));
-      // Step 3: slide the beams into the final I-beam position (0.2s @ 0.6s).
-      timers.current.push(window.setTimeout(() => setBeamShift(beamH), 600));
+      // 1) Open the slot — the nav item widens to make room for the icon.
+      setSlotOpen(true);
+      // 2) Once there's room, construct the I-beam into it.
+      timers.current.push(window.setTimeout(() => setColumnHeight(columnH), 350));
+      timers.current.push(window.setTimeout(() => setBeamW(beamWFull), 750));
+      timers.current.push(window.setTimeout(() => setBeamShift(beamH), 950));
     };
 
     const unsub = introBus.subscribe((phase) => {
       if (phase === "building") build(false);
     });
 
-    // Decide the starting behaviour based on the current intro phase.
     if (introBus.phase === "building") {
       build(true);
     } else if (introBus.phase === "idle") {
@@ -99,6 +108,10 @@ export default function NavBrandLogo({ size = 20 }: NavBrandLogoProps) {
   const beamX = columnW / 2 + beamW / 2;
   const beamY = columnH / 2 - beamH / 2;
 
+  const tSlot = instant ? "none" : "width 0.4s ease, margin-right 0.4s ease";
+  const tColumn = instant ? "none" : "height 0.4s ease-in-out";
+  const tBeam = instant ? "none" : "width 0.2s ease-in-out, transform 0.2s ease-in-out";
+
   const rect = (style: React.CSSProperties): React.CSSProperties => ({
     position: "absolute",
     left: "50%",
@@ -108,61 +121,69 @@ export default function NavBrandLogo({ size = 20 }: NavBrandLogoProps) {
   });
 
   return (
+    // Outer slot: starts at width 0 (no reserved space), grows to the logo's
+    // width when cued, and clips the construction while it opens.
     <span
       aria-hidden
       style={{
-        position: "relative",
         display: "inline-block",
-        width: totalW,
+        verticalAlign: "middle",
+        overflow: "hidden",
         height: size,
+        width: slotOpen ? totalW : 0,
+        marginRight: slotOpen ? GAP : 0,
+        transition: tSlot,
         flexShrink: 0,
       }}
     >
-      {/* Vertical column */}
-      <span
-        style={rect({
-          width: columnW,
-          height: columnHeight,
-          transform: "translate(-50%, -50%)",
-          transition: "height 0.4s ease-in-out",
-        })}
-      />
-      {/* Top-left beam */}
-      <span
-        style={rect({
-          width: beamW,
-          height: beamH,
-          transform: `translate(-50%, -50%) translate(${-beamX}px, ${-beamY - beamShift}px)`,
-          transition: "width 0.2s ease-in-out, transform 0.2s ease-in-out",
-        })}
-      />
-      {/* Top-right beam */}
-      <span
-        style={rect({
-          width: beamW,
-          height: beamH,
-          transform: `translate(-50%, -50%) translate(${beamX}px, ${-beamY - beamShift}px)`,
-          transition: "width 0.2s ease-in-out, transform 0.2s ease-in-out",
-        })}
-      />
-      {/* Bottom-left beam */}
-      <span
-        style={rect({
-          width: beamW,
-          height: beamH,
-          transform: `translate(-50%, -50%) translate(${-beamX}px, ${beamY + beamShift}px)`,
-          transition: "width 0.2s ease-in-out, transform 0.2s ease-in-out",
-        })}
-      />
-      {/* Bottom-right beam */}
-      <span
-        style={rect({
-          width: beamW,
-          height: beamH,
-          transform: `translate(-50%, -50%) translate(${beamX}px, ${beamY + beamShift}px)`,
-          transition: "width 0.2s ease-in-out, transform 0.2s ease-in-out",
-        })}
-      />
+      {/* Fixed-size stage so the glyph stays centred as the slot reveals it. */}
+      <span style={{ position: "relative", display: "block", width: totalW, height: size }}>
+        {/* Vertical column */}
+        <span
+          style={rect({
+            width: columnW,
+            height: columnHeight,
+            transform: "translate(-50%, -50%)",
+            transition: tColumn,
+          })}
+        />
+        {/* Top-left beam */}
+        <span
+          style={rect({
+            width: beamW,
+            height: beamH,
+            transform: `translate(-50%, -50%) translate(${-beamX}px, ${-beamY - beamShift}px)`,
+            transition: tBeam,
+          })}
+        />
+        {/* Top-right beam */}
+        <span
+          style={rect({
+            width: beamW,
+            height: beamH,
+            transform: `translate(-50%, -50%) translate(${beamX}px, ${-beamY - beamShift}px)`,
+            transition: tBeam,
+          })}
+        />
+        {/* Bottom-left beam */}
+        <span
+          style={rect({
+            width: beamW,
+            height: beamH,
+            transform: `translate(-50%, -50%) translate(${-beamX}px, ${beamY + beamShift}px)`,
+            transition: tBeam,
+          })}
+        />
+        {/* Bottom-right beam */}
+        <span
+          style={rect({
+            width: beamW,
+            height: beamH,
+            transform: `translate(-50%, -50%) translate(${beamX}px, ${beamY + beamShift}px)`,
+            transition: tBeam,
+          })}
+        />
+      </span>
     </span>
   );
 }

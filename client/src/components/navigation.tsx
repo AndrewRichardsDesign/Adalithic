@@ -81,12 +81,21 @@ export default function Navigation() {
 
     // Immediate update - no delay
     updateUnderlinePosition();
-    
+
     // Also update on window resize
     window.addEventListener('resize', updateUnderlinePosition);
-    
+
+    // Re-measure when the nav row's size changes — e.g. when the Arcatext logo
+    // animates in and widens the "home" item — so the underline tracks it.
+    const ro =
+      typeof ResizeObserver !== "undefined" && containerRef.current
+        ? new ResizeObserver(() => updateUnderlinePosition())
+        : null;
+    if (ro && containerRef.current) ro.observe(containerRef.current);
+
     return () => {
       window.removeEventListener('resize', updateUnderlinePosition);
+      ro?.disconnect();
     };
   }, [intendedSection]);
 
@@ -188,7 +197,7 @@ export default function Navigation() {
                   data-testid={`nav-link-${item.id}`}
                 >
                   {item.id === "home" ? (
-                    <span className="inline-flex items-center gap-2">
+                    <span className="inline-flex items-center">
                       <NavBrandLogo size={20} />
                       {item.label}
                     </span>
