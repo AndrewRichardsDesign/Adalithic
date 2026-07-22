@@ -152,15 +152,20 @@ export default function ArcatextIntro({
       const fr = field.getBoundingClientRect();
       const bigSize = titleSize;
       const smallSize = lineHeightOf(field) / GLYPH_RATIO;
+      // Give the scan a slight upward incline rather than a flat horizontal
+      // line: the icon ends the sweep a little higher than it started.
+      const scanRise = titleLh * 0.28;
       const p0 = { x: s.x, y: s.y };
-      const p1 = { x: s.right, y: s.y }; // end of the headline text
+      const p1 = { x: s.right, y: s.y - scanRise }; // end of the headline text, raised
       const p2 = { x: fr.left + fr.width / 2, y: fr.top + fr.height / 2 }; // field centre
 
-      // Cubic Bézier for the curved tail. c1 keeps the tangent horizontal at
-      // the headline's end (so the scan flows into the curve with no corner);
+      // Cubic Bézier for the curved tail. c1 continues along the scan's
+      // (inclined) tangent so the scan flows into the curve with no corner;
       // c2 pulls it down toward the field.
       const scanLen = p1.x - p0.x;
-      const c1 = { x: p1.x + Math.min(scanLen * 0.18, 90), y: p1.y };
+      const scanSlope = (p1.y - p0.y) / (scanLen || 1);
+      const overshoot = Math.min(scanLen * 0.18, 90);
+      const c1 = { x: p1.x + overshoot, y: p1.y + overshoot * scanSlope };
       const c2 = { x: p2.x, y: p1.y + (p2.y - p1.y) * 0.55 };
       const bez = (v: number) => {
         const m = 1 - v;
@@ -209,7 +214,7 @@ export default function ArcatextIntro({
             // into the bend rather than braking hard at the corner.
             const ue = 1 - Math.pow(1 - u, 1.6);
             x = p0.x + (p1.x - p0.x) * ue;
-            y = p0.y;
+            y = p0.y + (p1.y - p0.y) * ue;
             size = bigSize;
           } else {
             const v = (p - f1) / (1 - f1);
