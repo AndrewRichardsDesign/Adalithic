@@ -57,10 +57,35 @@ const SCRIPT: Step[] = [
   { kind: "sent", native: "Let's get dinner.", reworded: "夕食を食べに行こう。" },
   { kind: "recv", text: "いいね！何時がいい？" },
   { kind: "sent", native: "How about 7pm?", reworded: "7時はどう？" },
-  { kind: "recv", text: "完璧！じゃあ後でね。" },
+  { kind: "recv", text: "完璧！どこで会う？" },
+  { kind: "sent", native: "The station, by the café.", reworded: "駅で、カフェのそばで。" },
+  { kind: "recv", text: "了解！楽しみにしてるね。" },
 ];
 
 type Msg = { id: number; side: "sent" | "recv"; text: string };
+type Floater = Msg & { dir: { dx: number; dy: number } };
+
+// How many messages stay in the thread before the oldest lifts off the top.
+const MAX_VISIBLE = 6;
+// Uniform lift-off duration — every bubble fades at the same rate.
+const FLOAT_MS = 4500;
+
+// Per-message drift vectors, expressed as the intended on-screen displacement
+// in CSS px (dy is upward). Cycled by message id so each bubble that leaves the
+// screen floats a different way, yet they all fade on the same clock. Magnitudes
+// are ~200px so, on desktop, bubbles drift roughly 200px off the device. There
+// is no rotation — bubbles keep their orientation as they float.
+const DIRS = [
+  { dx: -96, dy: -176 },
+  { dx: 110, dy: -167 },
+  { dx: -20, dy: -199 },
+  { dx: 68, dy: -188 },
+  { dx: -132, dy: -150 },
+  { dx: 40, dy: -196 },
+];
+// Below the desktop breakpoint the same drift would fling bubbles off a much
+// smaller phone, so the displacement is scaled down there.
+const MOBILE_DRIFT = 0.6;
 
 // Phone geometry (design pixels), matching the prototype.
 const DESIGN_W = 402;
@@ -136,8 +161,14 @@ export default function HeroKeyboardAnimation() {
   // ── visual state driven by the timeline ──
   const [text, setText] = useState("");
   const [messages, setMessages] = useState<Msg[]>([]);
+  const [floaters, setFloaters] = useState<Floater[]>([]);
   const [rewordLoading, setRewordLoading] = useState(false);
   const [pressed, setPressed] = useState<"reword" | "send" | null>(null);
+
+  // The thread is kept in a ref so appends + evictions resolve synchronously
+  // (no stale-closure races inside the timeline engine).
+  const threadRef = useRef<Msg[]>([]);
+  const floatTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   // Responsive scale so the phone fits the hero at every breakpoint.
   const [scale, setScale] = useState(0.6);
@@ -153,34 +184,49 @@ export default function HeroKeyboardAnimation() {
 
   const bubbleId = useRef(1);
 
-  // Build the looping timeline. Rebuilt only when reduced-motion changes.
+  // Build the continuously looping timeline. Rebuilt only when reduced-motion
+  // changes.
   useEffect(() => {
-    // Reduced motion: skip the animation and show the completed conversation.
+    // Reduced motion: skip the animation and show the latest of the thread.
     if (reduceMotion) {
       setText("");
       let id = 1;
-      setMessages(
-        SCRIPT.map((s) => ({
-          id: id++,
-          side: s.kind === "sent" ? "sent" : "recv",
-          text: s.kind === "sent" ? s.reworded : s.text,
-        })),
-      );
+      const all: Msg[] = SCRIPT.map((s) => ({
+        id: id++,
+        side: s.kind === "sent" ? "sent" : "recv",
+        text: s.kind === "sent" ? s.reworded : s.text,
+      }));
+      setMessages(all.slice(-MAX_VISIBLE));
       return;
     }
 
+    // Add a message to the thread. Once the thread is full, the oldest bubble
+    // is evicted and released as a floater that drifts off the top and fades.
+    const append = (side: "sent" | "recv", text: string) => {
+      const msg: Msg = { id: bubbleId.current++, side, text };
+      const next = [...threadRef.current, msg];
+      let evicted: Msg | null = null;
+      if (next.length > MAX_VISIBLE) evicted = next.shift() ?? null;
+      threadRef.current = next;
+      setMessages(next);
+      if (evicted) {
+        const dir = DIRS[evicted.id % DIRS.length];
+        const floater: Floater = { ...evicted, dir };
+        setFloaters((prev) => [...prev, floater]);
+        const t = setTimeout(() => {
+          setFloaters((prev) => prev.filter((f) => f.id !== floater.id));
+        }, FLOAT_MS + 120);
+        floatTimers.current.push(t);
+      }
+    };
+
     const beats: { fn: () => void; ms: number }[] = [];
     const b = (fn: () => void, ms: number) => beats.push({ fn, ms });
-    const append = (side: "sent" | "recv", text: string) =>
-      setMessages((prev) => [...prev, { id: bubbleId.current++, side, text }]);
 
-    // Start each loop from an empty thread.
-    b(() => {
-      setRewordLoading(false);
-      setPressed(null);
-      setText("");
-      setMessages([]);
-    }, 900);
+    // The thread starts empty and is never reset — the script simply loops, so
+    // messages keep streaming in and the oldest keep lifting off the top. A
+    // short lull sits at the loop seam.
+    b(() => {}, 600);
 
     SCRIPT.forEach((step, idx) => {
       if (step.kind === "recv") {
@@ -216,8 +262,8 @@ export default function HeroKeyboardAnimation() {
       }, 700);
     });
 
-    // Hold on the finished conversation, then loop.
-    b(() => {}, 2800);
+    // Brief lull, then the script loops and the stream keeps flowing.
+    b(() => {}, 2200);
 
     let i = 0;
     let timer: ReturnType<typeof setTimeout>;
@@ -228,7 +274,11 @@ export default function HeroKeyboardAnimation() {
       timer = setTimeout(tick, beat.ms);
     };
     tick();
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      floatTimers.current.forEach(clearTimeout);
+      floatTimers.current = [];
+    };
   }, [reduceMotion]);
 
   // ── derived ──
@@ -492,6 +542,49 @@ export default function HeroKeyboardAnimation() {
             </svg>
             <Mic className="h-6 w-6" style={{ color: "rgba(0,0,0,0.82)" }} strokeWidth={2} />
           </div>
+        </div>
+
+        {/* Floater layer — bubbles that have lifted off the top of the screen.
+            It sits above the screen and bezel with overflow visible, so each
+            one drifts clear of the device before fading. Rendered in the phone's
+            scaled coordinate space so the drift matches the on-screen bubbles. */}
+        <div
+          className="pointer-events-none absolute"
+          style={{ top: BEZEL, left: BEZEL, width: DESIGN_W, height: SCREEN_H, overflow: "visible" }}
+          aria-hidden
+        >
+          {floaters.map((f) => {
+            // DIRS are the intended on-screen displacement; the floater lives in
+            // the phone's scaled space, so divide by `scale` to hit that target
+            // once the frame's transform re-applies it. Full drift on desktop,
+            // reduced below the desktop breakpoint.
+            const drift = scale >= 0.62 ? 1 : MOBILE_DRIFT;
+            const fx = (f.dir.dx * drift) / scale;
+            const fy = (f.dir.dy * drift) / scale;
+            const style: React.CSSProperties & Record<string, string | number> = {
+              top: 184,
+              maxWidth: DESIGN_W * 0.78,
+              "--fx": `${fx}px`,
+              "--fy": `${fy}px`,
+              "--float-ms": `${FLOAT_MS}ms`,
+            };
+            if (f.side === "sent") style.right = 12;
+            else style.left = 12;
+            return (
+              <div key={f.id} className="hero-kb-floater absolute" style={style}>
+                <div
+                  className="rounded-[20px] px-3.5 py-2 text-[17px]"
+                  style={
+                    f.side === "sent"
+                      ? { background: C.smsGreen, color: "#fff" }
+                      : { background: C.recvGray, color: "#000" }
+                  }
+                >
+                  {f.text}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
