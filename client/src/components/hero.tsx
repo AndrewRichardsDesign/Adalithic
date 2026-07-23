@@ -20,7 +20,13 @@ type Flyer = {
   endFont: number;
   endColor: string;
   maxW: number;
+  scale: number; // the keyboard widget's scale, so the start bubble matches a sent message
 };
+
+// Design width of the keyboard widget, used to recover its on-screen scale.
+const WIDGET_DESIGN_W = 402;
+// A sent message bubble's text size (px, design) inside the widget.
+const SENT_BUBBLE_FONT = 17;
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -58,18 +64,24 @@ export default function Hero() {
       return;
     }
     const cs = getComputedStyle(tagEl);
+    // The keyboard widget is rendered at a scale; its sent bubbles are therefore
+    // SENT_BUBBLE_FONT * scale on screen. Match that so the flyer starts exactly
+    // the size of a sent message.
+    const widget = document.querySelector('[role="img"]');
+    const scale = widget ? widget.getBoundingClientRect().width / WIDGET_DESIGN_W : 1;
     setFlyer({
       text: subheaderText,
       startLeft: field.left + field.width / 2,
-      startTop: field.top - 24,
+      startTop: field.top - 22,
       endLeft: tag.left + tag.width / 2,
       endTop: tag.top + tag.height / 2,
-      startFont: 17,
+      startFont: SENT_BUBBLE_FONT * scale,
       endFont: parseFloat(cs.fontSize),
       endColor: cs.color,
       // Wrap within the subheader's own width so the flyer lines up with the
       // real subheader at the end — one line on desktop, two on narrow screens.
       maxW: tag.width,
+      scale,
     });
   }, [subheaderText]);
 
@@ -129,7 +141,6 @@ export default function Hero() {
             zIndex: 50,
             maxWidth: flyer.maxW,
             textAlign: "center",
-            fontWeight: 700,
             lineHeight: 1.2,
             transform: "translate(-50%, -50%)",
             pointerEvents: "none",
@@ -138,27 +149,29 @@ export default function Hero() {
             left: flyer.startLeft,
             top: flyer.startTop,
             fontSize: flyer.startFont,
+            fontWeight: 400,
             backgroundColor: BUBBLE_BLUE,
             color: "#ffffff",
-            paddingTop: 8,
-            paddingBottom: 8,
-            paddingLeft: 14,
-            paddingRight: 14,
-            borderRadius: 20,
+            paddingTop: 8 * flyer.scale,
+            paddingBottom: 8 * flyer.scale,
+            paddingLeft: 14 * flyer.scale,
+            paddingRight: 14 * flyer.scale,
+            borderRadius: 20 * flyer.scale,
           }}
           animate={{
             left: [flyer.startLeft, flyer.startLeft, flyer.endLeft, flyer.endLeft],
             top: [flyer.startTop, flyer.startTop, flyer.endTop, flyer.endTop],
             fontSize: [flyer.startFont, flyer.startFont, flyer.endFont, flyer.endFont],
-            paddingTop: [8, 8, 8, 0],
-            paddingBottom: [8, 8, 8, 0],
-            paddingLeft: [14, 14, 14, 0],
-            paddingRight: [14, 14, 14, 0],
-            borderRadius: [20, 20, 20, 6],
+            fontWeight: [400, 400, 400, 700],
+            paddingTop: [8 * flyer.scale, 8 * flyer.scale, 8 * flyer.scale, 0],
+            paddingBottom: [8 * flyer.scale, 8 * flyer.scale, 8 * flyer.scale, 0],
+            paddingLeft: [14 * flyer.scale, 14 * flyer.scale, 14 * flyer.scale, 0],
+            paddingRight: [14 * flyer.scale, 14 * flyer.scale, 14 * flyer.scale, 0],
+            borderRadius: [20 * flyer.scale, 20 * flyer.scale, 20 * flyer.scale, 6],
             backgroundColor: [BUBBLE_BLUE, BUBBLE_BLUE, BUBBLE_BLUE, "rgba(10,122,255,0)"],
             color: ["#ffffff", "#ffffff", "#ffffff", flyer.endColor],
           }}
-          transition={{ duration: 1.9, times: [0, 0.52, 0.84, 1], ease: "easeInOut" }}
+          transition={{ duration: 1.5, times: [0, 0.33, 0.82, 1], ease: "easeInOut" }}
           onAnimationComplete={() => {
             setSubheaderShown(true);
             setFlyer(null);

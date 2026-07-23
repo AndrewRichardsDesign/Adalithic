@@ -203,7 +203,9 @@ export default function HeroKeyboardAnimation({
   const reduceMotion = useReducedMotion();
 
   // ── visual state driven by the timeline ──
-  const [text, setText] = useState("");
+  // The subheader starts already typed in the field (it is "sent" on logo-click
+  // rather than typed out).
+  const [text, setText] = useState(subheaderText);
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [rewordLoading, setRewordLoading] = useState(false);
   const [pressed, setPressed] = useState<"reword" | "send" | null>(null);
@@ -211,6 +213,10 @@ export default function HeroKeyboardAnimation({
   const bubbleId = useRef(1);
   const bubbleAreaRef = useRef<HTMLDivElement>(null);
   const keyboardPanelRef = useRef<HTMLDivElement>(null);
+  const inputBarRef = useRef<HTMLDivElement>(null);
+  // The tallest the input bar has grown to (design px). The stack is pinned
+  // above this so the input never overlaps a message when it wraps long text.
+  const maxInputRef = useRef(INPUT_MIN_H);
   // The message-stack layer is pinned this many design px above the surface
   // bottom — the keyboard panel plus a min-height input bar — so the messages
   // stay put even when the input field grows to wrap a long message.
@@ -299,11 +305,17 @@ export default function HeroKeyboardAnimation({
   // messages out just below the parked row so they never overlap it.
   useEffect(() => {
     const measure = () => {
-      // Pin the stack layer above the keyboard + a min-height input bar. The
-      // keyboard panel's own box height (offsetHeight) is unaffected by the page
-      // transform and by the input field growing, so this base stays stable.
+      // Pin the stack layer above the keyboard + the input bar. The keyboard
+      // panel's own box height (offsetHeight) is stable; the input bar grows as
+      // it wraps long text, so track its tallest extent (never shrinking, so the
+      // stack never drops back down onto a shorter input) and keep the stack
+      // clear of it — a growing input never overlaps the messages above it.
       const kb = keyboardPanelRef.current;
-      if (kb) setBaseOffset(kb.offsetHeight + INPUT_MIN_H);
+      const ib = inputBarRef.current?.offsetHeight ?? INPUT_MIN_H;
+      maxInputRef.current = Math.max(maxInputRef.current, ib);
+      // A little extra clearance beyond the tallest input so a message never
+      // touches the field even mid-wrap (before the overlay eases up).
+      if (kb) setBaseOffset(kb.offsetHeight + maxInputRef.current + 20);
 
       const area = bubbleAreaRef.current?.getBoundingClientRect();
       if (!area || !scale) return;
@@ -327,10 +339,15 @@ export default function HeroKeyboardAnimation({
     // subheader has flown into place.
     const timers = [400, 1000, 1800, 3000].map((ms) => setTimeout(measure, ms));
     window.addEventListener("resize", measure);
+    // The input bar grows as the message being typed wraps — re-measure so the
+    // stack stays clear of it.
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
+    if (ro && inputBarRef.current) ro.observe(inputBarRef.current);
     return () => {
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
       window.removeEventListener("resize", measure);
+      ro?.disconnect();
     };
   }, [scale, taglineRef, titleRef]);
 
@@ -381,25 +398,20 @@ export default function HeroKeyboardAnimation({
     const beats: { fn: () => void; ms: number }[] = [];
     const b = (fn: () => void, ms: number) => beats.push({ fn, ms });
 
-    b(() => {}, 600); // loop-seam lull
+    b(() => {}, 150); // brief settle after the logo clicks the field
 
-    // Subheader intro (once): type the subheader in the field, "send" it, then
-    // hand off to the hero, which flies the bubble up into place as the real
-    // subheader. The conversation loop resumes AFTER this, so it plays only once.
+    // Subheader intro (once): the subheader is already sitting in the field — on
+    // the logo's "click" we press send, then hand off to the hero, which lets
+    // the bubble sit for 0.5s and flies it up into place as the real subheader.
+    // The conversation loop resumes AFTER this, so it plays only once.
     if (subheaderText) {
-      b(() => setText(""), 40);
-      const perSub = perChar(subheaderText.length);
-      for (let i = 1; i <= subheaderText.length; i++) {
-        const s = subheaderText.slice(0, i);
-        b(() => setText(s), perSub);
-      }
-      b(() => {}, 450);
-      b(() => setPressed("send"), 340);
+      b(() => setText(subheaderText), 40); // ensure the pre-filled text is shown
+      b(() => setPressed("send"), 240); // press send on logo-click
       b(() => {
         setPressed(null);
         setText("");
         onSubheaderRef.current?.();
-      }, 2000); // hold while the hero flies the subheader up into place
+      }, 1600); // hold while the bubble sits and flies up into place
     }
 
     // The beat index the loop restarts at: the subheader intro plays once, then
@@ -511,7 +523,7 @@ export default function HeroKeyboardAnimation({
           <div
             ref={bubbleAreaRef}
             className="pointer-events-none absolute inset-x-0 top-0"
-            style={{ bottom: baseOffset, overflow: "visible" }}
+            style={{ bottom: baseOffset, overflow: "visible", transition: "bottom 0.3s ease" }}
           >
             {reduceMotion
               ? // Static, bottom-aligned stack for reduced motion.
@@ -581,7 +593,7 @@ export default function HeroKeyboardAnimation({
           <div className="absolute inset-x-0 bottom-0 flex flex-col">
           {/* Input bar. The field wraps long text and grows in height (bottom
               aligned) and the send button is always visible. */}
-          <div className="flex items-end gap-2 px-3 pb-2 pt-1">
+          <div ref={inputBarRef} className="flex items-end gap-2 px-3 pb-2 pt-1">
             <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e6e8ec]">
               <Plus className="h-5 w-5 text-[#6b7280]" strokeWidth={2.6} />
             </div>
