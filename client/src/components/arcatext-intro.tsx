@@ -72,9 +72,21 @@ export default function ArcatextIntro({
         requestAnimationFrame(() => requestAnimationFrame(() => res()))
       );
 
+    // The icon is absolutely positioned inside the hero section (its offset
+    // parent), so it scrolls with the page. All measurements are viewport
+    // coordinates (getBoundingClientRect); this converts them to coordinates
+    // local to the offset parent so the icon lands on the headline / field even
+    // if the page is scrolled mid-animation.
+    const origin = () => {
+      const op = iconEl.offsetParent as HTMLElement | null;
+      const r = op?.getBoundingClientRect();
+      return { x: r?.left ?? 0, y: r?.top ?? 0 };
+    };
+
     const apply = (s: IconStyle) => {
-      iconEl.style.left = `${s.left}px`;
-      iconEl.style.top = `${s.top}px`;
+      const o = origin();
+      iconEl.style.left = `${s.left - o.x}px`;
+      iconEl.style.top = `${s.top - o.y}px`;
       iconEl.style.height = `${s.size}px`;
       iconEl.style.width = `${s.size}px`;
       iconEl.style.opacity = `${s.opacity}`;
@@ -197,6 +209,10 @@ export default function ArcatextIntro({
       const DURATION = 2600;
 
       iconEl.style.transition = "none";
+      // Capture the offset-parent origin once (the waypoints above are viewport
+      // coordinates from this same instant), so the move stays aligned to the
+      // page content even if the user scrolls during it.
+      const o3 = origin();
       await new Promise<void>((resolve) => {
         let startTs = -1;
         const step = (ts: number) => {
@@ -225,8 +241,8 @@ export default function ArcatextIntro({
             y = pt.y;
             size = bigSize + (smallSize - bigSize) * smoothstep(v);
           }
-          iconEl.style.left = `${x}px`;
-          iconEl.style.top = `${y}px`;
+          iconEl.style.left = `${x - o3.x}px`;
+          iconEl.style.top = `${y - o3.y}px`;
           iconEl.style.height = `${size}px`;
           iconEl.style.width = `${size}px`;
           if (t >= 1) {
@@ -283,7 +299,7 @@ export default function ArcatextIntro({
       alt=""
       aria-hidden
       style={{
-        position: "fixed",
+        position: "absolute",
         left: 0,
         top: 0,
         height: 0,
