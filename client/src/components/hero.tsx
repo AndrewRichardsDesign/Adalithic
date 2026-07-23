@@ -100,39 +100,45 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-              <Button
-                size="lg"
-                onClick={() => scrollToSection("features")}
-                className="group bg-brand hover:bg-[#0036BB] text-white px-8 py-3 rounded-full font-semibold shadow-lg shadow-blue-900/10 transition-all duration-200"
-                data-testid="button-learn-more"
-              >
-                {t("hero.learnMore")}
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => scrollToSection("contact")}
-                className="border-gray-300 bg-white/70 text-gray-700 px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-colors duration-200"
-                data-testid="button-get-in-touch"
-              >
-                {t("hero.getInTouch")}
-              </Button>
-            </div>
           </motion.div>
 
-          {/* Live keyboard animation — replaces the flagship screenshot. It
-              types a message, taps Reword to translate it in place, then sends
-              it, showing each translated message land in the conversation.
-              Each additional value gets its own dedicated section below. */}
+          {/* Live keyboard animation — moved up into the space the CTA buttons
+              used to occupy. It types a message, taps Reword to translate it in
+              place, then sends it, and each translated message floats away. */}
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-            className="mt-16 flex justify-center"
+            className="mt-6 flex justify-center"
           >
             <HeroKeyboardAnimation />
+          </motion.div>
+
+          {/* CTA buttons — now below the animation. */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Button
+              size="lg"
+              onClick={() => scrollToSection("features")}
+              className="group bg-brand hover:bg-[#0036BB] text-white px-8 py-3 rounded-full font-semibold shadow-lg shadow-blue-900/10 transition-all duration-200"
+              data-testid="button-learn-more"
+            >
+              {t("hero.learnMore")}
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => scrollToSection("contact")}
+              className="border-gray-300 bg-white/70 text-gray-700 px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-colors duration-200"
+              data-testid="button-get-in-touch"
+            >
+              {t("hero.getInTouch")}
+            </Button>
           </motion.div>
         </div>
       </div>

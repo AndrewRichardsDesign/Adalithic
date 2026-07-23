@@ -65,10 +65,11 @@ export default function TypewriterAnimation({
       }
     };
 
-    // Typing speed: 100ms per character
-    // Deletion speed: 1000ms total for the entire message
-    const deletionSpeed = displayText.length > 0 ? 1000 / currentMessage.length : 50;
-    const speed = isDeleting ? deletionSpeed : 100;
+    // Typing: ~0.5s total for the whole phrase, so the bubble grows as it types.
+    // Deletion: ~0.5s total for the entire message.
+    const typeSpeed = Math.max(16, 500 / currentMessage.length);
+    const deletionSpeed = displayText.length > 0 ? 500 / currentMessage.length : 50;
+    const speed = isDeleting ? deletionSpeed : typeSpeed;
     const timer = setTimeout(handleTypewriter, speed);
 
     return () => clearTimeout(timer);
@@ -76,10 +77,16 @@ export default function TypewriterAnimation({
 
   return (
     <div className={`${className}`}>
-      <span className="text-lg md:text-xl text-gray-600">
-        {displayText}
-        {active && <span className="animate-pulse text-[#0040DD]">|</span>}
-      </span>
+      {active && (
+        // Each phrase is styled as a sent-message bubble that grows as it types.
+        <span
+          className="inline-flex items-center rounded-[20px] px-4 py-2 text-lg md:text-xl font-medium leading-tight text-white shadow-sm"
+          style={{ background: "#0A7AFF" }}
+        >
+          {displayText}
+          <span className="ml-[1px] animate-pulse text-white/80">|</span>
+        </span>
+      )}
     </div>
   );
 }

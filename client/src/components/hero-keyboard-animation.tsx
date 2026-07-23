@@ -347,10 +347,14 @@ export default function HeroKeyboardAnimation() {
                 )
               : bubbles.map((bub) => {
                   const isSent = bub.side === "sent";
+                  // Don't show a received bubble until its first character types.
+                  if (!isSent && bub.shown === 0) return null;
+                  // Sent bubbles drift up and right; received drift up and left.
+                  const rx = RIGHTS[bub.id % RIGHTS.length] * (isSent ? 1 : -1);
                   const style: React.CSSProperties & Record<string, string | number> = {
                     bottom: BASE_BOTTOM,
                     maxWidth: DESIGN_W * 0.74,
-                    "--rx": `${RIGHTS[bub.id % RIGHTS.length]}px`,
+                    "--rx": `${rx}px`,
                     "--ry": `-${UPS[bub.id % UPS.length]}px`,
                   };
                   if (isSent) style.right = SIDE_PAD;
