@@ -3,7 +3,6 @@ import { Trans, useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import TypewriterAnimation from "./typewriter-animation";
 import ArcatextIntro from "./arcatext-intro";
 import HeroKeyboardAnimation from "./hero-keyboard-animation";
 import { introBus } from "@/lib/intro-bus";
@@ -88,30 +87,19 @@ export default function Hero() {
             </h1>
 
             <p className="text-xl md:text-2xl font-bold text-secondary">{t("hero.tagline")}</p>
-
-            <div className="flex justify-center pt-1">
-              <div
-                ref={fieldRef}
-                className={`inline-flex items-center justify-center min-h-[2.5rem] min-w-[14rem] rounded-lg px-4 transition-colors duration-500 ${
-                  fieldHighlight ? "bg-gray-200/80" : "bg-transparent"
-                }`}
-              >
-                <TypewriterAnimation active={typingActive} />
-              </div>
-            </div>
-
           </motion.div>
 
           {/* Live keyboard animation — moved up into the space the CTA buttons
-              used to occupy. It types a message, taps Reword to translate it in
-              place, then sends it, and each translated message floats away. */}
+              used to occupy. The page-load logo flies into its text field and,
+              on "click", the first message begins typing; from there it types,
+              Rewords and sends, and each message floats away. */}
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-            className="mt-6 flex justify-center"
+            className="mt-8 flex justify-center"
           >
-            <HeroKeyboardAnimation />
+            <HeroKeyboardAnimation active={typingActive} focused={fieldHighlight} inputRef={fieldRef} />
           </motion.div>
 
           {/* CTA buttons — now below the animation. */}

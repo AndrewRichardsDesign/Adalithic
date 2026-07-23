@@ -41,14 +41,41 @@ type Step =
   | { kind: "recv"; text: string };
 
 const SCRIPT: Step[] = [
-  { kind: "sent", native: "Hi! Are you free this weekend?", reworded: "やあ！今週末は空いてる？" },
-  { kind: "recv", text: "うん、空いてるよ！何かする？" },
-  { kind: "sent", native: "Let's get dinner.", reworded: "夕食を食べに行こう。" },
-  { kind: "recv", text: "いいね！何時がいい？" },
-  { kind: "sent", native: "How about 7pm?", reworded: "7時はどう？" },
-  { kind: "recv", text: "完璧！どこで会う？" },
-  { kind: "sent", native: "The station, by the café.", reworded: "駅で、カフェのそばで。" },
-  { kind: "recv", text: "了解！楽しみにしてるね。" },
+  { kind: "sent", native: "Learn a language", reworded: "言語を学ぶ" },
+  { kind: "sent", native: "Cross-language communication for business", reworded: "ビジネスでの多言語コミュニケーション" },
+  { kind: "sent", native: "Chat with international friends", reworded: "海外の友達とチャットする" },
+  { kind: "recv", text: "それ、すごくいいね！" },
+  {
+    kind: "sent",
+    native: "Yeah, I personally want to learn a language. That's why I'm translating to Japanese.",
+    reworded: "うん、個人的に言語を学びたいんだ。だから日本語に翻訳してるんだよ。",
+  },
+  { kind: "recv", text: "私も日本語を勉強してるんだ。一緒にチャットして練習しよう！" },
+  { kind: "sent", native: "Sure! When did you start learning?", reworded: "いいね！いつから勉強し始めたの？" },
+  { kind: "recv", text: "1年くらい前からだよ。だからまだ慣れてないんだ。" },
+  { kind: "sent", native: "Same here, maybe a bit longer.", reworded: "私も同じくらい、たぶんもう少し長いかな。" },
+  { kind: "recv", text: "完璧、たぶん似たようなレベルだね。" },
+  { kind: "sent", native: "I think so, and I really love texting to practice.", reworded: "そうだね、それにメッセージで練習するのが大好きなんだ。" },
+  { kind: "recv", text: "どうして？" },
+  {
+    kind: "sent",
+    native: "Texting gives me time to read and think, even say each message out loud.",
+    reworded: "メッセージだと読んで考える時間があるし、一つ一つ声に出して言えるんだ。",
+  },
+  { kind: "recv", text: "うん、なるほどね。このキーボードを使うのは初めてなんだ。" },
+  { kind: "sent", native: "You'll love it. It's a game-changer!", reworded: "絶対気に入るよ。まさに革命的だから！" },
+  { kind: "recv", text: "ところで、日本に住んでるの？" },
+  { kind: "sent", native: "No, I'm in the United States. And you?", reworded: "ううん、アメリカにいるよ。君は？" },
+  { kind: "recv", text: "私は日本に住んでるよ！言語に浸りたくてね。" },
+  { kind: "sent", native: "Oh wow! Living in Japan must be incredible.", reworded: "わあ！日本に住むなんて最高だろうね。" },
+  { kind: "recv", text: "本当に楽しいよ。食べ物も最高。" },
+  { kind: "sent", native: "Have you explored the country?", reworded: "国内はいろいろ回った？" },
+  { kind: "recv", text: "うん、あちこち行ったよ。" },
+  { kind: "sent", native: "Like where? Tokyo?", reworded: "例えばどこ？東京とか？" },
+  { kind: "recv", text: "うん、でももっといろんな所に行ったよ。" },
+  { kind: "sent", native: "What was your favorite?", reworded: "一番のお気に入りはどこだった？" },
+  { kind: "recv", text: "やっぱり日光国立公園かな。" },
+  { kind: "sent", native: "I've seen photos of Nikko. What a beautiful place.", reworded: "日光の写真を見たことあるよ。なんて美しい場所なんだ。" },
 ];
 
 type Bubble = {
@@ -140,7 +167,20 @@ function Key({
   );
 }
 
-export default function HeroKeyboardAnimation() {
+interface HeroKeyboardAnimationProps {
+  /** Held until the intro's logo "clicks" into the field; then typing begins. */
+  active?: boolean;
+  /** Lights up the input field while the logo is landing in it. */
+  focused?: boolean;
+  /** Ref to the input field so the intro can fly the logo into it. */
+  inputRef?: React.Ref<HTMLDivElement>;
+}
+
+export default function HeroKeyboardAnimation({
+  active = true,
+  focused = false,
+  inputRef,
+}: HeroKeyboardAnimationProps) {
   const reduceMotion = useReducedMotion();
 
   // ── visual state driven by the timeline ──
@@ -185,6 +225,10 @@ export default function HeroKeyboardAnimation() {
       setBubbles(last);
       return;
     }
+
+    // Wait for the intro to hand off (the logo "clicks" the field) before the
+    // first message starts typing.
+    if (!active) return;
 
     // Age every existing bubble by one and drop the ones past their lifetime.
     // A bubble stays visible until the 4th message after it arrives (age 4),
@@ -290,7 +334,7 @@ export default function HeroKeyboardAnimation() {
     };
     run();
     return () => clearTimeout(timer);
-  }, [reduceMotion]);
+  }, [reduceMotion, active]);
 
   // ── derived ──
   const hasText = text.length > 0;
@@ -387,17 +431,25 @@ export default function HeroKeyboardAnimation() {
             <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e6e8ec]">
               <Plus className="h-5 w-5 text-[#6b7280]" strokeWidth={2.6} />
             </div>
-            <div className="flex h-9 flex-1 items-center rounded-full border border-black/15 pl-4 pr-2">
-              {hasText ? (
-                <span className="text-[15px] text-black">{text}</span>
-              ) : (
-                <span className="text-[15px]" style={{ color: "#9aa0a6" }}>
-                  iMessage
-                </span>
-              )}
-              <span className="ml-[1px] inline-block h-4 w-[2px] animate-pulse" style={{ background: C.send }} />
-              <div className="flex-1" />
-              {!hasText && <Mic className="h-5 w-5 shrink-0" style={{ color: "#9aa0a6" }} strokeWidth={2} />}
+            <div
+              ref={inputRef}
+              className="flex h-9 min-w-0 flex-1 items-center rounded-full border pl-4 pr-2 transition-colors"
+              style={{
+                borderColor: focused ? C.send : "rgba(0,0,0,0.15)",
+                background: focused ? "rgba(10,122,255,0.06)" : "transparent",
+              }}
+            >
+              <div className="flex min-w-0 flex-1 items-center overflow-hidden">
+                {hasText ? (
+                  <span className="whitespace-nowrap text-[15px] text-black">{text}</span>
+                ) : (
+                  <span className="text-[15px]" style={{ color: "#9aa0a6" }}>
+                    iMessage
+                  </span>
+                )}
+                <span className="ml-[1px] inline-block h-4 w-[2px] shrink-0 animate-pulse" style={{ background: C.send }} />
+              </div>
+              {!hasText && <Mic className="ml-2 h-5 w-5 shrink-0" style={{ color: "#9aa0a6" }} strokeWidth={2} />}
             </div>
             {hasText && (
               <div

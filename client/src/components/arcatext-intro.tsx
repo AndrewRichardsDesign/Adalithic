@@ -151,7 +151,9 @@ export default function ArcatextIntro({
       const s = startPoint();
       const fr = field.getBoundingClientRect();
       const bigSize = titleSize;
-      const smallSize = lineHeightOf(field) / GLYPH_RATIO;
+      // Shrink to roughly the (possibly scaled) field's height so the I-beam
+      // lands sized like the text cursor in the keyboard's input field.
+      const smallSize = (fr.height * 0.92) / GLYPH_RATIO;
       // Give the scan a slight upward incline rather than a flat horizontal
       // line: the icon ends the sweep a little higher than it started.
       const scanRise = titleLh * 0.28;
