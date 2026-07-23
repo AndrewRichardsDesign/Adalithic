@@ -86,7 +86,7 @@ type Bubble = {
   text: string;
   shown: number; // characters revealed (received types out; sent shows all)
   floating: boolean; // received bubbles hold still until they finish typing
-  startAt?: number; // performance.now() when the bubble began floating
+  startAt?: number; // performance.now() when the bubble appeared (start of its linger)
 };
 
 // Measured, in design px: how far up a bubble rises and how far it swings out
@@ -154,7 +154,10 @@ const SURFACE_H = 500;
 
 const SIDE_PAD = 12; // sent/received sit 12px in from the edge
 const BASE_BOTTOM = 4; // a new bubble starts just above the input bar
+const INPUT_MIN_H = 48; // input bar height at its min (36px field + 12px padding)
+const BASE_OFFSET_DEFAULT = 408; // fallback until the keyboard panel is measured
 const FLOAT_MS = 11000; // time for a bubble to travel from the field to the headline
+const LINGER_MS = 1000; // a new bubble sits in place this long before it floats
 
 const TYPE_MS = 1000; // total typing duration (both input and received bubbles)
 const perChar = (len: number) => Math.max(18, Math.round(TYPE_MS / Math.max(1, len)));
@@ -260,7 +263,12 @@ export default function HeroKeyboardAnimation({
 
   const bubbleId = useRef(1);
   const bubbleAreaRef = useRef<HTMLDivElement>(null);
+  const keyboardPanelRef = useRef<HTMLDivElement>(null);
   const [geo, setGeo] = useState<FloatGeo>(DEFAULT_GEO);
+  // The floating-bubble layer is pinned this many design px above the surface
+  // bottom — the keyboard panel plus a min-height input bar — so the bubbles
+  // stay put even when the input field grows to wrap a long message.
+  const [baseOffset, setBaseOffset] = useState(BASE_OFFSET_DEFAULT);
 
   // Mirror of `bubbles` and the bubble DOM nodes for the rAF driver, plus the
   // arc-length curve to walk. Kept in refs so the loop always sees latest state.
@@ -287,12 +295,14 @@ export default function HeroKeyboardAnimation({
       let done: number[] | null = null;
       for (const b of bubblesRef.current) {
         if (!b.floating || b.startAt == null) continue;
-        const progress = (now - b.startAt) / FLOAT_MS;
+        // The bubble lingers in place for LINGER_MS after it appears, then walks
+        // the float curve; progress < 0 during the linger clamps to the base.
+        const progress = (now - b.startAt - LINGER_MS) / FLOAT_MS;
         const el = elMap.current.get(b.id);
         if (el) {
           const { x, y } = posAt(lutRef.current, progress, b.side === "sent" ? 1 : -1);
           el.style.transform = `translate(${x}px, ${y}px)`;
-          el.style.opacity = String(opacityAt(progress));
+          el.style.opacity = String(progress <= 0 ? 1 : opacityAt(progress));
         }
         if (progress >= 1) (done ??= []).push(b.id);
       }
@@ -323,6 +333,12 @@ export default function HeroKeyboardAnimation({
   // the headline, and swing out far enough to clear the centered tagline.
   useEffect(() => {
     const measure = () => {
+      // Pin the bubble layer above the keyboard + a min-height input bar. The
+      // keyboard panel's own box height (offsetHeight) is unaffected by the page
+      // transform and by the input field growing, so this base stays stable.
+      const kb = keyboardPanelRef.current;
+      if (kb) setBaseOffset(kb.offsetHeight + INPUT_MIN_H);
+
       const area = bubbleAreaRef.current?.getBoundingClientRect();
       const tag = taglineRef?.current?.getBoundingClientRect();
       const head = titleRef?.current?.getBoundingClientRect();
@@ -563,11 +579,17 @@ export default function HeroKeyboardAnimation({
       >
         {/* Transparent stage — no card. Floating bubbles, the input bar and the
             keyboard, over the hero background. */}
-        <div className="relative flex h-full w-full flex-col">
-          {/* Bubble stage: each message floats up, curves out around the hero
-              copy, and fades in line with the headline. Overflow visible so they
-              float clear of the keyboard. */}
-          <div ref={bubbleAreaRef} className="relative flex-1" style={{ overflow: "visible" }}>
+        <div className="relative h-full w-full">
+          {/* Bubble layer: each message floats up, curves out around the hero
+              copy, and fades in line with the headline. Pinned to a stable
+              bottom (keyboard panel + a min-height input bar) so it never shifts
+              when the input field grows to wrap a long message. Overflow visible
+              so bubbles float clear of the keyboard. */}
+          <div
+            ref={bubbleAreaRef}
+            className="pointer-events-none absolute inset-x-0 top-0"
+            style={{ bottom: baseOffset, overflow: "visible" }}
+          >
             {reduceMotion
               ? // Static, bottom-aligned stack for reduced motion.
                 bubbles.length > 0 && (
@@ -629,6 +651,10 @@ export default function HeroKeyboardAnimation({
                 })}
           </div>
 
+          {/* Controls (input bar + keyboard) anchored to the surface bottom.
+              The input field grows UPWARD as it wraps, so it never displaces the
+              bubble layer pinned above it. */}
+          <div className="absolute inset-x-0 bottom-0 flex flex-col">
           {/* Input bar. The field wraps long text and grows in height (bottom
               aligned) and the send button is always visible. */}
           <div className="flex items-end gap-2 px-3 pb-2 pt-1">
@@ -669,6 +695,7 @@ export default function HeroKeyboardAnimation({
           {/* Floating keyboard panel (rounded + shadow so it reads as its own
               element now that there is no surrounding card) */}
           <div
+            ref={keyboardPanelRef}
             className="overflow-hidden"
             style={{ borderRadius: 22, boxShadow: "0 18px 44px -16px rgba(20,10,40,0.4)" }}
           >
@@ -782,6 +809,7 @@ export default function HeroKeyboardAnimation({
               </svg>
               <Mic className="h-6 w-6" style={{ color: "rgba(0,0,0,0.82)" }} strokeWidth={2} />
             </div>
+          </div>
           </div>
         </div>
       </div>
