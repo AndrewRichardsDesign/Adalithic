@@ -308,7 +308,9 @@ export default function ArcatextIntro({
         transform: "translate(-50%, -50%)",
         mixBlendMode: "multiply",
         pointerEvents: "none",
-        zIndex: 60,
+        // Below the fixed nav (z-50) so the icon passes BEHIND it, but above the
+        // hero content so it reads over the headline.
+        zIndex: 40,
         willChange: "left, top, height, width, transform, opacity, filter",
       }}
     />

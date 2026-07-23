@@ -612,7 +612,7 @@ export default function HeroKeyboardAnimation({
                 </span>
               ) : (
                 <span className="min-w-0 flex-1 text-[15px]" style={{ color: "#9aa0a6" }}>
-                  iMessage
+                  Type something
                   <span className="ml-[1px] inline-block h-[15px] w-[2px] translate-y-[2px] animate-pulse" style={{ background: C.send }} />
                 </span>
               )}
