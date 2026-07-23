@@ -1,32 +1,77 @@
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import ArcatextIntro from "./arcatext-intro";
 import HeroKeyboardAnimation from "./hero-keyboard-animation";
 import { introBus } from "@/lib/intro-bus";
 
+// The blue used by the keyboard's sent bubbles / send button.
+const BUBBLE_BLUE = "#0A7AFF";
+
+type Flyer = {
+  text: string;
+  startLeft: number;
+  startTop: number;
+  endLeft: number;
+  endTop: number;
+  startFont: number;
+  endFont: number;
+  endColor: string;
+  maxW: number;
+};
+
 export default function Hero() {
   const { t } = useTranslation();
+  const reduceMotion = useReducedMotion();
+  const subheaderText = t("hero.tagline");
 
   // --- Page-load intro animation orchestration ---
   const titleRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
-  const landedRowRef = useRef<HTMLDivElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
   const [typingActive, setTypingActive] = useState(false);
   const [fieldHighlight, setFieldHighlight] = useState(false);
   const introTimers = useRef<number[]>([]);
 
-  // The first three keyboard messages don't float away — they rise up and park
-  // permanently in a centered row below the tagline. As each lands, the row
-  // re-centers (framer-motion `layout`), so bubble 2 pushes bubble 1 left and
-  // bubble 3 pushes both left, the group staying centered.
-  const [landed, setLanded] = useState<{ id: number; text: string }[]>([]);
-  const handleLandMessage = useCallback((id: number, text: string) => {
-    setLanded((prev) => (prev.some((m) => m.id === id) ? prev : [...prev, { id, text }]));
-  }, []);
+  // The subheader is delivered by the keyboard: it types and "sends" the
+  // subheader text, then a message bubble flies up from the keyboard, scales up
+  // to subheader size, and — at its resting point — sheds its bubble (background
+  // fades, text turns black) to become the real subheader. It stays hidden until
+  // the flyer lands (or immediately, under reduced motion).
+  const [subheaderShown, setSubheaderShown] = useState(false);
+  const [flyer, setFlyer] = useState<Flyer | null>(null);
+
+  useEffect(() => {
+    if (reduceMotion) setSubheaderShown(true);
+  }, [reduceMotion]);
+
+  // The keyboard has typed and "sent" the subheader — launch the flyer from just
+  // above the input field up to the subheader's resting position.
+  const handleSubheaderSend = useCallback(() => {
+    const field = fieldRef.current?.getBoundingClientRect();
+    const tagEl = taglineRef.current;
+    const tag = tagEl?.getBoundingClientRect();
+    if (!field || !tagEl || !tag) {
+      setSubheaderShown(true);
+      return;
+    }
+    const cs = getComputedStyle(tagEl);
+    setFlyer({
+      text: subheaderText,
+      startLeft: field.left + field.width / 2,
+      startTop: field.top - 24,
+      endLeft: tag.left + tag.width / 2,
+      endTop: tag.top + tag.height / 2,
+      startFont: 17,
+      endFont: parseFloat(cs.fontSize),
+      endColor: cs.color,
+      // Wrap within the subheader's own width so the flyer lines up with the
+      // real subheader at the end — one line on desktop, two on narrow screens.
+      maxW: tag.width,
+    });
+  }, [subheaderText]);
 
   // Announce to the nav that an intro will play (so its logo waits to build),
   // and reset on unmount.
@@ -72,6 +117,57 @@ export default function Hero() {
         onRelease={handleRelease}
       />
 
+      {/* Subheader delivery: a sent message bubble lingers above the keyboard
+          for a beat, then flies up and scales to subheader size (still a blue
+          bubble); at its resting point the bubble background fades and the text
+          turns black, becoming the real subheader. */}
+      {flyer && (
+        <motion.div
+          aria-hidden
+          style={{
+            position: "fixed",
+            zIndex: 50,
+            maxWidth: flyer.maxW,
+            textAlign: "center",
+            fontWeight: 700,
+            lineHeight: 1.2,
+            transform: "translate(-50%, -50%)",
+            pointerEvents: "none",
+          }}
+          initial={{
+            left: flyer.startLeft,
+            top: flyer.startTop,
+            fontSize: flyer.startFont,
+            backgroundColor: BUBBLE_BLUE,
+            color: "#ffffff",
+            paddingTop: 8,
+            paddingBottom: 8,
+            paddingLeft: 14,
+            paddingRight: 14,
+            borderRadius: 20,
+          }}
+          animate={{
+            left: [flyer.startLeft, flyer.startLeft, flyer.endLeft, flyer.endLeft],
+            top: [flyer.startTop, flyer.startTop, flyer.endTop, flyer.endTop],
+            fontSize: [flyer.startFont, flyer.startFont, flyer.endFont, flyer.endFont],
+            paddingTop: [8, 8, 8, 0],
+            paddingBottom: [8, 8, 8, 0],
+            paddingLeft: [14, 14, 14, 0],
+            paddingRight: [14, 14, 14, 0],
+            borderRadius: [20, 20, 20, 6],
+            backgroundColor: [BUBBLE_BLUE, BUBBLE_BLUE, BUBBLE_BLUE, "rgba(10,122,255,0)"],
+            color: ["#ffffff", "#ffffff", "#ffffff", flyer.endColor],
+          }}
+          transition={{ duration: 1.9, times: [0, 0.52, 0.84, 1], ease: "easeInOut" }}
+          onAnimationComplete={() => {
+            setSubheaderShown(true);
+            setFlyer(null);
+          }}
+        >
+          {flyer.text}
+        </motion.div>
+      )}
+
       {/* Soft brand glow behind the hero content. */}
       <div
         aria-hidden
@@ -97,37 +193,21 @@ export default function Hero() {
               />
             </h1>
 
-            <p ref={taglineRef} className="text-xl md:text-2xl font-bold text-secondary">
-              {t("hero.tagline")}
+            {/* Subheader — hidden until the keyboard "sends" it and the flyer
+                lands in its place (kept in layout so the flyer can measure it). */}
+            <p
+              ref={taglineRef}
+              className="text-xl md:text-2xl font-bold text-secondary"
+              style={{ opacity: subheaderShown ? 1 : 0 }}
+            >
+              {subheaderText}
             </p>
           </motion.div>
 
-          {/* Landed row: the first three keyboard messages rise up from the
-              keyboard and snap into a permanent, centered row here (they do not
-              fade). Each new arrival re-centers the group. min-height reserves
-              the space so the keyboard below doesn't jump as they land. */}
-          <div ref={landedRowRef} className="mt-6 flex min-h-[44px] flex-wrap items-center justify-center gap-3">
-            <AnimatePresence>
-              {landed.map((m) => (
-                <motion.div
-                  key={m.id}
-                  layout
-                  initial={{ opacity: 1, y: 96, scale: 0.92 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ type: "spring", stiffness: 460, damping: 26 }}
-                  className="rounded-[20px] px-3.5 py-2 text-[15px] md:text-[17px] font-medium text-white shadow-sm"
-                  style={{ background: "#0A7AFF" }}
-                >
-                  {m.text}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-
-          {/* Live keyboard animation — moved up into the space the CTA buttons
-              used to occupy. The page-load logo flies into its text field and,
-              on "click", the first message begins typing; from there it types,
-              Rewords and sends, and each message floats away. */}
+          {/* Live keyboard animation. The page-load logo flies into its text
+              field and, on "click", it types and sends the subheader (which
+              flies up into place), then types, Rewords and sends the
+              conversation, each message pushing the last up the stack. */}
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -140,8 +220,8 @@ export default function Hero() {
               inputRef={fieldRef}
               taglineRef={taglineRef}
               titleRef={titleRef}
-              landedRowRef={landedRowRef}
-              onLandMessage={handleLandMessage}
+              subheaderText={subheaderText}
+              onSubheaderSend={handleSubheaderSend}
             />
           </motion.div>
 
