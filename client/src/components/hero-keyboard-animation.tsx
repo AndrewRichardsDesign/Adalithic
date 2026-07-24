@@ -635,7 +635,7 @@ export default function HeroKeyboardAnimation({
                     className="grid place-items-center rounded-[12px]"
                     style={{ width: 57, height: 50, backgroundColor: C.toolButtonBg }}
                   >
-                    <img src={menuUrl} alt="" style={{ width: 24, height: 24 }} />
+                    <img src={menuUrl} alt="" style={{ width: 21, height: 21 }} />
                   </div>
                 </div>
                 <div className="relative mr-[3px]">
@@ -643,7 +643,7 @@ export default function HeroKeyboardAnimation({
                     className="grid place-items-center rounded-[12px]"
                     style={{ width: 57, height: 50, backgroundColor: C.toolButtonBg }}
                   >
-                    <img src={pasteUrl} alt="" style={{ height: 21 }} />
+                    <img src={pasteUrl} alt="" style={{ width: 16, height: 20 }} />
                   </div>
                 </div>
                 {/* Check — now a magnifying-glass icon (was a text label). Sized
@@ -654,7 +654,7 @@ export default function HeroKeyboardAnimation({
                     className="grid place-items-center rounded-[12px]"
                     style={{ width: 57, height: 50, backgroundColor: C.toolButtonBg }}
                   >
-                    <img src={checkUrl} alt="" style={{ width: 22, height: 22 }} />
+                    <img src={checkUrl} alt="" style={{ width: 20, height: 20 }} />
                   </div>
                 </div>
                 <div className="flex-1" />
