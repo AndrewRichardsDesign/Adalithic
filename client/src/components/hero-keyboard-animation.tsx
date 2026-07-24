@@ -647,11 +647,12 @@ export default function HeroKeyboardAnimation({
                   </div>
                 </div>
                 {/* Check — now a magnifying-glass icon (was a text label). Sized
-                    like the menu/paste buttons since it no longer holds text. */}
+                    and colored like the menu/paste buttons since it no longer
+                    holds text. */}
                 <div className="relative">
                   <div
                     className="grid place-items-center rounded-[12px]"
-                    style={{ width: 57, height: 50, backgroundColor: C.checkBg }}
+                    style={{ width: 57, height: 50, backgroundColor: C.toolButtonBg }}
                   >
                     <img src={checkUrl} alt="" style={{ width: 22, height: 22 }} />
                   </div>
@@ -706,8 +707,9 @@ export default function HeroKeyboardAnimation({
                 <Key bg={C.actionKey} grow={1.6} fontSize={15}>
                   123
                 </Key>
+                {/* Locale switcher (between 123 and space). */}
                 <Key bg={C.actionKey} grow={1.2} fontSize={17}>
-                  文
+                  <img src={localesUrl} alt="switch language" style={{ height: 19 }} />
                 </Key>
                 <Key grow={5} fontSize={15}>
                   <span className="text-black/85">space</span>
@@ -722,7 +724,12 @@ export default function HeroKeyboardAnimation({
 
             {/* Bottom utility strip */}
             <div style={{ backgroundColor: C.toolbarBar }} className="flex items-center justify-between px-5 pb-2 pt-1">
-              <img src={localesUrl} alt="switch language" style={{ height: 22 }} />
+              {/* iOS system keyboard switcher (unchanged globe). */}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9.2" stroke="rgba(0,0,0,0.82)" strokeWidth="1.5" />
+                <ellipse cx="12" cy="12" rx="4" ry="9.2" stroke="rgba(0,0,0,0.82)" strokeWidth="1.5" />
+                <path d="M3 12h18M4.5 7.5h15M4.5 16.5h15" stroke="rgba(0,0,0,0.82)" strokeWidth="1.5" />
+              </svg>
               <Mic className="h-6 w-6" style={{ color: "rgba(0,0,0,0.82)" }} strokeWidth={2} />
             </div>
           </div>
