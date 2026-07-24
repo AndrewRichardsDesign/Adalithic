@@ -16,11 +16,14 @@ type Flyer = {
   startTop: number;
   endLeft: number;
   endTop: number;
-  startFont: number;
   endFont: number;
+  endLineHeight: number;
   endColor: string;
   maxW: number;
-  scale: number; // the keyboard widget's scale, so the start bubble matches a sent message
+  // The flyer renders at the final font size and is scaled DOWN for the bubble
+  // phase (a transform scale animates smoothly, unlike font-size), so it grows
+  // to the subheader with no jump. startScale makes it look like a sent message.
+  startScale: number;
 };
 
 // Design width of the keyboard widget, used to recover its on-screen scale.
@@ -68,20 +71,23 @@ export default function Hero() {
     // SENT_BUBBLE_FONT * scale on screen. Match that so the flyer starts exactly
     // the size of a sent message.
     const widget = document.querySelector('[role="img"]');
-    const scale = widget ? widget.getBoundingClientRect().width / WIDGET_DESIGN_W : 1;
+    const widgetScale = widget ? widget.getBoundingClientRect().width / WIDGET_DESIGN_W : 1;
+    const endFont = parseFloat(cs.fontSize);
     setFlyer({
       text: subheaderText,
       startLeft: field.left + field.width / 2,
       startTop: field.top - 22,
       endLeft: tag.left + tag.width / 2,
       endTop: tag.top + tag.height / 2,
-      startFont: SENT_BUBBLE_FONT * scale,
-      endFont: parseFloat(cs.fontSize),
+      endFont,
+      endLineHeight: parseFloat(cs.lineHeight) || endFont * 1.3,
       endColor: cs.color,
       // Wrap within the subheader's own width so the flyer lines up with the
       // real subheader at the end — one line on desktop, two on narrow screens.
       maxW: tag.width,
-      scale,
+      // Scaled so the (final-size) text renders at a sent message's on-screen
+      // size during the bubble phase.
+      startScale: (SENT_BUBBLE_FONT * widgetScale) / endFont,
     });
   }, [subheaderText]);
 
@@ -136,40 +142,26 @@ export default function Hero() {
       {flyer && (
         <motion.div
           aria-hidden
+          // Explicit width (the subheader's own width) + centered text, so the
+          // text wraps EXACTLY like the real subheader — a fixed element sized
+          // shrink-to-fit would instead be clipped by its `left`, wrapping
+          // differently and reflowing at the swap.
           style={{
             position: "fixed",
             zIndex: 50,
-            maxWidth: flyer.maxW,
+            width: flyer.maxW,
             textAlign: "center",
-            lineHeight: 1.2,
-            transform: "translate(-50%, -50%)",
+            transformOrigin: "center center",
             pointerEvents: "none",
           }}
-          initial={{
-            left: flyer.startLeft,
-            top: flyer.startTop,
-            fontSize: flyer.startFont,
-            fontWeight: 400,
-            backgroundColor: BUBBLE_BLUE,
-            color: "#ffffff",
-            paddingTop: 8 * flyer.scale,
-            paddingBottom: 8 * flyer.scale,
-            paddingLeft: 14 * flyer.scale,
-            paddingRight: 14 * flyer.scale,
-            borderRadius: 20 * flyer.scale,
-          }}
+          // Keep the element centered on (left, top) while framer drives the
+          // scale transform (font-size doesn't animate reliably; scale does).
+          transformTemplate={(_, generated) => `translate(-50%, -50%) ${generated}`}
+          initial={{ left: flyer.startLeft, top: flyer.startTop, scale: flyer.startScale }}
           animate={{
             left: [flyer.startLeft, flyer.startLeft, flyer.endLeft, flyer.endLeft],
             top: [flyer.startTop, flyer.startTop, flyer.endTop, flyer.endTop],
-            fontSize: [flyer.startFont, flyer.startFont, flyer.endFont, flyer.endFont],
-            fontWeight: [400, 400, 400, 700],
-            paddingTop: [8 * flyer.scale, 8 * flyer.scale, 8 * flyer.scale, 0],
-            paddingBottom: [8 * flyer.scale, 8 * flyer.scale, 8 * flyer.scale, 0],
-            paddingLeft: [14 * flyer.scale, 14 * flyer.scale, 14 * flyer.scale, 0],
-            paddingRight: [14 * flyer.scale, 14 * flyer.scale, 14 * flyer.scale, 0],
-            borderRadius: [20 * flyer.scale, 20 * flyer.scale, 20 * flyer.scale, 6],
-            backgroundColor: [BUBBLE_BLUE, BUBBLE_BLUE, BUBBLE_BLUE, "rgba(10,122,255,0)"],
-            color: ["#ffffff", "#ffffff", "#ffffff", flyer.endColor],
+            scale: [flyer.startScale, flyer.startScale, 1, 1],
           }}
           transition={{ duration: 1.5, times: [0, 0.33, 0.82, 1], ease: "easeInOut" }}
           onAnimationComplete={() => {
@@ -177,7 +169,38 @@ export default function Hero() {
             setFlyer(null);
           }}
         >
-          {flyer.text}
+          {/* Inline-block hugs the text so the bubble background wraps it. */}
+          <span style={{ position: "relative", display: "inline-block", maxWidth: "100%" }}>
+            {/* Bubble background on its own layer, inset OUTWARD from the text, so
+                its padding never changes how the text wraps — the text lays out
+                exactly like the real subheader the whole way, then the bubble
+                just fades away at the resting point. */}
+            <motion.div
+              style={{ position: "absolute", top: -11, bottom: -11, left: -20, right: -20, zIndex: -1 }}
+              initial={{ backgroundColor: BUBBLE_BLUE, borderRadius: 26 }}
+              animate={{
+                backgroundColor: [BUBBLE_BLUE, BUBBLE_BLUE, BUBBLE_BLUE, "rgba(10,122,255,0)"],
+                borderRadius: [26, 26, 26, 6],
+              }}
+              transition={{ duration: 1.5, times: [0, 0.33, 0.82, 1], ease: "easeInOut" }}
+            />
+            <motion.div
+              style={{
+                position: "relative",
+                textAlign: "center",
+                fontSize: flyer.endFont,
+                lineHeight: `${flyer.endLineHeight}px`,
+              }}
+              initial={{ color: "#ffffff", fontWeight: 400 }}
+              animate={{
+                color: ["#ffffff", "#ffffff", "#ffffff", flyer.endColor],
+                fontWeight: [400, 400, 400, 700],
+              }}
+              transition={{ duration: 1.5, times: [0, 0.33, 0.82, 1], ease: "easeInOut" }}
+            >
+              {flyer.text}
+            </motion.div>
+          </span>
         </motion.div>
       )}
 
