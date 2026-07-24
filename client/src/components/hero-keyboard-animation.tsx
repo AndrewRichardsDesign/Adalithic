@@ -707,9 +707,9 @@ export default function HeroKeyboardAnimation({
                 <Key bg={C.actionKey} grow={1.6} fontSize={15}>
                   123
                 </Key>
-                {/* Locale switcher (between 123 and space). */}
+                {/* Locale switcher (between 123 and space). Native 14×17. */}
                 <Key bg={C.actionKey} grow={1.2} fontSize={17}>
-                  <img src={localesUrl} alt="switch language" style={{ height: 19 }} />
+                  <img src={localesUrl} alt="switch language" style={{ width: 14, height: 17 }} />
                 </Key>
                 <Key grow={5} fontSize={15}>
                   <span className="text-black/85">space</span>
